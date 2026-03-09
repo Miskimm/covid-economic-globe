@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A daily 3D globe showing COVID-19 spread and macroeconomic impact across countries and regions.">
+    <title>COVID Economic Globe</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./assets/styles/main.css">
+</head>
+<body>
+    <div id="stage" aria-label="3D globe visualization"></div>
+
+    <div class="loading" id="loading">
+        <div class="loading-panel">
+            <div class="loading-k">Loading System</div>
+            <div class="loading-title">COVID Economic Globe</div>
+            <div class="loading-text" id="loadingText">Initializing map, pandemic signals, and economic data...</div>
+        </div>
+    </div>
+
+    <div class="hud">
+        <header class="hero">
+            <p class="eyebrow">Pandemic Macro Shock Engine</p>
+            <h1>COVID Economic Globe</h1>
+            <p class="desc">
+                A production-style interactive globe tracking COVID spread, GDP shock, and recovery day by day.
+                The map shows geographic diffusion while the panels surface macroeconomic contraction and rebound.
+            </p>
+            <div class="meta-row">
+                <span class="meta-pill">WebGL Rendering</span>
+                <span class="meta-pill">Daily Timeline</span>
+                <span class="meta-pill">Economic Overlay</span>
+            </div>
+            <div class="status" id="status">Booting system...</div>
+        </header>
+
+        <section class="summary">
+            <article class="chip">
+                <div class="chip-k">Average GDP Shock</div>
+                <div class="chip-v value-red" id="avgShock">--</div>
+                <div class="chip-note">Contraction from 2019 to 2020</div>
+            </article>
+            <article class="chip">
+                <div class="chip-k">Average Recovery</div>
+                <div class="chip-v value-amber" id="avgRecovery">--</div>
+                <div class="chip-note">Rebound from 2020 to 2023</div>
+            </article>
+            <article class="chip">
+                <div class="chip-k">Focus Market</div>
+                <div class="chip-v value-cyan" id="focusMarket">--</div>
+                <div class="chip-note" id="focusMarketNote">Current focus market</div>
+            </article>
+        </section>
+
+        <aside class="focus">
+            <div class="focus-k">Focused Country</div>
+            <div class="focus-name" id="countryName">Global sample</div>
+            <div class="badge" id="impactBadge">Macro impact tracking</div>
+            <div class="grid">
+                <div class="metric">
+                    <div class="metric-k">Cases</div>
+                    <div class="metric-v value-cyan" id="casesValue">--</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">GDP Shock</div>
+                    <div class="metric-v value-red" id="shockValue">--</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">Deaths</div>
+                    <div class="metric-v" id="deathsValue">--</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">Recovery</div>
+                    <div class="metric-v value-amber" id="recoveryValue">--</div>
+                </div>
+            </div>
+            <div class="focus-note" id="detailNote">Loading country context...</div>
+        </aside>
+
+        <aside class="methodology">
+            <div class="card-k">Methodology</div>
+            <div class="card-title">Economic Impact Panel</div>
+            <div class="chart-head">
+                <div>
+                    <div class="chart-label">GDP Growth Path</div>
+                    <div class="chart-note" id="chartCountry">Hover a country to inspect its economic path</div>
+                </div>
+                <div class="chart-chip" id="shockChip">Shock --</div>
+            </div>
+            <div class="impact-strip">
+                <div class="impact-fill" id="impactFill"></div>
+            </div>
+            <div class="impact-scale">
+                <span>Deep shock</span>
+                <span>Recovery</span>
+            </div>
+            <div class="bar-chart" id="barChart">
+                <div class="bar-col">
+                    <div class="bar-track"><div class="bar-fill" id="bar2019"></div></div>
+                    <div class="bar-year">2019</div>
+                    <div class="bar-value" id="bar2019Value">--</div>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-track"><div class="bar-fill" id="bar2020"></div></div>
+                    <div class="bar-year">2020</div>
+                    <div class="bar-value" id="bar2020Value">--</div>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-track"><div class="bar-fill" id="bar2021"></div></div>
+                    <div class="bar-year">2021</div>
+                    <div class="bar-value" id="bar2021Value">--</div>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-track"><div class="bar-fill" id="bar2022"></div></div>
+                    <div class="bar-year">2022</div>
+                    <div class="bar-value" id="bar2022Value">--</div>
+                </div>
+                <div class="bar-col">
+                    <div class="bar-track"><div class="bar-fill" id="bar2023"></div></div>
+                    <div class="bar-year">2023</div>
+                    <div class="bar-value" id="bar2023Value">--</div>
+                </div>
+            </div>
+            <div class="method-item">
+                <span class="method-dot cyan"></span>
+                Hovering a country or region highlights its boundary and locks the panel to that market.
+            </div>
+            <div class="method-item">
+                <span class="method-dot red"></span>
+                The right-side chart makes GDP shock and recovery visible instead of hiding them in text only.
+            </div>
+            <div class="method-note" id="sourceNote">Loading source metadata...</div>
+        </aside>
+
+        <footer class="dock">
+            <div class="dock-top">
+                <div class="legend">
+                    <div class="legend-item"><span class="dot" style="background: var(--cyan)"></span>Boundary highlight</div>
+                    <div class="legend-item"><span class="dot" style="background: var(--red)"></span>Economic pressure field</div>
+                    <div class="legend-item"><span class="dot" style="background: var(--amber)"></span>Recovery layer</div>
+                </div>
+                <div class="ticker"><span id="tickerText">Loading global pandemic and macroeconomic signals...</span></div>
+            </div>
+        </footer>
+
+        <section class="timeline-panel">
+            <div class="timeline-toolbar">
+                <div class="timeline-actions">
+                    <button class="action-btn" id="playToggle" type="button">Play</button>
+                    <button class="action-btn ghost" id="jumpStart" type="button">Back to start</button>
+                </div>
+                <div class="timeline-head">
+                    <div>
+                        <div class="timeline-title">Daily Timeline</div>
+                        <div class="timeline-origin" id="timelineOrigin">Origin signal: Wuhan, China</div>
+                    </div>
+                    <div class="timeline-value" id="timelineValue">2019-12-01</div>
+                </div>
+            </div>
+
+            <div class="timeline-shell">
+                <div class="timeline-points" id="timelinePoints">
+                    <span class="active">2019-12</span>
+                    <span>2020</span>
+                    <span>2021</span>
+                    <span>2022</span>
+                    <span>2023-12</span>
+                </div>
+                <div class="timeline">
+                    <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="1491" step="1" value="0">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="tooltip" role="status" aria-live="polite"></div>
+
+    <script type="module" src="./src/app.js"></script>
+</body>
+</html>

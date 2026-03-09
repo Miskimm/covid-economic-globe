@@ -1,2 +1,37 @@
-# covid-economic-globe
-Interactive COVID economic globe visualization
+# COVID Economic Globe
+
+可本地运行的静态前端站点，用 3D 地球展示 COVID-19 扩散与经济冲击的联动关系。
+
+## 结构
+
+- `index.html`: 页面壳与语义化结构
+- `assets/styles/main.css`: 全站样式与响应式布局
+- `src/app.js`: 应用状态、UI 更新、时间轴与播放控制
+- `src/globe.js`: WebGL 地球渲染、边界、簇层与热点
+- `src/timeline.js`: 日度时间轴、序列构建、时间点计算
+- `src/data.js`: 在线数据源与本地兜底数据
+- `src/format.js`: 数字格式化工具
+
+## 本地运行
+
+在当前目录启动静态服务即可，例如：
+
+```bash
+python3 -m http.server 8000
+```
+
+然后访问 `http://127.0.0.1:8000`。
+
+## 当前产品能力
+
+- 日度时间轴，从 `2019-12-01` 到 `2023-12-31`
+- 拖动或自动播放时间轴查看演化
+- 世界边界清晰可见
+- 热点国家 hover 信息与左侧详情卡联动
+- 在线数据失败时自动回退到本地样例
+
+## 后续建议
+
+1. 增加国家搜索与点击锁定，支持演示场景快速定位。
+2. 将历史疫情覆盖范围从重点国家扩展到更多国家。
+3. 引入构建工具与代码检查，例如 Vite + ESLint，便于长期维护。
