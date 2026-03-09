@@ -1,37 +1,44 @@
 # COVID Economic Globe
 
-可本地运行的静态前端站点，用 3D 地球展示 COVID-19 扩散与经济冲击的联动关系。
+A static frontend project that visualizes COVID-19 spread and macroeconomic impact on an interactive 3D globe.
 
-## 结构
+## Structure
 
-- `index.html`: 页面壳与语义化结构
-- `assets/styles/main.css`: 全站样式与响应式布局
-- `src/app.js`: 应用状态、UI 更新、时间轴与播放控制
-- `src/globe.js`: WebGL 地球渲染、边界、簇层与热点
-- `src/timeline.js`: 日度时间轴、序列构建、时间点计算
-- `src/data.js`: 在线数据源与本地兜底数据
-- `src/format.js`: 数字格式化工具
+- `index.html`: page shell and semantic structure
+- `assets/styles/main.css`: global styling and responsive layout
+- `src/app.js`: app state, UI updates, timeline, and playback controls
+- `src/globe.js`: WebGL globe rendering, borders, clusters, and interaction
+- `src/timeline.js`: daily timeline logic and time point generation
+- `src/data.js`: live data loading and fallback sample data
+- `src/format.js`: number formatting helpers
 
-## 本地运行
+## Run Locally
 
-在当前目录启动静态服务即可，例如：
+Start a static server in this directory, for example:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-然后访问 `http://127.0.0.1:8000`。
+Then open `http://127.0.0.1:8000`.
 
-## 当前产品能力
+## Current Features
 
-- 日度时间轴，从 `2019-12-01` 到 `2023-12-31`
-- 拖动或自动播放时间轴查看演化
-- 世界边界清晰可见
-- 热点国家 hover 信息与左侧详情卡联动
-- 在线数据失败时自动回退到本地样例
+- Daily timeline from `2019-12-01` to `2023-12-31`
+- Drag or play the timeline to inspect change over time
+- Clear world borders with hover and click-based country highlighting
+- Country detail panel linked to cases, deaths, GDP shock, and recovery
+- Right-side economic panel showing GDP growth path and recovery pattern
+- Automatic fallback to local sample data if live APIs fail
 
-## 后续建议
+## Data Sources
 
-1. 增加国家搜索与点击锁定，支持演示场景快速定位。
-2. 将历史疫情覆盖范围从重点国家扩展到更多国家。
-3. 引入构建工具与代码检查，例如 Vite + ESLint，便于长期维护。
+- `world-atlas`
+- `disease.sh`
+- `World Bank`
+
+## Next Steps
+
+1. Add country search for faster navigation during demos.
+2. Expand detailed historical coverage to more countries.
+3. Introduce a build toolchain such as Vite and linting for long-term maintenance.
