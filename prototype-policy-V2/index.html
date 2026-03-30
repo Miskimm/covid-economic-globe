@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pandemic policy dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <p class="disclaimer-bar">
+      <strong>Teaching prototype</strong> — simplified model for trade-offs only; <strong>not</strong> a real
+      epidemiological forecast or public-health advice. <strong>Red dots</strong> on the map are a <em>demo</em> density
+      tied to the Infection bar (not real people or GPS locations).
+    </p>
+
+    <div id="map-bg" class="map-bg" aria-hidden="true"></div>
+    <div class="map-vignette" aria-hidden="true"></div>
+
+    <div class="map-legend" id="map-legend" aria-live="polite">
+      <div class="map-legend__scale">
+        <span class="map-legend__low">Fewer dots</span>
+        <span class="map-legend__bar map-legend__bar--dots" role="img" aria-label="Sparse to dense red dots"></span>
+        <span class="map-legend__high">More dots</span>
+      </div>
+      <p class="map-legend__readout" id="map-legend-readout">
+        Red dots (demo) scale with Infection when you advance the week — not real GPS data.
+      </p>
+    </div>
+
+    <div class="ui-layer">
+      <aside class="dock dock--left">
+        <header class="dock__head">
+          <h1 class="dock__title">Policy command</h1>
+          <p class="dock__sub">Global view · you are the policy maker (globe framing, not “spread the pathogen”).</p>
+          <div class="dock__week">Week <span id="hud-week">1</span></div>
+        </header>
+
+        <p class="dock__crosscheck">
+          <strong>Cross-check</strong>: when <strong>Infection</strong> rises, you should see <strong>more red dots</strong> on the map; the other bars should move in related ways (not one-to-one with each dot).
+        </p>
+
+        <div id="metrics-host" class="metrics-host"></div>
+
+        <p class="dock__preview-label">Briefing preview</p>
+        <p id="status-preview" class="dock__preview">—</p>
+
+        <div class="dock__actions">
+          <button type="button" class="btn-dock" data-open-dialog="dialog-policies">Policies &amp; advance week</button>
+          <button type="button" class="btn-dock btn-dock--secondary" data-open-dialog="dialog-status">Full briefing log</button>
+        </div>
+      </aside>
+
+      <div class="dock dock--fab">
+        <button type="button" class="fab" data-open-dialog="dialog-policies" title="Open policies">
+          <span class="fab__icon">☰</span>
+          <span class="fab__text">Decide</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Policies + advance -->
+    <dialog id="dialog-policies" class="modal modal-sheet" aria-labelledby="policies-heading">
+      <div class="modal__panel">
+        <header class="modal__head">
+          <h2 id="policies-heading">This week&apos;s policies</h2>
+          <button type="button" class="modal__close" data-close-dialog aria-label="Close">&times;</button>
+        </header>
+        <p class="modal__lead">
+          Select one or more measures, then <strong>Advance week</strong>. Some effects continue over several weeks (e.g.
+          vaccine rollout). The <strong>map</strong> updates to reflect the combined stress index — compare with the
+          briefing log if something looks surprising (random events and “natural” drift also apply). Red dots on the map
+          track <strong>Infection</strong> density in this demo.
+        </p>
+        <p id="selection-hint" class="modal__hint">None selected</p>
+        <div id="policy-buttons" class="policy-grid-modal"></div>
+        <footer class="modal__foot">
+          <button type="button" class="btn-secondary" id="btn-clear">Clear</button>
+          <button type="button" class="btn-primary" id="btn-advance">Advance week</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <!-- Full status -->
+    <dialog id="dialog-status" class="modal modal-sheet" aria-labelledby="briefing-heading">
+      <div class="modal__panel modal__panel--narrow">
+        <header class="modal__head">
+          <h2 id="briefing-heading">Briefing log</h2>
+          <button type="button" class="modal__close" data-close-dialog aria-label="Close">&times;</button>
+        </header>
+        <ul id="status-full-list" class="briefing-list"></ul>
+      </div>
+    </dialog>
+
+    <!-- End game -->
+    <dialog id="dialog-end" class="modal modal-end" aria-labelledby="end-title">
+      <div class="modal__panel modal__panel--end">
+        <h2 id="end-title" class="end-title">—</h2>
+        <p id="end-body" class="end-body">—</p>
+        <button type="button" class="btn-primary btn-block" id="btn-replay">Play again</button>
+      </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script>
+      document.querySelectorAll("[data-close-dialog]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var d = btn.closest("dialog");
+          if (d) d.close();
+        });
+      });
+    </script>
+  </body>
+</html>
