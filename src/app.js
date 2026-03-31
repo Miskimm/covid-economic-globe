@@ -30,9 +30,6 @@ const dom = {
     timelineValue: document.getElementById("timelineValue"),
     timelineOrigin: document.getElementById("timelineOrigin"),
     timelinePoints: document.getElementById("timelinePoints"),
-    timelineRuler: document.getElementById("timelineRuler"),
-    timelineProgress: document.getElementById("timelineProgress"),
-    timelineThumb: document.getElementById("timelineThumb"),
     playToggle: document.getElementById("playToggle"),
     jumpStart: document.getElementById("jumpStart"),
     sourceNote: document.getElementById("sourceNote"),
@@ -153,10 +150,9 @@ function normalizeCountries(covidRows, gdpMap) {
 }
 
 function severity(country) {
-    const snapshot = getEconomicSnapshot(country);
-    if (snapshot.shockVs2019 <= -8) return { text: "Severe Contraction", color: "#ff667f" };
-    if (snapshot.shockVs2019 <= -4) return { text: "High Stress", color: "#ffb56d" };
-    if (snapshot.recoveryVs2020 >= 5) return { text: "Fast Rebound", color: "#ffcb74" };
+    if (country.shock <= -8) return { text: "Severe Contraction", color: "#ff667f" };
+    if (country.shock <= -4) return { text: "High Stress", color: "#ffb56d" };
+    if (country.recovery >= 5) return { text: "Fast Rebound", color: "#ffcb74" };
     return { text: "Moderate Impact", color: "#8ff6cc" };
 }
 
@@ -178,23 +174,10 @@ function formatGrowth(value) {
     return `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`;
 }
 
-function getEconomicSnapshot(country) {
-    const point = getTimePoint(country, state.selectedTimeIndex);
-    const shockVs2019 = point.gdp - country.gdp2019;
-    const recoveryVs2020 = state.selectedTimeIndex === 0 ? 0 : point.gdp - country.gdp2020;
-
-    return {
-        point,
-        shockVs2019,
-        recoveryVs2020
-    };
-}
-
 function updateEconomicPanel(country) {
     if (!country) {
         return;
     }
-    const snapshot = getEconomicSnapshot(country);
 
     const values = [
         { key: "bar2019", valueKey: "bar2019Value", value: country.gdp2019, color: "#6ee6ff" },
@@ -214,10 +197,10 @@ function updateEconomicPanel(country) {
         dom[entry.valueKey].style.color = entry.value < 0 ? "#ff829a" : "#dff8ff";
     });
 
-    const shockStrength = Math.max(0, Math.min(100, ((snapshot.shockVs2019 + 12) / 24) * 100));
+    const shockStrength = Math.max(0, Math.min(100, ((country.shock + 12) / 24) * 100));
     dom.impactFill.style.width = `${shockStrength}%`;
-    dom.shockChip.textContent = `vs 2019 ${formatSigned(snapshot.shockVs2019)} / vs 2020 ${formatSigned(snapshot.recoveryVs2020)}`;
-    dom.chartCountry.textContent = `${country.name} GDP growth path, current gap vs 2019, and rebound vs 2020`;
+    dom.shockChip.textContent = `Shock ${formatSigned(country.shock)} / Recovery ${formatSigned(country.recovery)}`;
+    dom.chartCountry.textContent = `${country.name} GDP growth path and post-pandemic rebound`;
 }
 
 function updateSummary() {
@@ -230,8 +213,8 @@ function updateSummary() {
         dom.tickerText.textContent = `${label} is used as the opening day of the timeline, anchored to the earliest documented cluster in Wuhan before wider global diffusion begins.`;
         return;
     }
-    const avgShock = state.countries.reduce((sum, item) => sum + getEconomicSnapshot(item).shockVs2019, 0) / Math.max(1, state.countries.length);
-    const avgRecovery = state.countries.reduce((sum, item) => sum + getEconomicSnapshot(item).recoveryVs2020, 0) / Math.max(1, state.countries.length);
+    const avgShock = state.countries.reduce((sum, item) => sum + item.shock, 0) / Math.max(1, state.countries.length);
+    const avgRecovery = state.countries.reduce((sum, item) => sum + item.recovery, 0) / Math.max(1, state.countries.length);
     const ranked = [...state.countries]
         .filter((item) => getTimePoint(item, state.selectedTimeIndex).cases > 0)
         .sort((a, b) => getTimePoint(b, state.selectedTimeIndex).exposure - getTimePoint(a, state.selectedTimeIndex).exposure);
@@ -248,13 +231,11 @@ function updateSummary() {
 
     const focus = ranked[0];
     const focusPoint = getTimePoint(focus, state.selectedTimeIndex);
-    const focusEconomic = getEconomicSnapshot(focus);
     dom.focusMarket.textContent = focus.name;
-    dom.focusMarketNote.textContent = `${formatCompact(focusPoint.cases)} cases / ${formatSigned(focusEconomic.shockVs2019)} vs 2019`;
+    dom.focusMarketNote.textContent = `${formatCompact(focusPoint.cases)} cases / ${formatSigned(focus.shock)} GDP shock`;
     dom.tickerText.textContent = ranked.slice(0, 8).map((item) => {
         const point = getTimePoint(item, state.selectedTimeIndex);
-        const economic = getEconomicSnapshot(item);
-        return `${item.name} ${label} cases ${formatCompact(point.cases)} vs2019 ${formatSigned(economic.shockVs2019)} vs2020 ${formatSigned(economic.recoveryVs2020)}`;
+        return `${item.name} ${label} cases ${formatCompact(point.cases)} shock ${formatSigned(item.shock)} recovery ${formatSigned(item.recovery)}`;
     }).join("  •  ");
 }
 
@@ -264,15 +245,14 @@ function selectCountry(country) {
     }
     state.selectedCountry = country;
     const level = severity(country);
-    const snapshot = getEconomicSnapshot(country);
-    const { point, shockVs2019, recoveryVs2020 } = snapshot;
+    const point = getTimePoint(country, state.selectedTimeIndex);
     dom.countryName.textContent = country.name;
     dom.impactBadge.textContent = level.text;
     dom.impactBadge.style.color = level.color;
     dom.casesValue.textContent = formatCompact(point.cases);
     dom.deathsValue.textContent = formatCompact(point.deaths);
-    dom.shockValue.textContent = formatSigned(shockVs2019);
-    dom.recoveryValue.textContent = formatSigned(recoveryVs2020);
+    dom.shockValue.textContent = formatSigned(country.shock);
+    dom.recoveryValue.textContent = formatSigned(country.recovery);
     updateEconomicPanel(country);
     if (state.selectedTimeIndex === 0 && country.iso3 === "CHN") {
         dom.detailNote.textContent =
@@ -282,7 +262,7 @@ function selectCountry(country) {
     }
     dom.detailNote.textContent =
         `${getSelectedLabel(state.selectedTimeIndex)} sits in the "${point.phaseLabel}" phase. The market shows about ${formatCompact(point.cases)} cumulative cases, ` +
-        `${point.gdp.toFixed(1)}% GDP growth on the mapped annual path, ${formatSigned(shockVs2019)} versus the 2019 baseline, and ${formatSigned(recoveryVs2020)} versus the 2020 trough.`;
+        `${point.gdp.toFixed(1)}% GDP growth on the mapped annual path, a 2019 to 2020 shock of ${formatSigned(country.shock)}, and a 2020 to 2023 recovery gap of ${formatSigned(country.recovery)}.`;
 }
 
 function hideTooltip() {
@@ -290,8 +270,7 @@ function hideTooltip() {
 }
 
 function showTooltip(country, sx, sy) {
-    const snapshot = getEconomicSnapshot(country);
-    const { point, shockVs2019, recoveryVs2020 } = snapshot;
+    const point = getTimePoint(country, state.selectedTimeIndex);
     dom.tooltip.style.display = "block";
     const tooltipLeft = Math.max(348, Math.min(window.innerWidth * 0.28, 430));
     dom.tooltip.style.left = `${tooltipLeft}px`;
@@ -300,8 +279,8 @@ function showTooltip(country, sx, sy) {
         <div style="font-weight:700;color:#68e4ff;margin-bottom:6px;">${country.name}</div>
         <div>Time: <span style="color:#ffd27f">${getSelectedLabel(state.selectedTimeIndex)}</span></div>
         <div>Total cases: <span style="color:#8feeff">${formatCompact(point.cases)}</span></div>
-        <div>GDP vs 2019: <span style="color:#ff8097">${formatSigned(shockVs2019)}</span></div>
-        <div>Recovery vs 2020: <span style="color:#ffd27f">${formatSigned(recoveryVs2020)}</span></div>
+        <div>GDP shock: <span style="color:#ff8097">${formatSigned(country.shock)}</span></div>
+        <div>Recovery: <span style="color:#ffd27f">${formatSigned(country.recovery)}</span></div>
     `;
 }
 
@@ -332,58 +311,17 @@ function handleCountryClick(country, sx, sy) {
     showTooltip(country, sx, sy);
 }
 
-function renderTimelineRuler() {
-    const totalSteps = Math.max(1, TIMELINE_DAYS.length - 1);
-    const ticks = [];
-
-    TIMELINE_DAYS.forEach((item, index) => {
-        const isStart = index === 0;
-        const isYearStart = item.month === 0 && item.day === 1;
-        const isQuarterStart = (item.month === 0 || item.month === 3 || item.month === 6 || item.month === 9) && item.day === 1;
-        const isEnd = index === totalSteps;
-
-        if (!(isStart || isYearStart || isQuarterStart || isEnd)) {
-            return;
-        }
-
-        const percent = (index / totalSteps) * 100;
-        ticks.push(`<span class="timeline-tick${isStart || isYearStart || isEnd ? " major" : ""}" style="left:${percent}%"></span>`);
-    });
-
-    dom.timelineRuler.innerHTML = ticks.join("");
-}
-
 function updateTimelineUI() {
     dom.timelineSlider.max = String(TIMELINE_DAYS.length - 1);
     dom.timelineSlider.value = String(state.selectedTimeIndex);
     dom.timelineValue.textContent = getSelectedLabel(state.selectedTimeIndex);
+    const selected = getSelectedDayMeta(state.selectedTimeIndex);
     dom.timelineOrigin.textContent = state.selectedTimeIndex === 0
         ? "Origin signal: Wuhan, China"
         : "Origin signal anchored at Dec 2019";
-    const totalSteps = Math.max(1, TIMELINE_DAYS.length - 1);
-    const anchors = [
-        0,
-        TIMELINE_DAYS.findIndex((item) => item.year === 2020 && item.month === 0 && item.day === 1),
-        TIMELINE_DAYS.findIndex((item) => item.year === 2021 && item.month === 0 && item.day === 1),
-        TIMELINE_DAYS.findIndex((item) => item.year === 2022 && item.month === 0 && item.day === 1),
-        totalSteps
-    ];
-    const currentRatio = state.selectedTimeIndex / totalSteps;
-    const currentPercent = currentRatio * 100;
-    dom.timelineProgress.style.width = `${currentPercent}%`;
-    dom.timelineThumb.style.left = `${currentPercent}%`;
-
     [...dom.timelinePoints.children].forEach((node, index) => {
-        const anchor = anchors[index] >= 0 ? anchors[index] : 0;
-        const anchorRatio = anchor / totalSteps;
-        const percent = anchorRatio * 100;
-        node.style.left = `${percent}%`;
-        node.classList.toggle("is-start", index === 0);
-        node.classList.toggle("is-end", index === dom.timelinePoints.children.length - 1);
-        node.classList.toggle("active", state.selectedTimeIndex >= anchor);
+        node.classList.toggle("active", TIMELINE_YEARS[index] === selected.year);
     });
-
-    renderTimelineRuler();
 }
 
 function syncUrl() {
