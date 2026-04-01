@@ -37,14 +37,14 @@
 
         <section class="summary">
             <article class="chip">
-                <div class="chip-k">Average GDP Shock</div>
+                <div class="chip-k">Average GDP vs 2019</div>
                 <div class="chip-v value-red" id="avgShock">--</div>
-                <div class="chip-note">Contraction from 2019 to 2020</div>
+                <div class="chip-note">Current growth relative to the 2019 baseline</div>
             </article>
             <article class="chip">
-                <div class="chip-k">Average Recovery</div>
+                <div class="chip-k">Average Recovery vs 2020</div>
                 <div class="chip-v value-amber" id="avgRecovery">--</div>
-                <div class="chip-note">Rebound from 2020 to 2023</div>
+                <div class="chip-note">Current growth relative to the 2020 trough</div>
             </article>
             <article class="chip">
                 <div class="chip-k">Focus Market</div>
@@ -57,21 +57,34 @@
             <div class="focus-k">Focused Country</div>
             <div class="focus-name" id="countryName">Global sample</div>
             <div class="badge" id="impactBadge">Macro impact tracking</div>
+            <div class="country-filter">
+                <input id="countrySearch" type="text" list="countryOptions" placeholder="Jump to a country">
+                <datalist id="countryOptions"></datalist>
+                <button id="countryJump" type="button">Go</button>
+            </div>
             <div class="grid">
                 <div class="metric">
-                    <div class="metric-k">Cases</div>
-                    <div class="metric-v value-cyan" id="casesValue">--</div>
+                    <div class="metric-k">Active Cases</div>
+                    <div class="metric-v value-cyan" id="activeCasesValue">--</div>
                 </div>
                 <div class="metric">
-                    <div class="metric-k">GDP Shock</div>
-                    <div class="metric-v value-red" id="shockValue">--</div>
+                    <div class="metric-k">Total Cases</div>
+                    <div class="metric-v" id="casesValue">--</div>
                 </div>
                 <div class="metric">
                     <div class="metric-k">Deaths</div>
                     <div class="metric-v" id="deathsValue">--</div>
                 </div>
                 <div class="metric">
-                    <div class="metric-k">Recovery</div>
+                    <div class="metric-k">Recovered</div>
+                    <div class="metric-v value-mint" id="recoveredValue">--</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">GDP vs 2019</div>
+                    <div class="metric-v value-red" id="shockValue">--</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-k">Recovery vs 2020</div>
                     <div class="metric-v value-amber" id="recoveryValue">--</div>
                 </div>
             </div>
@@ -83,8 +96,8 @@
             <div class="card-title">Economic Impact Panel</div>
             <div class="chart-head">
                 <div>
-                    <div class="chart-label">GDP Growth Path</div>
-                    <div class="chart-note" id="chartCountry">Hover a country to inspect its economic path</div>
+                    <div class="chart-label" id="chartLabel">Economic Path</div>
+                    <div class="chart-note" id="chartCountry">Hover a country to inspect its official high-frequency or annual economic path</div>
                 </div>
                 <div class="chart-chip" id="shockChip">Shock --</div>
             </div>
@@ -95,40 +108,14 @@
                 <span>Deep shock</span>
                 <span>Recovery</span>
             </div>
-            <div class="bar-chart" id="barChart">
-                <div class="bar-col">
-                    <div class="bar-track"><div class="bar-fill" id="bar2019"></div></div>
-                    <div class="bar-year">2019</div>
-                    <div class="bar-value" id="bar2019Value">--</div>
-                </div>
-                <div class="bar-col">
-                    <div class="bar-track"><div class="bar-fill" id="bar2020"></div></div>
-                    <div class="bar-year">2020</div>
-                    <div class="bar-value" id="bar2020Value">--</div>
-                </div>
-                <div class="bar-col">
-                    <div class="bar-track"><div class="bar-fill" id="bar2021"></div></div>
-                    <div class="bar-year">2021</div>
-                    <div class="bar-value" id="bar2021Value">--</div>
-                </div>
-                <div class="bar-col">
-                    <div class="bar-track"><div class="bar-fill" id="bar2022"></div></div>
-                    <div class="bar-year">2022</div>
-                    <div class="bar-value" id="bar2022Value">--</div>
-                </div>
-                <div class="bar-col">
-                    <div class="bar-track"><div class="bar-fill" id="bar2023"></div></div>
-                    <div class="bar-year">2023</div>
-                    <div class="bar-value" id="bar2023Value">--</div>
-                </div>
-            </div>
+            <div class="bar-chart monthly" id="barChart"></div>
             <div class="method-item">
                 <span class="method-dot cyan"></span>
-                Hovering a country or region highlights its boundary and locks the panel to that market.
+                Hovering highlights a boundary. Clicking locks the country, raises it visually, and pauses globe rotation.
             </div>
             <div class="method-item">
                 <span class="method-dot red"></span>
-                The right-side chart makes GDP shock and recovery visible instead of hiding them in text only.
+                Case clusters are driven by active recorded cases instead of cumulative totals only.
             </div>
             <div class="method-note" id="sourceNote">Loading source metadata...</div>
         </aside>
@@ -160,15 +147,22 @@
             </div>
 
             <div class="timeline-shell">
-                <div class="timeline-points" id="timelinePoints">
-                    <span class="active">2019-12</span>
-                    <span>2020</span>
-                    <span>2021</span>
-                    <span>2022</span>
-                    <span>2023-12</span>
-                </div>
                 <div class="timeline">
-                    <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="1491" step="1" value="0">
+                    <div class="timeline-rail" id="timelineRail">
+                        <div class="timeline-points" id="timelinePoints">
+                            <span class="active">2019-12</span>
+                            <span>2020</span>
+                            <span>2021</span>
+                            <span>2022</span>
+                            <span>2023-12</span>
+                        </div>
+                        <div class="timeline-ruler" id="timelineRuler" aria-hidden="true"></div>
+                        <div class="timeline-track" aria-hidden="true">
+                            <div class="timeline-progress" id="timelineProgress"></div>
+                            <div class="timeline-thumb" id="timelineThumb"></div>
+                        </div>
+                        <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="1491" step="1" value="0">
+                    </div>
                 </div>
             </div>
         </section>

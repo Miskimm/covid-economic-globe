@@ -3,8 +3,7 @@ import { getTimePoint } from "./timeline.js";
 
 const config = {
     globeRadius: 1.88,
-    landPointCount: 12000,
-    landClusterCount: 3200
+    landClusterCount: 1800
 };
 
 function latLngToVector(lat, lng, radius) {
@@ -50,7 +49,10 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         features: [],
         boundaryEntries: [],
         hoveredBoundary: null,
-        lockedIso3: null
+        lockedIso3: null,
+        countryAnchors: new Map(),
+        targetRotationX: null,
+        targetRotationY: null
     };
 
     const scene = new THREE.Scene();
@@ -157,6 +159,17 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     ];
 
     let sphereMesh;
+    const selectionHalo = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: makeGlowTexture("rgba(104,228,255,0.95)", "rgba(104,228,255,0.28)"),
+        transparent: true,
+        opacity: 0.86,
+        depthWrite: false,
+        depthTest: false
+    }));
+    selectionHalo.visible = false;
+    selectionHalo.renderOrder = 3;
+    globeGroup.add(selectionHalo);
+
     function createMeshes() {
         const sphereGeometry = new THREE.IcosahedronGeometry(0.028, 1);
         sphereMesh = new THREE.InstancedMesh(
@@ -276,9 +289,38 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         return count ? { lat: sumLat / count, lng: sumLng / count } : { lat: 0, lng: 0 };
     }
 
+    function computeFeatureBounds(feature) {
+        const polygons = feature.geometry?.type === "Polygon"
+            ? [feature.geometry.coordinates]
+            : feature.geometry?.type === "MultiPolygon"
+                ? feature.geometry.coordinates
+                : [];
+
+        let minLat = Infinity;
+        let maxLat = -Infinity;
+        let minLng = Infinity;
+        let maxLng = -Infinity;
+
+        polygons.forEach((polygon) => {
+            polygon.forEach((ring) => {
+                ring.forEach(([lng, lat]) => {
+                    minLat = Math.min(minLat, lat);
+                    maxLat = Math.max(maxLat, lat);
+                    minLng = Math.min(minLng, lng);
+                    maxLng = Math.max(maxLng, lng);
+                });
+            });
+        });
+
+        return Number.isFinite(minLat)
+            ? { minLat, maxLat, minLng, maxLng }
+            : { minLat: 0, maxLat: 0, minLng: 0, maxLng: 0 };
+    }
+
     function buildBoundaryLines(features) {
         clearObjectChildren(boundaryGroup);
         state.boundaryEntries = [];
+        state.countryAnchors = new Map();
         const countryLookup = buildCountryLookup();
         for (const feature of features) {
             if (!feature.geometry) continue;
@@ -307,11 +349,15 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             });
             const line = new THREE.LineSegments(geometry, material);
             const center = computeFeatureCenter(feature);
+            const bounds = computeFeatureBounds(feature);
+            const centerNormal = latLngToVector(center.lat, center.lng, 1).normalize();
             const featureName = feature.properties?.name || "";
             const country = countryLookup.get(normalizeName(featureName)) || null;
             line.userData = {
                 featureName,
                 center,
+                bounds,
+                centerNormal,
                 country,
                 featureRef: feature
             };
@@ -319,8 +365,18 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             state.boundaryEntries.push({
                 line,
                 center,
+                bounds,
+                centerNormal,
                 country
             });
+
+            if (country && !state.countryAnchors.has(country.iso3)) {
+                state.countryAnchors.set(country.iso3, {
+                    center,
+                    bounds,
+                    centerNormal
+                });
+            }
         }
     }
 
@@ -344,68 +400,78 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     }
 
     function buildLandPoints(features) {
+        buildBoundaryLines(features);
+        rebuildCountryClusters(state.countries);
+    }
+
+    function seededRandom(input) {
+        let hash = 2166136261;
+        for (let i = 0; i < input.length; i += 1) {
+            hash ^= input.charCodeAt(i);
+            hash = Math.imul(hash, 16777619);
+        }
+        return ((hash >>> 0) % 1000) / 1000;
+    }
+
+    function rebuildCountryClusters(countries) {
         state.landClusters = [];
         clearObjectChildren(landClusterGroup);
         createMeshes();
-        buildBoundaryLines(features);
 
-        const mask = document.createElement("canvas");
-        mask.width = 1600;
-        mask.height = 800;
-        const ctx = mask.getContext("2d", { willReadFrequently: true });
-        ctx.beginPath();
-        for (const feature of features) {
-            if (!feature.geometry) continue;
-            if (feature.geometry.type === "Polygon") {
-                drawPolygonPath(ctx, feature.geometry.coordinates, mask.width, mask.height);
-            } else if (feature.geometry.type === "MultiPolygon") {
-                for (const polygon of feature.geometry.coordinates) {
-                    drawPolygonPath(ctx, polygon, mask.width, mask.height);
-                }
+        let index = 0;
+        countries.forEach((country) => {
+            if (index >= config.landClusterCount) {
+                return;
             }
-        }
-        ctx.fillStyle = "#fff";
-        ctx.fill("evenodd");
+            const anchor = state.countryAnchors.get(country.iso3);
+            const center = anchor?.center || { lat: country.lat, lng: country.lng };
+            const bounds = anchor?.bounds || {
+                minLat: country.lat - 2,
+                maxLat: country.lat + 2,
+                minLng: country.lng - 2,
+                maxLng: country.lng + 2
+            };
+            const latSpan = Math.max(2, Math.min(20, bounds.maxLat - bounds.minLat));
+            const lngSpan = Math.max(2, Math.min(24, bounds.maxLng - bounds.minLng));
+            const supportQuality = country.historySupport || "weak";
+            const strongSupport = supportQuality === "strong";
+            const clusterCount = strongSupport
+                ? Math.max(4, Math.min(16, 4 + Math.round(Math.log10(Math.max(1, country.population)) * 1.08)))
+                : Math.max(1, Math.min(4, 1 + Math.round(Math.log10(Math.max(1, country.population)) * 0.28)));
+            const jitterFactor = strongSupport ? 0.7 : 0.22;
 
-        const pixels = ctx.getImageData(0, 0, mask.width, mask.height).data;
-        const clusters = [];
-        let attempts = 0;
-        const maxAttempts = config.landPointCount * 30;
+            for (let clusterIndex = 0; clusterIndex < clusterCount && index < config.landClusterCount; clusterIndex += 1) {
+                const seedA = seededRandom(`${country.iso3}-${clusterIndex}-a`);
+                const seedB = seededRandom(`${country.iso3}-${clusterIndex}-b`);
+                const seedC = seededRandom(`${country.iso3}-${clusterIndex}-c`);
+                const jitterLat = (seedA - 0.5) * latSpan * jitterFactor;
+                const jitterLng = (seedB - 0.5) * lngSpan * jitterFactor;
+                const lat = Math.max(-82, Math.min(82, center.lat + jitterLat));
+                const lng = ((center.lng + jitterLng + 540) % 360) - 180;
+                const normal = latLngToVector(lat, lng, 1).normalize();
+                const basePosition = normal.clone().multiplyScalar(config.globeRadius * (1.01 + seedC * 0.03));
+                const baseScale = strongSupport ? 0.3 + seedA * 0.7 : 0.16 + seedA * 0.24;
 
-        while (clusters.length < config.landClusterCount && attempts < maxAttempts) {
-            const x = Math.floor(Math.random() * mask.width);
-            const y = Math.floor(Math.random() * mask.height);
-            const alpha = pixels[(y * mask.width + x) * 4 + 3];
-            if (alpha > 0) {
-                const lng = (x / mask.width) * 360 - 180;
-                const lat = 90 - (y / mask.height) * 180;
-                clusters.push({ lat, lng });
+                dummy.position.copy(basePosition);
+                dummy.lookAt(basePosition.clone().add(normal));
+                dummy.scale.setScalar(baseScale);
+                dummy.updateMatrix();
+                sphereMesh.setMatrixAt(index, dummy.matrix);
+                sphereMesh.setColorAt(index, pickBiomeColor({ lat, lng, colorSeed: seedB }, 0, 0));
+
+                state.landClusters.push({
+                    lat,
+                    lng,
+                    normal,
+                    basePosition,
+                    baseScale,
+                    ownerIso3: country.iso3,
+                    supportQuality,
+                    colorSeed: seedB,
+                    heightSeed: seedC
+                });
+                index += 1;
             }
-            attempts += 1;
-        }
-
-        clusters.forEach((cluster, index) => {
-            const normal = latLngToVector(cluster.lat, cluster.lng, 1).normalize();
-            const position = normal.clone().multiplyScalar(config.globeRadius * (1.01 + Math.random() * 0.035));
-            const baseScale = 0.45 + Math.random() * 1.2;
-            const colorSeed = Math.random();
-            const heightSeed = Math.random();
-            dummy.position.copy(position);
-            dummy.lookAt(position.clone().add(normal));
-            dummy.scale.setScalar(baseScale * (0.86 + heightSeed * 0.42));
-            dummy.updateMatrix();
-            sphereMesh.setMatrixAt(index, dummy.matrix);
-            sphereMesh.setColorAt(index, pickBiomeColor({ ...cluster, colorSeed }, 0, 0));
-            state.landClusters.push({
-                lat: cluster.lat,
-                lng: cluster.lng,
-                normal,
-                position,
-                baseScale,
-                ownerIso3: null,
-                colorSeed,
-                heightSeed
-            });
         });
 
         sphereMesh.count = state.landClusters.length;
@@ -415,38 +481,36 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         }
     }
 
-    function assignLandClustersToCountries(countries) {
-        if (!state.landClusters.length || !countries.length) {
-            return;
-        }
-        for (const cluster of state.landClusters) {
-            let nearest = null;
-            let nearestDist = Infinity;
-            for (const country of countries) {
-                const dist = Math.hypot(cluster.lat - country.lat, (cluster.lng - country.lng) * Math.cos(cluster.lat * Math.PI / 180));
-                if (dist < nearestDist) {
-                    nearestDist = dist;
-                    nearest = country;
-                }
-            }
-            cluster.ownerIso3 = nearest?.iso3 || null;
-        }
-    }
-
     function updateBoundaryHighlight(entry) {
-        const nextHoverLine = entry?.line || null;
-        const previousHoverLine = state.hoveredBoundary?.line || null;
-        if (previousHoverLine === nextHoverLine) {
-            return;
-        }
         const activeIso3 = state.lockedIso3 || entry?.country?.iso3 || null;
         state.boundaryEntries.forEach((item) => {
             const isActive = activeIso3 ? item.country?.iso3 === activeIso3 : item === entry;
             item.line.material.color.set(isActive ? 0xa9f1ff : 0x5caad6);
             item.line.material.opacity = isActive ? 0.96 : 0.34;
+            item.line.position.copy(isActive ? item.centerNormal.clone().multiplyScalar(0.18) : new THREE.Vector3());
         });
 
         state.hoveredBoundary = entry || null;
+    }
+
+    function updateSelectionHalo() {
+        if (!state.lockedIso3) {
+            selectionHalo.visible = false;
+            return;
+        }
+
+        const anchor = state.countryAnchors.get(state.lockedIso3);
+        const country = state.countries.find((item) => item.iso3 === state.lockedIso3);
+        if (!anchor && !country) {
+            selectionHalo.visible = false;
+            return;
+        }
+
+        const normal = anchor?.centerNormal || latLngToVector(country.lat, country.lng, 1).normalize();
+        selectionHalo.position.copy(normal.clone().multiplyScalar(config.globeRadius * 1.2));
+        const pulse = 0.9 + Math.sin(state.pulse * 3.2) * 0.08;
+        selectionHalo.scale.set(0.72 * pulse, 0.72 * pulse, 1);
+        selectionHalo.visible = true;
     }
 
     function getHoveredBoundary() {
@@ -489,19 +553,43 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
 
         state.landClusters.forEach((cluster, index) => {
             const point = cluster.ownerIso3 ? exposureByIso.get(cluster.ownerIso3) : null;
-            const caseFactor = point ? Math.min(1, point.cases / 5000000) : 0;
+            const supportQuality = point?.supportQuality || cluster.supportQuality || "none";
+            const strongSupport = supportQuality === "strong";
+            const activeCases = strongSupport && point ? Math.max(0, point.active ?? 0) : 0;
+            const weakLoad = !strongSupport && point ? Math.max(0, point.clusterLoad || 0) : 0;
+            const totalCases = point ? Math.max(0, point.totalCases ?? point.cases) : 0;
+            const recoveredCases = point ? Math.max(0, point.recovered || 0) : 0;
+            const caseFactor = point ? Math.min(1, activeCases / 750000) : 0;
             const exposureFactor = point ? Math.min(1, point.exposure / 12) : 0;
-            const growthFactor = point && point.cases > 0 ? Math.max(0, Math.min(1, (point.recovery + 6) / 18)) : 0;
+            const recoveryFactor = totalCases > 0 ? Math.max(0, Math.min(1, recoveredCases / totalCases)) : 0;
             const activityFactor = Math.max(caseFactor, exposureFactor * 0.65);
-            const scale = cluster.baseScale * (0.82 + cluster.heightSeed * 0.38) * Math.max(0.001, activityFactor * 0.92 + growthFactor * 0.2);
+            let visibility = 0.0001;
 
-            dummy.position.copy(cluster.position);
-            dummy.lookAt(cluster.position.clone().add(cluster.normal));
+            if (strongSupport) {
+                if (activeCases > 0) {
+                    visibility = Math.max(0.08, activityFactor * 0.96 + recoveryFactor * 0.12);
+                } else if (totalCases > 0) {
+                    visibility = Math.max(0.008, recoveryFactor * 0.04);
+                }
+            } else if (weakLoad > 0) {
+                visibility = Math.max(0.01, Math.min(0.06, weakLoad / 3000000));
+            }
+
+            const lift = state.lockedIso3 && cluster.ownerIso3 === state.lockedIso3 ? 0.24 : 0;
+            const position = cluster.basePosition.clone().add(cluster.normal.clone().multiplyScalar(lift));
+            const scaleBoost = state.lockedIso3 && cluster.ownerIso3 === state.lockedIso3 ? 1.45 : 1;
+            const scale = cluster.baseScale * (0.82 + cluster.heightSeed * 0.38) * visibility * scaleBoost;
+
+            dummy.position.copy(position);
+            dummy.lookAt(position.clone().add(cluster.normal));
             dummy.scale.setScalar(scale);
             dummy.updateMatrix();
             sphereMesh.setMatrixAt(index, dummy.matrix);
 
-            tempColor.copy(pickBiomeColor(cluster, activityFactor, growthFactor));
+            tempColor.copy(pickBiomeColor(cluster, activityFactor, recoveryFactor));
+            if (!strongSupport) {
+                tempColor.lerp(cyanColor, 0.5).offsetHSL(0, -0.08, -0.06);
+            }
             sphereMesh.setColorAt(index, tempColor);
         });
 
@@ -510,6 +598,17 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         if (sphereMesh.instanceColor) {
             sphereMesh.instanceColor.needsUpdate = true;
         }
+    }
+
+    function getFocusRotation(country) {
+        const anchor = state.countryAnchors.get(country.iso3);
+        const lat = anchor?.center?.lat ?? country.lat;
+        const lng = anchor?.center?.lng ?? country.lng;
+        const vector = latLngToVector(lat, lng, 1);
+        const targetY = Math.atan2(-vector.x, vector.z);
+        const rotated = vector.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), targetY);
+        const targetX = THREE.MathUtils.clamp(Math.atan2(rotated.y, rotated.z), -0.72, 0.72);
+        return { targetX, targetY };
     }
 
     function updateHover() {
@@ -542,7 +641,10 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         requestAnimationFrame(animate);
         state.pulse += 0.016;
 
-        if (!state.isDragging) {
+        if (state.targetRotationX !== null && state.targetRotationY !== null) {
+            globeGroup.rotation.x += (state.targetRotationX - globeGroup.rotation.x) * 0.11;
+            globeGroup.rotation.y += (state.targetRotationY - globeGroup.rotation.y) * 0.11;
+        } else if (!state.isDragging && !state.lockedIso3) {
             globeGroup.rotation.y += state.yawVelocity;
             globeGroup.rotation.x += state.pitchVelocity;
             state.yawVelocity *= 0.985;
@@ -556,11 +658,14 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         atmosphere.rotation.y -= 0.0002;
 
         updateHover();
+        updateSelectionHalo();
         renderer.render(scene, camera);
     }
 
     renderer.domElement.addEventListener("pointerdown", (event) => {
         state.isDragging = true;
+        state.targetRotationX = null;
+        state.targetRotationY = null;
         state.pointerDownX = event.clientX;
         state.pointerDownY = event.clientY;
         state.lastX = event.clientX;
@@ -619,7 +724,6 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             if (features) {
                 state.features = features;
                 buildLandPoints(features);
-                assignLandClustersToCountries(state.countries);
                 updateLandClustersForTime();
             }
         },
@@ -629,7 +733,7 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             if (state.features.length) {
                 buildBoundaryLines(state.features);
             }
-            assignLandClustersToCountries(countries);
+            rebuildCountryClusters(countries);
             updateLandClustersForTime();
             const lockedEntry = state.lockedIso3 ? state.boundaryEntries.find((entry) => entry.country?.iso3 === state.lockedIso3) || null : null;
             updateBoundaryHighlight(lockedEntry);
@@ -640,11 +744,29 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         },
         setLockedCountry(iso3) {
             state.lockedIso3 = iso3 || null;
+            state.yawVelocity = 0;
+            state.pitchVelocity = 0;
             const lockedEntry = state.lockedIso3 ? state.boundaryEntries.find((entry) => entry.country?.iso3 === state.lockedIso3) || null : null;
             updateBoundaryHighlight(lockedEntry);
+            updateLandClustersForTime();
+            updateSelectionHalo();
         },
         getCanvas() {
             return renderer.domElement;
+        },
+        focusCountry(iso3) {
+            if (!iso3) {
+                state.targetRotationX = null;
+                state.targetRotationY = null;
+                return;
+            }
+            const country = state.countries.find((item) => item.iso3 === iso3);
+            if (!country) {
+                return;
+            }
+            const { targetX, targetY } = getFocusRotation(country);
+            state.targetRotationX = targetX;
+            state.targetRotationY = targetY;
         }
     };
 }
