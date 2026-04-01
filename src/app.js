@@ -1,7 +1,11 @@
 import { fallbackCovid, fallbackGdp, loadAllCountryHistories, loadCountryHistory, loadCovidRows, loadGdpMap, loadOecdQuarterlyGdpMap, loadWorldFeatures, resolveHistoryFromMap } from "./data.js";
 import { formatCompact, formatSigned } from "./format.js";
 import { createGlobe } from "./globe.js";
+<<<<<<< Updated upstream
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS } from "./timeline.js";
+=======
+import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, resolveGdpYears, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
+>>>>>>> Stashed changes
 
 const config = {
     minPopulation: 250000
@@ -169,6 +173,7 @@ function normalizeCountries(covidRows, gdpMap, quarterlyGdpMap = {}) {
             if (!row.iso3 || !gdp || !Number.isFinite(row.lat) || !Number.isFinite(row.lng) || row.population < config.minPopulation) {
                 return null;
             }
+<<<<<<< Updated upstream
             const economicSeries = buildEconomicSeries(gdp, quarterlyGdpMap[row.iso3]);
             const shock = gdp.y2020 - gdp.y2019;
             const recovery = gdp.y2023 - gdp.y2020;
@@ -176,6 +181,13 @@ function normalizeCountries(covidRows, gdpMap, quarterlyGdpMap = {}) {
             const recovered = Number(row.recovered || 0);
             const activePerMillion = (active / row.population) * 1000000;
             const exposure = Math.log10(activePerMillion + 10) * Math.max(0.7, Math.min(14, Math.abs(Math.min(0, shock))));
+=======
+            const gdpYears = resolveGdpYears(gdp);
+            const shock = gdpYears.y2020 - gdpYears.y2019;
+            const recovery = gdpYears.y2023 - gdpYears.y2020;
+            const casesPerMillion = (row.cases / row.population) * 1000000;
+            const exposure = Math.log10(casesPerMillion + 10) * Math.max(0.7, Math.min(14, Math.abs(Math.min(0, shock))));
+>>>>>>> Stashed changes
             return {
                 name: row.name || row.country,
                 iso3: row.iso3,
@@ -186,6 +198,7 @@ function normalizeCountries(covidRows, gdpMap, quarterlyGdpMap = {}) {
                 recovered,
                 deaths: row.deaths,
                 population: row.population,
+<<<<<<< Updated upstream
                 gdp2019: gdp.y2019,
                 gdp2020: gdp.y2020,
                 gdp2021: gdp.y2021,
@@ -197,6 +210,17 @@ function normalizeCountries(covidRows, gdpMap, quarterlyGdpMap = {}) {
                 exposure,
                 timeline: buildCountryTimeline(row, gdp, null, economicSeries),
                 historySupport: "weak"
+=======
+                gdp2019: gdpYears.y2019,
+                gdp2020: gdpYears.y2020,
+                gdp2021: gdpYears.y2021,
+                gdp2022: gdpYears.y2022,
+                gdp2023: gdpYears.y2023,
+                shock,
+                recovery,
+                exposure,
+                timeline: buildCountryTimeline(row, gdpYears)
+>>>>>>> Stashed changes
             };
         })
         .filter(Boolean)

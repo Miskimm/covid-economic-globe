@@ -33,6 +33,7 @@ const HISTORY_ALIASES = {
     Syria: ["Syrian Arab Republic"],
     Libya: ["Libyan Arab Jamahiriya"]
 };
+const HISTORY_UNSUPPORTED = new Set(["French Polynesia", "Hong Kong", "Macao"]);
 
 function normalizeCountryName(value) {
     return String(value || "")
@@ -187,6 +188,10 @@ export async function loadOecdQuarterlyGdpMap() {
 }
 
 export async function loadCountryHistory(countryName) {
+    if (HISTORY_UNSUPPORTED.has(countryName)) {
+        return null;
+    }
+
     const candidates = Object.prototype.hasOwnProperty.call(HISTORY_ALIASES, countryName)
         ? HISTORY_ALIASES[countryName]
         : [countryName];

@@ -1,5 +1,6 @@
 export const TIMELINE_YEARS = [2019, 2020, 2021, 2022, 2023];
 export const TIMELINE_DAYS = [];
+const SYNTHETIC_OUTBREAK_START = Date.UTC(2020, 0, 22);
 
 const PHASE_BY_YEAR = {
     2019: "Documented origin stage",
@@ -65,6 +66,16 @@ export function getSelectedLabel(timeIndex) {
     return `${meta.year}-${String(meta.month + 1).padStart(2, "0")}-${String(meta.day).padStart(2, "0")}`;
 }
 
+export function resolveGdpYears(gdp = {}) {
+    const y2019 = Number.isFinite(gdp.y2019) ? gdp.y2019 : 0;
+    const y2020 = Number.isFinite(gdp.y2020) ? gdp.y2020 : y2019;
+    const y2021 = Number.isFinite(gdp.y2021) ? gdp.y2021 : y2020 + 1.2;
+    const y2022 = Number.isFinite(gdp.y2022) ? gdp.y2022 : y2021 + 0.8;
+    const y2023 = Number.isFinite(gdp.y2023) ? gdp.y2023 : y2022;
+
+    return { y2019, y2020, y2021, y2022, y2023 };
+}
+
 function parseHistoryDate(value) {
     const [m, d, y] = value.split("/").map(Number);
     return new Date(Date.UTC(2000 + y, m - 1, d));
@@ -90,6 +101,7 @@ function buildDailyCumulativeMap(historyMap) {
     return output;
 }
 
+<<<<<<< Updated upstream
 function hasPositiveValues(historyMap) {
     return Boolean(historyMap) && Object.values(historyMap).some((value) => Number(value) > 0);
 }
@@ -113,12 +125,31 @@ function getEconomicValueForDay(meta, gdpByYear, economicSeries) {
 }
 
 export function buildCountryTimeline(row, gdp, history = null, economicSeries = null) {
+=======
+function buildEstimatedCumulativeValue(total, meta, exponent = 2.2) {
+    if (!Number.isFinite(total) || total <= 0) {
+        return 0;
+    }
+
+    const current = Date.UTC(meta.year, meta.month, meta.day);
+    if (current <= SYNTHETIC_OUTBREAK_START) {
+        return 0;
+    }
+
+    const end = Date.UTC(2023, 11, 31, 23, 59, 59, 999);
+    const progress = Math.max(0, Math.min(1, (current - SYNTHETIC_OUTBREAK_START) / Math.max(1, end - SYNTHETIC_OUTBREAK_START)));
+    return Math.round(total * Math.pow(progress, exponent));
+}
+
+export function buildCountryTimeline(row, gdp, history = null) {
+    const years = resolveGdpYears(gdp);
+>>>>>>> Stashed changes
     const gdpByYear = {
-        2019: Number.isFinite(gdp.y2019) ? gdp.y2019 : 0,
-        2020: Number.isFinite(gdp.y2020) ? gdp.y2020 : 0,
-        2021: Number.isFinite(gdp.y2021) ? gdp.y2021 : (Number.isFinite(gdp.y2020) ? gdp.y2020 + 1.2 : 0),
-        2022: Number.isFinite(gdp.y2022) ? gdp.y2022 : (Number.isFinite(gdp.y2021) ? gdp.y2021 + 0.8 : 0),
-        2023: Number.isFinite(gdp.y2023) ? gdp.y2023 : 0
+        2019: years.y2019,
+        2020: years.y2020,
+        2021: years.y2021,
+        2022: years.y2022,
+        2023: years.y2023
     };
 
     const casesByDay = history ? buildDailyCumulativeMap(history.cases) : null;
@@ -137,6 +168,7 @@ export function buildCountryTimeline(row, gdp, history = null, economicSeries = 
         const key = getTimeKey(meta.year, meta.month, meta.day);
         const prevMeta = TIMELINE_DAYS[Math.max(0, index - 1)];
         const prevKey = getTimeKey(prevMeta.year, prevMeta.month, prevMeta.day);
+<<<<<<< Updated upstream
         const gdpValue = getEconomicValueForDay(meta, gdpByYear, economicSeries);
         const progress = Math.max(0, index / Math.max(1, TIMELINE_DAYS.length - 1));
         const cases = casesByDay ? casesByDay[key] : Math.round((row.cases || 0) * progress);
@@ -178,6 +210,15 @@ export function buildCountryTimeline(row, gdp, history = null, economicSeries = 
         const exposure = hasCaseHistory
             ? Math.log10(pressurePerMillion + 10) * Math.max(0.35, Math.min(10, Math.abs(Math.min(0, shock)) * 0.72 + Math.max(0, recovery * 0.22) + 0.32))
             : 0;
+=======
+        const prevGdp = timeline[prevKey]?.gdp ?? startGdp;
+        const cases = casesByDay ? casesByDay[key] : buildEstimatedCumulativeValue(row.cases || 0, meta, 2.1);
+        const deaths = deathsByDay ? deathsByDay[key] : buildEstimatedCumulativeValue(row.deaths || 0, meta, 2.35);
+        const shock = meta.year <= 2019 ? 0 : (index === 0 ? 0 : gdpValue - prevGdp);
+        const recovery = meta.year <= 2020 ? 0 : gdpValue - (gdpByYear[2020] ?? 0);
+        const perMillion = row.population > 0 ? (cases / row.population) * 1000000 : 0;
+        const exposure = Math.log10(perMillion + 10) * Math.max(0.45, Math.min(14, Math.abs(Math.min(0, shock)) * 8 + Math.max(0, recovery * 0.8)));
+>>>>>>> Stashed changes
         timeline[key] = {
             key,
             year: meta.year,
