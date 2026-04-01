@@ -90,29 +90,7 @@ function buildDailyCumulativeMap(historyMap) {
     return output;
 }
 
-function hasPositiveValues(historyMap) {
-    return Boolean(historyMap) && Object.values(historyMap).some((value) => Number(value) > 0);
-}
-
-function getEconomicValueForDay(meta, gdpByYear, economicSeries) {
-    if (!economicSeries || economicSeries.frequency === "annual") {
-        return gdpByYear[meta.year] ?? 0;
-    }
-
-    if (economicSeries.frequency === "quarterly") {
-        const quarter = Math.floor(meta.month / 3) + 1;
-        return economicSeries.lookup?.get(`${meta.year}-Q${quarter}`) ?? (gdpByYear[meta.year] ?? 0);
-    }
-
-    if (economicSeries.frequency === "monthly") {
-        const monthKey = `${meta.year}-${String(meta.month + 1).padStart(2, "0")}`;
-        return economicSeries.lookup?.get(monthKey) ?? (gdpByYear[meta.year] ?? 0);
-    }
-
-    return gdpByYear[meta.year] ?? 0;
-}
-
-export function buildCountryTimeline(row, gdp, history = null, economicSeries = null) {
+export function buildCountryTimeline(row, gdp, history = null) {
     const gdpByYear = {
         2019: Number.isFinite(gdp.y2019) ? gdp.y2019 : 0,
         2020: Number.isFinite(gdp.y2020) ? gdp.y2020 : 0,
@@ -123,93 +101,40 @@ export function buildCountryTimeline(row, gdp, history = null, economicSeries = 
 
     const casesByDay = history ? buildDailyCumulativeMap(history.cases) : null;
     const deathsByDay = history ? buildDailyCumulativeMap(history.deaths) : null;
-    const recoveredByDay = history?.recovered ? buildDailyCumulativeMap(history.recovered) : null;
-    const hasCaseHistory = hasPositiveValues(history?.cases);
-    const hasRecoveredHistory = hasPositiveValues(history?.recovered);
-    const supportQuality = hasCaseHistory && hasRecoveredHistory ? "strong" : hasCaseHistory ? "weak" : "none";
     const timeline = {};
-    const newCasesWindow = [];
-    const newDeathsWindow = [];
-    let rollingCases = 0;
-    let rollingDeaths = 0;
 
     TIMELINE_DAYS.forEach((meta, index) => {
         const key = getTimeKey(meta.year, meta.month, meta.day);
         const prevMeta = TIMELINE_DAYS[Math.max(0, index - 1)];
+        const yearStart = Date.UTC(meta.year, 0, 1);
+        const yearEnd = Date.UTC(meta.year, 11, 31);
+        const current = Date.UTC(meta.year, meta.month, meta.day);
+        const yearProgress = (current - yearStart) / Math.max(1, yearEnd - yearStart);
+        const nextYear = Math.min(2023, meta.year + 1);
+        const startGdp = gdpByYear[meta.year] ?? 0;
+        const endGdp = gdpByYear[nextYear] ?? startGdp;
+        const gdpValue = startGdp + (endGdp - startGdp) * yearProgress;
         const prevKey = getTimeKey(prevMeta.year, prevMeta.month, prevMeta.day);
-        const gdpValue = getEconomicValueForDay(meta, gdpByYear, economicSeries);
-        const progress = Math.max(0, index / Math.max(1, TIMELINE_DAYS.length - 1));
-        const cases = casesByDay ? casesByDay[key] : Math.round((row.cases || 0) * progress);
-        const deaths = deathsByDay ? deathsByDay[key] : Math.round((row.deaths || 0) * progress);
-        const prevCases = timeline[prevKey]?.totalCases ?? 0;
-        const prevDeaths = timeline[prevKey]?.deaths ?? 0;
-        const newCases = Math.max(0, cases - prevCases);
-        const newDeaths = Math.max(0, deaths - prevDeaths);
-
-        rollingCases += newCases;
-        newCasesWindow.push(newCases);
-        if (newCasesWindow.length > 28) {
-            rollingCases -= newCasesWindow.shift();
-        }
-
-        rollingDeaths += newDeaths;
-        newDeathsWindow.push(newDeaths);
-        if (newDeathsWindow.length > 28) {
-            rollingDeaths -= newDeathsWindow.shift();
-        }
-
-        const recovered = hasRecoveredHistory ? recoveredByDay[key] : null;
-        const prevRecovered = timeline[prevKey]?.recovered ?? 0;
-        const newRecovered = hasRecoveredHistory && recovered !== null
-            ? Math.max(0, recovered - prevRecovered)
-            : null;
-        const active = hasRecoveredHistory && recovered !== null
-            ? Math.max(0, cases - deaths - recovered)
-            : null;
-        const weakActiveProxy = hasCaseHistory
-            ? Math.max(0, rollingCases - rollingDeaths)
-            : 0;
-        const clusterLoad = hasRecoveredHistory ? active : weakActiveProxy;
-        const shock = gdpValue - (gdpByYear[2019] ?? 0);
-        const recovery = meta.year < 2020 ? 0 : gdpValue - (gdpByYear[2020] ?? 0);
-        const activePerMillion = row.population > 0 ? ((clusterLoad || 0) / row.population) * 1000000 : 0;
-        const pressureLoad = hasRecoveredHistory ? (active || 0) : weakActiveProxy * 0.16;
-        const pressurePerMillion = row.population > 0 ? (pressureLoad / row.population) * 1000000 : 0;
-        const exposure = hasCaseHistory
-            ? Math.log10(pressurePerMillion + 10) * Math.max(0.35, Math.min(10, Math.abs(Math.min(0, shock)) * 0.72 + Math.max(0, recovery * 0.22) + 0.32))
-            : 0;
+        const prevGdp = timeline[prevKey]?.gdp ?? startGdp;
+        const cases = casesByDay ? casesByDay[key] : Math.round((row.cases || 0) * Math.max(0, index / Math.max(1, TIMELINE_DAYS.length - 1)));
+        const deaths = deathsByDay ? deathsByDay[key] : Math.round((row.deaths || 0) * Math.max(0, index / Math.max(1, TIMELINE_DAYS.length - 1)));
+        const shock = meta.year <= 2019 ? 0 : (index === 0 ? 0 : gdpValue - prevGdp);
+        const recovery = meta.year <= 2020 ? 0 : gdpValue - (gdpByYear[2020] ?? 0);
+        const perMillion = row.population > 0 ? (cases / row.population) * 1000000 : 0;
+        const exposure = Math.log10(perMillion + 10) * Math.max(0.45, Math.min(14, Math.abs(Math.min(0, shock)) * 8 + Math.max(0, recovery * 0.8)));
         timeline[key] = {
             key,
             year: meta.year,
             month: meta.month,
             day: meta.day,
             gdp: gdpValue,
-            totalCases: cases,
             cases,
-            active,
-            clusterLoad,
-            recovered,
             deaths,
-            newCases,
-            newRecovered,
-            newDeaths,
             shock,
             recovery,
             exposure,
-            phaseLabel: PHASE_BY_YEAR[meta.year],
-            hasCaseHistory,
-            hasRecoveredHistory,
-            supportQuality
+            phaseLabel: PHASE_BY_YEAR[meta.year]
         };
-    });
-
-    Object.defineProperty(timeline, "__support", {
-        value: {
-            hasCaseHistory,
-            hasRecoveredHistory,
-            supportQuality
-        },
-        enumerable: false
     });
 
     return timeline;
@@ -225,42 +150,22 @@ export function getTimePoint(country, timeIndex) {
             month: 11,
             day: 1,
             cases: 27,
-            active: 27,
-            clusterLoad: 27,
-            totalCases: 27,
-            recovered: 0,
             deaths: 0,
-            newCases: 27,
-            newRecovered: 0,
-            newDeaths: 0,
             gdp: country.gdp2019,
             shock: 0,
             recovery: 0,
             exposure: 1.1,
-            phaseLabel: "Documented origin stage",
-            hasCaseHistory: true,
-            hasRecoveredHistory: true,
-            supportQuality: "strong"
+            phaseLabel: "Documented origin stage"
         };
     }
     return country.timeline?.[key] || {
         key,
         cases: country.cases,
-        active: country.active ?? country.cases,
-        clusterLoad: country.active ?? country.cases,
-        totalCases: country.cases,
-        recovered: country.recovered ?? 0,
         deaths: country.deaths,
-        newCases: 0,
-        newRecovered: 0,
-        newDeaths: 0,
         gdp: country.gdp2020,
         shock: country.shock,
         recovery: country.recovery,
         exposure: country.exposure,
-        phaseLabel: "Default",
-        hasCaseHistory: Boolean(country.cases),
-        hasRecoveredHistory: Number.isFinite(country.recovered),
-        supportQuality: Number.isFinite(country.recovered) ? "strong" : "weak"
+        phaseLabel: "Default"
     };
 }
