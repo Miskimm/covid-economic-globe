@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1776648494936,
+    "timestamp": "2026-04-20T01:28:14.936Z",
+    "version": "1.0",
+    "prototype_id": "4",
+    "time_spent": "5to10",
+    "viz_preference": "3d_globe",
+    "data_mode": "daily",
+    "useful_data": [
+      "gdp_shock"
+    ],
+    "link_clarity": 4,
+    "find_country": 4,
+    "globe_helped": "yes",
+    "interface_control": 4,
+    "interaction_fatigue": "slight",
+    "data_trust": 4,
+    "data_precision": 4,
+    "micro_macro": "both",
+    "overall_rating": 5,
+    "most_valuable": "",
+    "biggest_improvement": "",
+    "other_comments": ""
+  },
+  {
+    "id": 1776648702537,
+    "timestamp": "2026-04-20T01:31:42.537Z",
+    "version": "1.0",
+    "prototype_id": "4",
+    "time_spent": "10to20",
+    "viz_preference": "3d_globe",
+    "data_mode": "daily",
+    "useful_data": [
+      "cases",
+      "gdp_shock",
+      "recovery",
+      "correlation"
+    ],
+    "link_clarity": 4,
+    "find_country": 4,
+    "globe_helped": "yes",
+    "interface_control": 4,
+    "interaction_fatigue": "no",
+    "data_trust": 4,
+    "data_precision": 5,
+    "micro_macro": "both",
+    "overall_rating": 5,
+    "most_valuable": "",
+    "biggest_improvement": "",
+    "other_comments": ""
+  },
+  {
+    "id": 1776649656970,
+    "timestamp": "2026-04-20T01:47:36.970Z",
+    "version": "1.0",
+    "prototype_id": "2",
+    "time_spent": "under5",
+    "viz_preference": "charts",
+    "data_mode": "both",
+    "useful_data": [
+      "recovery"
+    ],
+    "link_clarity": 4,
+    "find_country": 4,
+    "globe_helped": "yes",
+    "interface_control": 3,
+    "interaction_fatigue": "slight",
+    "data_trust": 4,
+    "data_precision": 3,
+    "micro_macro": "micro_only",
+    "overall_rating": 4,
+    "most_valuable": "",
+    "biggest_improvement": "",
+    "other_comments": ""
+  },
+  {
+    "id": 1776650303468,
+    "timestamp": "2026-04-20T01:58:23.468Z",
+    "version": "1.0",
+    "prototype_id": "4",
+    "time_spent": "under5",
+    "viz_preference": "3d_globe",
+    "data_mode": "both",
+    "useful_data": [
+      "gdp_shock",
+      "recovery"
+    ],
+    "link_clarity": 4,
+    "find_country": 5,
+    "globe_helped": "yes",
+    "interface_control": 4,
+    "interaction_fatigue": "yes",
+    "data_trust": 3,
+    "data_precision": 4,
+    "micro_macro": "both",
+    "overall_rating": 4,
+    "most_valuable": "",
+    "biggest_improvement": "",
+    "other_comments": ""
+  }
+]

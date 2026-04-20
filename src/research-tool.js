@@ -826,17 +826,29 @@ function markError(fieldEl, msg) {
   fieldEl.appendChild(div);
 }
 
-function saveResponse() {
-  const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+async function saveResponse() {
   const entry = {
     id: Date.now(),
     timestamp: new Date().toISOString(),
     version: TOOL_VERSION,
     ...formData,
   };
+
+  // 优先写入服务器文件（node server.js 运行时）
+  try {
+    await fetch('/api/response', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(entry),
+    });
+  } catch {
+    // 服务器未启动，仅写入 localStorage 作为备用
+  }
+
+  // localStorage 始终保留一份备用
+  const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
   stored.push(entry);
   localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
-  return entry;
 }
 
 function exportJSON() {
@@ -886,12 +898,12 @@ export function initResearchTool() {
     if (currentStep > 1) setStep(currentStep - 1);
   });
 
-  document.getElementById('rt-next').addEventListener('click', () => {
+  document.getElementById('rt-next').addEventListener('click', async () => {
     if (!collectStep(currentStep)) return;
     if (currentStep < totalSteps) {
       setStep(currentStep + 1);
     } else {
-      saveResponse();
+      await saveResponse();
       getPanel().style.display = 'none';
       getSuccess().style.display = 'flex';
     }

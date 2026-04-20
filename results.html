@@ -372,6 +372,7 @@
       <div class="eyebrow">DECO7180 — Research Tool</div>
       <h1>Survey Results</h1>
       <p class="sub" id="subLine">Loading responses…</p>
+      <p class="sub" id="sourceTag" style="margin-top:4px;font-size:11px"></p>
     </div>
     <div class="topbar-right">
       <button class="btn btn-primary" onclick="exportJSON()">⬇ Export JSON</button>
@@ -447,8 +448,21 @@ let filtered = [];
 let currentFilter = 'all';
 const chartInstances = {};
 
-function load() {
-  allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+async function load() {
+  try {
+    const res = await fetch('/api/responses');
+    if (!res.ok) throw new Error();
+    allData = await res.json();
+    // 同步到 localStorage 作为备用
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(allData));
+    document.getElementById('sourceTag').textContent = '● 数据来源：responses.json 文件';
+    document.getElementById('sourceTag').style.color = '#8ff6cc';
+  } catch {
+    // 服务器未启动，从 localStorage 读取
+    allData = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    document.getElementById('sourceTag').textContent = '● 数据来源：浏览器缓存（运行 node server.js 可持久化到文件）';
+    document.getElementById('sourceTag').style.color = '#ffcb74';
+  }
   applyFilter(currentFilter);
 }
 
@@ -694,9 +708,12 @@ function exportJSON() {
   URL.revokeObjectURL(url);
 }
 
-function clearData() {
+async function clearData() {
   if (!confirm('Clear ALL survey responses? This cannot be undone.')) return;
   localStorage.removeItem(STORAGE_KEY);
+  try {
+    await fetch('/api/clear', { method: 'POST' });
+  } catch {}
   allData = []; filtered = [];
   render();
 }
