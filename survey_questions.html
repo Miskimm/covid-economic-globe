@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>四个原型对比评估问卷</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #2563eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 24px auto 48px;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0 0 12px;
+    }
+
+    .question {
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .question:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .q-title {
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      cursor: pointer;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .inline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .score-row {
+      margin-bottom: 10px;
+    }
+
+    .score-row strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .required {
+      color: #b91c1c;
+      font-size: 13px;
+      margin-left: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .inline-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>四个原型对比评估问卷</h1>
+      <p class="subtitle">DECO7180 — COVID-19 与经济数据可视化测试</p>
+      <p class="hint">
+        数据收集说明：本页面默认使用 Formspree 收集问卷数据。请先把代码中的
+        <code>YOUR_FORM_ID</code> 换成你自己的 Formspree 表单 ID。
+      </p>
+    </div>
+
+    <form id="surveyForm" class="card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="hidden" name="_subject" value="DECO7180 问卷新提交">
+      <input type="hidden" name="submitted_at" id="submittedAt">
+
+      <h2>第 1 部分：测试信息</h2>
+
+      <div class="question">
+        <p class="q-title">Q1. 你是否体验了全部 4 个原型？<span class="required">*</span></p>
+        <div class="option-list">
+          <label><input required type="radio" name="q1_all_tested" value="是，4个都体验了">是，4 个都体验了</label>
+          <label><input required type="radio" name="q1_all_tested" value="否，只体验了部分原型">否，只体验了部分原型</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q2. 你最喜欢哪个原型？<span class="required">*</span></p>
+        <div class="option-list">
+          <label><input required type="radio" name="q2_favorite_prototype" value="原型1（Dashboard）">原型 1（Dashboard）</label>
+          <label><input required type="radio" name="q2_favorite_prototype" value="原型2（沉浸式）">原型 2（沉浸式）</label>
+          <label><input required type="radio" name="q2_favorite_prototype" value="原型3（模拟器）">原型 3（模拟器）</label>
+          <label><input required type="radio" name="q2_favorite_prototype" value="原型4（COVID经济地球）">原型 4（COVID 经济地球）</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q3. 你认为哪个原型最能清晰展示 COVID-19 与经济数据之间的关系？<span class="required">*</span></p>
+        <div class="option-list">
+          <label><input required type="radio" name="q3_best_for_covid_economy" value="原型1（Dashboard）">原型 1（Dashboard）</label>
+          <label><input required type="radio" name="q3_best_for_covid_economy" value="原型2（沉浸式）">原型 2（沉浸式）</label>
+          <label><input required type="radio" name="q3_best_for_covid_economy" value="原型3（模拟器）">原型 3（模拟器）</label>
+          <label><input required type="radio" name="q3_best_for_covid_economy" value="原型4（COVID经济地球）">原型 4（COVID 经济地球）</label>
+        </div>
+      </div>
+
+      <h2>第 2 部分：逐个原型评分（1-5 分）</h2>
+      <p class="hint">评分说明：1 = 非常差，5 = 非常好</p>
+
+      <div class="question">
+        <p class="q-title">Q4. 原型 1（Dashboard）评分<span class="required">*</span></p>
+        <div class="score-row">
+          <strong>易用性</strong>
+          <select name="q4_p1_usability" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>数据清晰度</strong>
+          <select name="q4_p1_clarity" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>COVID-经济关系表达</strong>
+          <select name="q4_p1_covid_economy_link" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q5. 原型 2（沉浸式）评分<span class="required">*</span></p>
+        <div class="score-row">
+          <strong>易用性</strong>
+          <select name="q5_p2_usability" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>数据清晰度</strong>
+          <select name="q5_p2_clarity" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>COVID-经济关系表达</strong>
+          <select name="q5_p2_covid_economy_link" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q6. 原型 3（模拟器）评分<span class="required">*</span></p>
+        <div class="score-row">
+          <strong>易用性</strong>
+          <select name="q6_p3_usability" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>数据清晰度</strong>
+          <select name="q6_p3_clarity" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>COVID-经济关系表达</strong>
+          <select name="q6_p3_covid_economy_link" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q7. 原型 4（COVID 经济地球）评分<span class="required">*</span></p>
+        <div class="score-row">
+          <strong>易用性</strong>
+          <select name="q7_p4_usability" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>数据清晰度</strong>
+          <select name="q7_p4_clarity" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+        <div class="score-row">
+          <strong>COVID-经济关系表达</strong>
+          <select name="q7_p4_covid_economy_link" required>
+            <option value="">请选择</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </div>
+      </div>
+
+      <h2>第 3 部分：偏好与原因</h2>
+
+      <div class="question">
+        <p class="q-title">Q8. 你偏好该原型的主要原因是什么？（可多选）<span class="required">*</span></p>
+        <div class="option-list" id="q8-group">
+          <label><input type="checkbox" name="q8_reason" value="看起来更直观">看起来更直观</label>
+          <label><input type="checkbox" name="q8_reason" value="更容易操作">更容易操作</label>
+          <label><input type="checkbox" name="q8_reason" value="能更快看懂关键数据">能更快看懂关键数据</label>
+          <label><input type="checkbox" name="q8_reason" value="更能体现疫情与经济之间的联系">更能体现疫情与经济之间的联系</label>
+          <label><input type="checkbox" name="q8_reason" value="视觉效果更吸引人">视觉效果更吸引人</label>
+        </div>
+        <input type="text" name="q8_reason_other" placeholder="其他原因（可选）">
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q9. 你最想保留的功能是什么？<span class="required">*</span></p>
+        <textarea required name="q9_keep_feature" placeholder="请填写你的答案"></textarea>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q10. 你最想改进的地方是什么？<span class="required">*</span></p>
+        <textarea required name="q10_improvement" placeholder="请填写你的答案"></textarea>
+      </div>
+
+      <h2>第 4 部分：数据内容需求</h2>
+
+      <div class="question">
+        <p class="q-title">Q11. 你最关注哪些数据？（可多选）<span class="required">*</span></p>
+        <div class="option-list" id="q11-group">
+          <label><input type="checkbox" name="q11_data_focus" value="每日新增病例">每日新增病例</label>
+          <label><input type="checkbox" name="q11_data_focus" value="死亡人数">死亡人数</label>
+          <label><input type="checkbox" name="q11_data_focus" value="GDP变化">GDP 变化</label>
+          <label><input type="checkbox" name="q11_data_focus" value="失业率/经济恢复速度">失业率 / 经济恢复速度</label>
+          <label><input type="checkbox" name="q11_data_focus" value="医疗与经济指标的联动关系">医疗与经济指标的联动关系</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q12. 你希望数据如何呈现？<span class="required">*</span></p>
+        <div class="option-list">
+          <label><input required type="radio" name="q12_data_mode" value="每日变化（动态）">每日变化（动态）</label>
+          <label><input required type="radio" name="q12_data_mode" value="累计总量">累计总量</label>
+          <label><input required type="radio" name="q12_data_mode" value="两者可切换">两者可切换</label>
+        </div>
+      </div>
+
+      <h2>第 5 部分：总体反馈</h2>
+
+      <div class="question">
+        <p class="q-title">Q13. 本次 4 个原型对比是否帮助你理解“COVID-19 对经济的影响”？<span class="required">*</span></p>
+        <div class="option-list">
+          <label><input required type="radio" name="q13_overall_help" value="非常有帮助">非常有帮助</label>
+          <label><input required type="radio" name="q13_overall_help" value="有一定帮助">有一定帮助</label>
+          <label><input required type="radio" name="q13_overall_help" value="一般">一般</label>
+          <label><input required type="radio" name="q13_overall_help" value="帮助不大">帮助不大</label>
+          <label><input required type="radio" name="q13_overall_help" value="完全没有帮助">完全没有帮助</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-title">Q14. 还有其他建议或观察吗？（可选）</p>
+        <textarea name="q14_other_comments" placeholder="请填写你的答案"></textarea>
+      </div>
+
+      <div class="actions">
+        <button id="submitBtn" type="submit">提交问卷</button>
+        <span id="status" class="status"></span>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      const form = document.getElementById("surveyForm");
+      const statusEl = document.getElementById("status");
+      const submitBtn = document.getElementById("submitBtn");
+      const submittedAt = document.getElementById("submittedAt");
+
+      function atLeastOneChecked(containerId) {
+        const container = document.getElementById(containerId);
+        const checked = container.querySelectorAll('input[type="checkbox"]:checked');
+        return checked.length > 0;
+      }
+
+      function validateCheckboxQuestions() {
+        const q8Valid = atLeastOneChecked("q8-group");
+        const q11Valid = atLeastOneChecked("q11-group");
+        if (!q8Valid) {
+          statusEl.textContent = "请至少选择 Q8 的一个选项。";
+          return false;
+        }
+        if (!q11Valid) {
+          statusEl.textContent = "请至少选择 Q11 的一个选项。";
+          return false;
+        }
+        return true;
+      }
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        statusEl.textContent = "";
+
+        if (!form.reportValidity()) return;
+        if (!validateCheckboxQuestions()) return;
+
+        submittedAt.value = new Date().toISOString();
+        submitBtn.disabled = true;
+        statusEl.textContent = "正在提交...";
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: { "Accept": "application/json" }
+          });
+
+          if (!response.ok) {
+            throw new Error("提交失败");
+          }
+
+          statusEl.textContent = "提交成功，感谢你的参与。";
+          form.reset();
+        } catch (error) {
+          statusEl.textContent = "提交失败：请检查 Formspree 表单 ID 或网络连接。";
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
