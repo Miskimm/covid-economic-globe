@@ -2,6 +2,7 @@ import { fallbackCovid, fallbackGdp, loadCountryHistory, loadCovidRows, loadGdpM
 import { formatCompact, formatSigned } from "./format.js";
 import { createGlobe } from "./globe.js";
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
+import { initResearchTool } from "./research-tool.js";
 
 const config = {
     minPopulation: 250000,
@@ -497,3 +498,5 @@ init().catch((error) => {
     dom.sourceNote.textContent = "Initialization failed. Check network access or retry with fallback data.";
     setLoading(false);
 });
+
+initResearchTool();
