@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DECO7180 低保真研究执行工具</title>
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --card: #ffffff;
+      --line: #e5e7ef;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .subtitle { color: var(--muted); margin: 0 0 16px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    h2 { font-size: 20px; margin: 0 0 10px; }
+    h3 { font-size: 16px; margin: 14px 0 8px; }
+    .small { font-size: 13px; color: var(--muted); }
+    .pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 12px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .wireframe {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      white-space: pre-wrap;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fafafa;
+      padding: 12px;
+      font-size: 12px;
+      overflow-x: auto;
+    }
+    label { display: block; font-weight: 600; margin: 8px 0 6px; font-size: 14px; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      background: #fff;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-secondary { background: #e5e7eb; color: #111827; }
+    .btn-danger { background: #fee2e2; color: var(--danger); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #f8fafc; }
+    .status { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+      .row, .row3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DECO7180 低保真研究执行工具</h1>
+    <p class="subtitle">整合口播稿 + 低保真卡片 + 访谈记录表，支持本地保存与 CSV 导出</p>
+
+    <div class="card">
+      <h2>主持人流程（process）</h2>
+      <span class="pill">目标用户：政策/经济/设计相关学生</span>
+      <span class="pill">每场约 20-30 分钟</span>
+      <span class="pill">先理解任务，后偏好题</span>
+      <p class="small">
+        开场同意话术建议：本次仅用于课程研究，可匿名记录，受访者可随时停止。
+      </p>
+      <ol>
+        <li><strong>开场</strong>：说明不是测试受访者能力，而是测试信息设计是否清楚。</li>
+        <li><strong>Screen 1</strong>：解释 `GDP vs 2019` 与 `Recovery vs 2020`。</li>
+        <li><strong>Screen 2</strong>：做国家-时间对比并要求给出证据。</li>
+        <li><strong>Screen 3</strong>：讨论来源透明度、信任与可误用边界。</li>
+        <li><strong>收尾</strong>：最有用页面与优先改进点。</li>
+      </ol>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>低保真卡片（card）</h2>
+        <h3>Screen 1（指标解释）</h3>
+        <div class="wireframe">GDP vs 2019 (UK, 2023): -1.5pp
+Recovery vs 2020 (UK, 2023): +8.9pp
+Does NOT mean: direct causation / total GDP size</div>
+        <h3>Screen 2（国家时间对比）</h3>
+        <div class="wireframe">Country A: United Kingdom   Country B: Australia
+T1 (2020) / T2 (2023)
+Cases: A 2.3M -> 24.0M | B 28K -> 11.7M
+GDP vs 2019: A -12.0pp -> -1.5pp | B -3.7pp -> -0.3pp
+Recovery2020: A 0.0pp -> +8.9pp | B 0.0pp -> +3.4pp</div>
+        <h3>Screen 3（来源与信任）</h3>
+        <div class="wireframe">Source: World Bank / OWID / WHO
+Snapshot: 2026-04-27
+Limitations: reporting differences, lag, correlation != causation</div>
+      </div>
+
+      <div class="card">
+        <h2>访谈记录录入（sheet）</h2>
+        <div class="row3">
+          <div>
+            <label for="sessionId">Session ID</label>
+            <input id="sessionId" placeholder="如 S01" />
+          </div>
+          <div>
+            <label for="date">日期</label>
+            <input id="date" type="date" />
+          </div>
+          <div>
+            <label for="interviewer">访谈员</label>
+            <input id="interviewer" placeholder="姓名" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="participantBg">参与者背景（专业/年级）</label>
+            <input id="participantBg" placeholder="如 ECON Year 2" />
+          </div>
+          <div>
+            <label for="isPrimary">是否主用户</label>
+            <select id="isPrimary">
+              <option value="">请选择</option>
+              <option value="Y">Y</option>
+              <option value="N">N</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row3">
+          <div>
+            <label for="duration">总时长(min)</label>
+            <input id="duration" type="number" min="0" step="1" />
+          </div>
+          <div>
+            <label for="trustScore">总体信任(1-5)</label>
+            <input id="trustScore" type="number" min="1" max="5" />
+          </div>
+          <div>
+            <label for="understandScore">总体理解(1-5)</label>
+            <input id="understandScore" type="number" min="1" max="5" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="preferenceScore">偏好评分(1-5)</label>
+            <input id="preferenceScore" type="number" min="1" max="5" />
+          </div>
+          <div>
+            <label for="calibration">校准状态</label>
+            <select id="calibration">
+              <option value="">请选择</option>
+              <option>well-calibrated</option>
+              <option>overconfident</option>
+              <option>underconfident</option>
+              <option>miscalibrated</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="qGDP">Q5 原话：GDP vs 2019 解释</label>
+        <textarea id="qGDP"></textarea>
+
+        <label for="qRecovery">Q6 原话：Recovery vs 2020 解释</label>
+        <textarea id="qRecovery"></textarea>
+
+        <label for="qCompare">Q11 原话：国家对比结论 + 证据</label>
+        <textarea id="qCompare"></textarea>
+
+        <label for="qBoundary">Q13 原话：不能下的结论（相关/因果）</label>
+        <textarea id="qBoundary"></textarea>
+
+        <label for="misreadType">主要误解类型</label>
+        <select id="misreadType">
+          <option value="">请选择</option>
+          <option>metric confusion</option>
+          <option>baseline confusion</option>
+          <option>time confusion</option>
+          <option>evidence missing</option>
+          <option>false causation</option>
+          <option>source-blind trust</option>
+        </select>
+
+        <label for="trustQuote">信任原因 quote</label>
+        <textarea id="trustQuote"></textarea>
+
+        <label for="finalConclusion">关键结论一句话</label>
+        <textarea id="finalConclusion"></textarea>
+
+        <div class="actions">
+          <button class="btn-primary" id="saveBtn" type="button">保存本条结果</button>
+          <button class="btn-secondary" id="exportBtn" type="button">导出 CSV</button>
+          <button class="btn-danger" id="clearBtn" type="button">清空所有结果</button>
+        </div>
+        <div id="status" class="status">尚未保存记录。</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>已保存结果</h2>
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>SessionID</th>
+            <th>日期</th>
+            <th>访谈员</th>
+            <th>参与者背景</th>
+            <th>信任</th>
+            <th>理解</th>
+            <th>偏好</th>
+            <th>误解类型</th>
+            <th>关键结论</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "deco7180_lowfi_research_results";
+
+    function byId(id) {
+      return document.getElementById(id);
+    }
+
+    function loadRecords() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveRecords(records) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    }
+
+    function readForm() {
+      return {
+        sessionId: byId("sessionId").value.trim(),
+        date: byId("date").value,
+        interviewer: byId("interviewer").value.trim(),
+        participantBg: byId("participantBg").value.trim(),
+        isPrimary: byId("isPrimary").value,
+        duration: byId("duration").value,
+        trustScore: byId("trustScore").value,
+        understandScore: byId("understandScore").value,
+        preferenceScore: byId("preferenceScore").value,
+        calibration: byId("calibration").value,
+        qGDP: byId("qGDP").value.trim(),
+        qRecovery: byId("qRecovery").value.trim(),
+        qCompare: byId("qCompare").value.trim(),
+        qBoundary: byId("qBoundary").value.trim(),
+        misreadType: byId("misreadType").value,
+        trustQuote: byId("trustQuote").value.trim(),
+        finalConclusion: byId("finalConclusion").value.trim(),
+        createdAt: new Date().toISOString()
+      };
+    }
+
+    function clearForm() {
+      [
+        "sessionId","date","interviewer","participantBg","isPrimary","duration","trustScore",
+        "understandScore","preferenceScore","calibration","qGDP","qRecovery","qCompare",
+        "qBoundary","misreadType","trustQuote","finalConclusion"
+      ].forEach((id) => byId(id).value = "");
+    }
+
+    function toCsv(records) {
+      const headers = [
+        "sessionId","date","interviewer","participantBg","isPrimary","duration","trustScore",
+        "understandScore","preferenceScore","calibration","qGDP","qRecovery","qCompare",
+        "qBoundary","misreadType","trustQuote","finalConclusion","createdAt"
+      ];
+      const escapeCell = (value) => {
+        const s = String(value ?? "");
+        return "\"" + s.replace(/\"/g, "\"\"") + "\"";
+      };
+      const lines = [headers.join(",")];
+      for (const r of records) {
+        lines.push(headers.map((h) => escapeCell(r[h])).join(","));
+      }
+      return lines.join("\n");
+    }
+
+    function downloadCsv(filename, content) {
+      const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function renderTable() {
+      const tbody = document.querySelector("#resultTable tbody");
+      const records = loadRecords();
+      tbody.innerHTML = "";
+      for (const r of records) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.sessionId || ""}</td>
+          <td>${r.date || ""}</td>
+          <td>${r.interviewer || ""}</td>
+          <td>${r.participantBg || ""}</td>
+          <td>${r.trustScore || ""}</td>
+          <td>${r.understandScore || ""}</td>
+          <td>${r.preferenceScore || ""}</td>
+          <td>${r.misreadType || ""}</td>
+          <td>${r.finalConclusion || ""}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+      byId("status").textContent = `当前已保存 ${records.length} 条记录。`;
+    }
+
+    byId("saveBtn").addEventListener("click", () => {
+      const data = readForm();
+      if (!data.sessionId) {
+        byId("status").textContent = "请先填写 Session ID。";
+        return;
+      }
+      const records = loadRecords();
+      records.push(data);
+      saveRecords(records);
+      clearForm();
+      renderTable();
+      byId("status").textContent = `已保存 Session ${data.sessionId}。`;
+    });
+
+    byId("exportBtn").addEventListener("click", () => {
+      const records = loadRecords();
+      if (!records.length) {
+        byId("status").textContent = "暂无可导出的记录。";
+        return;
+      }
+      const csv = toCsv(records);
+      const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+      downloadCsv(`deco7180_research_results_${stamp}.csv`, csv);
+      byId("status").textContent = "CSV 导出完成。";
+    });
+
+    byId("clearBtn").addEventListener("click", () => {
+      if (!confirm("确定清空所有本地记录？此操作不可恢复。")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      renderTable();
+      byId("status").textContent = "已清空所有本地记录。";
+    });
+
+    renderTable();
+  </script>
+</body>
+</html>

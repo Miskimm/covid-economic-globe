@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DECO7180 Low-fi Survey Tool</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #fff;
+      --line: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --danger: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+    .container { max-width: 980px; margin: 0 auto; padding: 20px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    h2 { margin: 0 0 10px; font-size: 20px; }
+    h3 { margin: 12px 0 8px; font-size: 16px; }
+    .muted { color: var(--muted); font-size: 14px; }
+    .chips { margin: 8px 0 0; }
+    .chip {
+      display: inline-block;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 12px;
+      padding: 4px 8px;
+      margin: 0 8px 8px 0;
+    }
+    .wire {
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fafafa;
+      padding: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 14px;
+      background: #fff;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-secondary { background: #e5e7eb; color: #111827; }
+    .btn-danger { background: #fee2e2; color: var(--danger); }
+    .status { margin-top: 10px; font-size: 13px; color: var(--muted); }
+    details summary { cursor: pointer; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+    th, td { border: 1px solid var(--line); padding: 8px; text-align: left; }
+    th { background: #f9fafb; }
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(320px, 420px) 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .cards-column {
+      position: sticky;
+      top: 16px;
+      max-height: calc(100vh - 32px);
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .cards-column .card { margin-bottom: 12px; }
+    .survey-column .card { margin-bottom: 0; }
+    .concept-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f9fafb;
+      padding: 10px;
+      margin-top: 8px;
+    }
+    .concept-title {
+      font-size: 12px;
+      color: #374151;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px dashed #d1d5db;
+      font-size: 13px;
+    }
+    .metric-row:last-child { border-bottom: none; }
+    .metric-val {
+      font-weight: 700;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .metric-neg { color: #b91c1c; }
+    .metric-pos { color: #065f46; }
+    .warning-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .country-box {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+    }
+    .country-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .country-kv {
+      font-size: 12px;
+      margin: 4px 0;
+      color: #374151;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid #c7d2fe;
+      background: #eef2ff;
+      color: #3730a3;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    .source-item {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #fff;
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+    .source-label {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+    .boundary-banner {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    @media (max-width: 900px) {
+      .row, .row3 { grid-template-columns: 1fr; }
+      .workspace { grid-template-columns: 1fr; }
+      .cards-column {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>COVID-19 x Economy Interpretation Study</h1>
+      <p class="muted">
+        This is a low-fidelity concept survey for DECO7180. Please review the cards below and complete the form.
+      </p>
+      <div class="chips">
+        <span class="chip">Estimated time: 8-12 mins</span>
+        <span class="chip">Anonymous response</span>
+        <span class="chip">You can stop at any time</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Consent</h2>
+      <p class="muted">
+        Your response will be used for coursework research only. No personal identity is required.
+      </p>
+      <label><input id="consent" type="checkbox" /> I agree to participate in this study.</label>
+    </div>
+
+    <div class="workspace">
+      <aside class="cards-column">
+        <div class="card">
+          <h2>Card A — Indicator Meaning</h2>
+          <div class="concept-card">
+            <div class="concept-title">United Kingdom (2023)</div>
+            <div class="metric-row">
+              <span>GDP vs 2019 (baseline gap)</span>
+              <span class="metric-val metric-neg">-1.5pp</span>
+            </div>
+            <div class="metric-row">
+              <span>Recovery vs 2020 (rebound from trough)</span>
+              <span class="metric-val metric-pos">+8.9pp</span>
+            </div>
+          </div>
+          <ul class="warning-list">
+            <li>Does <strong>not</strong> prove direct causation between cases and GDP.</li>
+            <li>Does <strong>not</strong> represent total GDP size (USD).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Card B — Country-Time Comparison</h2>
+          <div>
+            <span class="badge">T1: 2020</span>
+            <span class="badge">T2: 2023</span>
+          </div>
+          <div class="compare-grid">
+            <div class="country-box">
+              <div class="country-name">United Kingdom</div>
+              <div class="country-kv">Cases: 2.3M -> 24.0M</div>
+              <div class="country-kv">GDP vs 2019: -12.0pp -> -1.5pp</div>
+              <div class="country-kv">Recovery vs 2020: 0.0pp -> +8.9pp</div>
+            </div>
+            <div class="country-box">
+              <div class="country-name">Australia</div>
+              <div class="country-kv">Cases: 28K -> 11.7M</div>
+              <div class="country-kv">GDP vs 2019: -3.7pp -> -0.3pp</div>
+              <div class="country-kv">Recovery vs 2020: 0.0pp -> +3.4pp</div>
+            </div>
+          </div>
+          <div class="boundary-banner">Interpret aligned trends as correlation, not automatic causation.</div>
+        </div>
+
+        <div class="card">
+          <h2>Card C — Source and Trust</h2>
+          <div class="source-item">
+            <div class="source-label">Data sources</div>
+            World Bank (GDP growth), OWID / WHO (COVID indicators)
+          </div>
+          <div class="source-item">
+            <div class="source-label">Snapshot date</div>
+            2026-04-27
+          </div>
+          <div class="source-item">
+            <div class="source-label">Method and limitation notes</div>
+            Cross-country reporting differences, economic data lag, and no direct causal proof.
+          </div>
+          <div class="boundary-banner">Observed alignment does not prove causation.</div>
+        </div>
+      </aside>
+
+      <section class="survey-column">
+        <div class="card">
+          <h2>Survey Form (Self-fill)</h2>
+          <form id="surveyForm">
+        <div class="row">
+          <div>
+            <label for="participantBg">1) Your background (major/year)</label>
+            <input id="participantBg" required placeholder="e.g., ECON Year 2" />
+          </div>
+          <div>
+            <label for="familiarity">2) Prior familiarity with COVID-economic data</label>
+            <select id="familiarity" required>
+              <option value="">Select one</option>
+              <option>Very low</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Very high</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="qGDP">3) In your own words, what does "GDP vs 2019" mean?</label>
+        <textarea id="qGDP" required></textarea>
+
+        <label for="qRecovery">4) In your own words, what does "Recovery vs 2020" mean?</label>
+        <textarea id="qRecovery" required></textarea>
+
+        <label for="qDifference">5) What is the difference between these two indicators?</label>
+        <textarea id="qDifference" required></textarea>
+
+        <label for="qCompare">6) Based on Card B, which country had a deeper economic shock, and what evidence supports your answer?</label>
+        <textarea id="qCompare" required></textarea>
+
+        <label for="qBoundary">7) What cannot be concluded from these cards?</label>
+        <textarea id="qBoundary" required></textarea>
+
+        <div class="row">
+          <div>
+            <label for="trustScore">8) Trust score (1-5)</label>
+            <input id="trustScore" type="number" min="1" max="5" required />
+          </div>
+          <div>
+            <label for="confidenceScore">9) Confidence score (1-5)</label>
+            <input id="confidenceScore" type="number" min="1" max="5" required />
+          </div>
+        </div>
+
+        <label for="qTrustReason">10) Why did you choose that trust score?</label>
+        <textarea id="qTrustReason" required></textarea>
+
+        <label for="qNeedMore">11) What extra source/method information would you need before citing this in an assignment?</label>
+        <textarea id="qNeedMore" required></textarea>
+
+        <label for="qMostUseful">12) Which card was most useful, and why?</label>
+        <textarea id="qMostUseful" required></textarea>
+
+        <label for="qImprove">13) If you could improve one thing, what would it be?</label>
+        <textarea id="qImprove" required></textarea>
+
+            <div class="actions">
+              <button class="btn-primary" type="submit">Submit Response</button>
+              <button class="btn-secondary" type="button" id="resetBtn">Reset Form</button>
+            </div>
+          </form>
+          <div id="submitStatus" class="status">No response submitted yet.</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="card">
+      <details>
+        <summary>Researcher panel (export CSV / clear local data)</summary>
+        <p class="muted">This panel is for the researcher. It exports all locally stored responses from this browser.</p>
+        <div class="actions">
+          <button class="btn-secondary" id="exportBtn" type="button">Export CSV</button>
+          <button class="btn-danger" id="clearBtn" type="button">Clear Local Responses</button>
+        </div>
+        <div id="adminStatus" class="status">Stored responses: 0</div>
+        <table id="previewTable">
+          <thead>
+            <tr>
+              <th>submittedAt</th>
+              <th>background</th>
+              <th>trust</th>
+              <th>confidence</th>
+              <th>most useful</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </details>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "deco7180_lowfi_self_fill_responses";
+    const byId = (id) => document.getElementById(id);
+
+    function loadResponses() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveResponses(responses) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(responses));
+    }
+
+    function collectFormData() {
+      return {
+        submittedAt: new Date().toISOString(),
+        participantBg: byId("participantBg").value.trim(),
+        familiarity: byId("familiarity").value,
+        qGDP: byId("qGDP").value.trim(),
+        qRecovery: byId("qRecovery").value.trim(),
+        qDifference: byId("qDifference").value.trim(),
+        qCompare: byId("qCompare").value.trim(),
+        qBoundary: byId("qBoundary").value.trim(),
+        trustScore: byId("trustScore").value,
+        confidenceScore: byId("confidenceScore").value,
+        qTrustReason: byId("qTrustReason").value.trim(),
+        qNeedMore: byId("qNeedMore").value.trim(),
+        qMostUseful: byId("qMostUseful").value.trim(),
+        qImprove: byId("qImprove").value.trim()
+      };
+    }
+
+    function toCsv(rows) {
+      const headers = [
+        "submittedAt","participantBg","familiarity","qGDP","qRecovery","qDifference","qCompare",
+        "qBoundary","trustScore","confidenceScore","qTrustReason","qNeedMore","qMostUseful","qImprove"
+      ];
+      const escapeCell = (v) => `"${String(v ?? "").replace(/"/g, "\"\"")}"`;
+      const lines = [headers.join(",")];
+      rows.forEach((r) => lines.push(headers.map((h) => escapeCell(r[h])).join(",")));
+      return lines.join("\n");
+    }
+
+    function downloadCsv(filename, content) {
+      const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function refreshAdminPanel() {
+      const rows = loadResponses();
+      byId("adminStatus").textContent = `Stored responses: ${rows.length}`;
+      const tbody = document.querySelector("#previewTable tbody");
+      tbody.innerHTML = "";
+      rows.slice(-10).forEach((r) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${r.submittedAt}</td>
+          <td>${r.participantBg}</td>
+          <td>${r.trustScore}</td>
+          <td>${r.confidenceScore}</td>
+          <td>${r.qMostUseful}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    byId("surveyForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!byId("consent").checked) {
+        byId("submitStatus").textContent = "Please provide consent before submitting.";
+        return;
+      }
+      if (!e.target.reportValidity()) return;
+      const data = collectFormData();
+      const rows = loadResponses();
+      rows.push(data);
+      saveResponses(rows);
+      e.target.reset();
+      byId("consent").checked = false;
+      byId("submitStatus").textContent = "Thank you. Your response has been submitted.";
+      refreshAdminPanel();
+    });
+
+    byId("resetBtn").addEventListener("click", () => {
+      byId("surveyForm").reset();
+      byId("consent").checked = false;
+      byId("submitStatus").textContent = "Form reset.";
+    });
+
+    byId("exportBtn").addEventListener("click", () => {
+      const rows = loadResponses();
+      if (!rows.length) {
+        byId("adminStatus").textContent = "No response to export.";
+        return;
+      }
+      const csv = toCsv(rows);
+      const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+      downloadCsv(`deco7180_lowfi_survey_${stamp}.csv`, csv);
+      byId("adminStatus").textContent = `Exported ${rows.length} responses.`;
+    });
+
+    byId("clearBtn").addEventListener("click", () => {
+      if (!confirm("Clear all locally stored responses in this browser?")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      refreshAdminPanel();
+      byId("adminStatus").textContent = "Local responses cleared.";
+    });
+
+    refreshAdminPanel();
+  </script>
+</body>
+</html>
