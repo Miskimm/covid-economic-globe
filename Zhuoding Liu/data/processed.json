@@ -1,0 +1,5463 @@
+{
+    "meta": {
+        "gdpIndicator": "NY.GDP.MKTP.KD.ZG",
+        "gdpLabel": "GDP growth (annual %)",
+        "gdpUpdated": "2026-02-24",
+        "covidLatest": "2026-02-22",
+        "covidAnnualRange": "2020-2025",
+        "countryCount": 193
+    },
+    "countries": [
+        {
+            "code": "USA",
+            "country": "United States",
+            "region": "North America",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.95,
+                "2016": 1.82,
+                "2017": 2.46,
+                "2018": 2.97,
+                "2019": 2.58,
+                "2020": -2.16,
+                "2021": 6.06,
+                "2022": 2.51,
+                "2023": 2.89,
+                "2024": 2.79
+            },
+            "covid": {
+                "2020": { "cases": 19577585, "deaths": 352004 },
+                "2021": { "cases": 33956701, "deaths": 467051 },
+                "2022": { "cases": 45877410, "deaths": 263401 },
+                "2023": { "cases": 4025133, "deaths": 82041 },
+                "2024": { "cases": 0, "deaths": 48402 },
+                "2025": { "cases": 0, "deaths": 20298 }
+            },
+            "totalCases": 103436829,
+            "totalDeaths": 1233197,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "CHN",
+            "country": "China",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 6.98,
+                "2016": 6.78,
+                "2017": 6.89,
+                "2018": 6.76,
+                "2019": 6.07,
+                "2020": 2.34,
+                "2021": 8.57,
+                "2022": 3.13,
+                "2023": 5.41,
+                "2024": 4.98
+            },
+            "covid": {
+                "2020": { "cases": 96673, "deaths": 4788 },
+                "2021": { "cases": 35398, "deaths": 911 },
+                "2022": { "cases": 84792971, "deaths": 46845 },
+                "2023": { "cases": 14397685, "deaths": 69349 },
+                "2024": { "cases": 58852, "deaths": 498 },
+                "2025": { "cases": 182, "deaths": 7 }
+            },
+            "totalCases": 99381761,
+            "totalDeaths": 122398,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "IND",
+            "country": "India",
+            "region": "South Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 8.0,
+                "2016": 8.26,
+                "2017": 6.8,
+                "2018": 6.45,
+                "2019": 3.87,
+                "2020": -5.78,
+                "2021": 9.69,
+                "2022": 7.61,
+                "2023": 9.19,
+                "2024": 6.49
+            },
+            "covid": {
+                "2020": { "cases": 10266674, "deaths": 148738 },
+                "2021": { "cases": 24572130, "deaths": 332342 },
+                "2022": { "cases": 9839580, "deaths": 49622 },
+                "2023": { "cases": 334788, "deaths": 2659 },
+                "2024": { "cases": 31401, "deaths": 300 },
+                "2025": { "cases": 11553, "deaths": 186 }
+            },
+            "totalCases": 45056126,
+            "totalDeaths": 533847,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "FRA",
+            "country": "France",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.07,
+                "2016": 0.86,
+                "2017": 2.08,
+                "2018": 1.65,
+                "2019": 2.03,
+                "2020": -7.44,
+                "2021": 6.88,
+                "2022": 2.72,
+                "2023": 1.44,
+                "2024": 1.19
+            },
+            "covid": {
+                "2020": { "cases": 2338258, "deaths": 63534 },
+                "2021": { "cases": 6371668, "deaths": 60631 },
+                "2022": { "cases": 29279621, "deaths": 37502 },
+                "2023": { "cases": 1007943, "deaths": 6380 },
+                "2024": { "cases": 34394, "deaths": 99 },
+                "2025": { "cases": 24331, "deaths": 47 }
+            },
+            "totalCases": 39056215,
+            "totalDeaths": 168193,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "DEU",
+            "country": "Germany",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.66,
+                "2016": 2.22,
+                "2017": 2.8,
+                "2018": 1.14,
+                "2019": 0.98,
+                "2020": -4.13,
+                "2021": 3.91,
+                "2022": 1.81,
+                "2023": -0.87,
+                "2024": -0.5
+            },
+            "covid": {
+                "2020": { "cases": 1660178, "deaths": 47009 },
+                "2021": { "cases": 5353865, "deaths": 70683 },
+                "2022": { "cases": 30227893, "deaths": 48046 },
+                "2023": { "cases": 1195820, "deaths": 9241 },
+                "2024": { "cases": 91, "deaths": 0 },
+                "2025": { "cases": 94, "deaths": 0 }
+            },
+            "totalCases": 38437941,
+            "totalDeaths": 174979,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BRA",
+            "country": "Brazil",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -3.55,
+                "2016": -3.28,
+                "2017": 1.32,
+                "2018": 1.78,
+                "2019": 1.22,
+                "2020": -3.28,
+                "2021": 4.76,
+                "2022": 3.02,
+                "2023": 3.24,
+                "2024": 3.42
+            },
+            "covid": {
+                "2020": { "cases": 7563551, "deaths": 192681 },
+                "2021": { "cases": 14700283, "deaths": 426136 },
+                "2022": { "cases": 14038581, "deaths": 74917 },
+                "2023": { "cases": 1209506, "deaths": 8382 },
+                "2024": { "cases": 14984, "deaths": 81 },
+                "2025": { "cases": 417448, "deaths": 1484 }
+            },
+            "totalCases": 37944353,
+            "totalDeaths": 703681,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "JPN",
+            "country": "Japan",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.56,
+                "2016": 0.75,
+                "2017": 1.68,
+                "2018": 0.64,
+                "2019": -0.4,
+                "2020": -4.17,
+                "2021": 2.7,
+                "2022": 0.94,
+                "2023": 1.48,
+                "2024": 0.1
+            },
+            "covid": {
+                "2020": { "cases": 230304, "deaths": 3414 },
+                "2021": { "cases": 1503484, "deaths": 14979 },
+                "2022": { "cases": 27371282, "deaths": 39120 },
+                "2023": { "cases": 4698502, "deaths": 17181 }
+            },
+            "totalCases": 33803572,
+            "totalDeaths": 74694,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "ITA",
+            "country": "Italy",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.89,
+                "2016": 1.24,
+                "2017": 1.6,
+                "2018": 0.83,
+                "2019": 0.43,
+                "2020": -8.87,
+                "2021": 8.93,
+                "2022": 4.82,
+                "2023": 0.98,
+                "2024": 0.69
+            },
+            "covid": {
+                "2020": { "cases": 2083689, "deaths": 73604 },
+                "2021": { "cases": 3897739, "deaths": 63643 },
+                "2022": { "cases": 19187010, "deaths": 47545 },
+                "2023": { "cases": 1493963, "deaths": 10255 },
+                "2024": { "cases": 297198, "deaths": 3225 },
+                "2025": { "cases": 10032, "deaths": 251 }
+            },
+            "totalCases": 26969631,
+            "totalDeaths": 198523,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "GBR",
+            "country": "United Kingdom",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.14,
+                "2016": 2.21,
+                "2017": 3.02,
+                "2018": 1.55,
+                "2019": 1.26,
+                "2020": -10.05,
+                "2021": 8.54,
+                "2022": 5.15,
+                "2023": 0.27,
+                "2024": 1.13
+            },
+            "covid": {
+                "2020": { "cases": 2563561, "deaths": 93317 },
+                "2021": { "cases": 10878146, "deaths": 83496 },
+                "2022": { "cases": 10752848, "deaths": 39346 },
+                "2023": { "cases": 671067, "deaths": 15953 },
+                "2024": { "cases": 161756, "deaths": 0 },
+                "2025": { "cases": 78971, "deaths": 0 }
+            },
+            "totalCases": 25106349,
+            "totalDeaths": 232112,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "RUS",
+            "country": "Russian Federation",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": -1.97,
+                "2016": 0.19,
+                "2017": 1.83,
+                "2018": 2.81,
+                "2019": 2.2,
+                "2020": -2.65,
+                "2021": 5.87,
+                "2022": -1.44,
+                "2023": 4.08,
+                "2024": 4.34
+            },
+            "covid": {
+                "2020": { "cases": 3159297, "deaths": 57019 },
+                "2021": { "cases": 7340685, "deaths": 251841 },
+                "2022": { "cases": 11298527, "deaths": 84852 },
+                "2023": { "cases": 1948043, "deaths": 7647 },
+                "2024": { "cases": 1085295, "deaths": 2708 },
+                "2025": { "cases": 69620, "deaths": 223 }
+            },
+            "totalCases": 24901467,
+            "totalDeaths": 404290,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "TUR",
+            "country": "Turkiye",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 5.81,
+                "2016": 3.32,
+                "2017": 7.83,
+                "2018": 3.47,
+                "2019": 1.3,
+                "2020": 1.8,
+                "2021": 11.81,
+                "2022": 5.44,
+                "2023": 5.05,
+                "2024": 3.33
+            },
+            "covid": {
+                "2020": { "cases": 2194272, "deaths": 20642 },
+                "2021": { "cases": 7247492, "deaths": 61462 },
+                "2022": { "cases": 7562913, "deaths": 19315 },
+                "2023": { "cases": 10, "deaths": 0 },
+                "2024": { "cases": 25, "deaths": 0 },
+                "2025": { "cases": 13, "deaths": 0 }
+            },
+            "totalCases": 17004725,
+            "totalDeaths": 101419,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "ESP",
+            "country": "Spain",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.06,
+                "2016": 2.92,
+                "2017": 2.9,
+                "2018": 2.4,
+                "2019": 1.96,
+                "2020": -10.94,
+                "2021": 6.68,
+                "2022": 6.37,
+                "2023": 2.46,
+                "2024": 3.46
+            },
+            "covid": {
+                "2020": { "cases": 1919549, "deaths": 53964 },
+                "2021": { "cases": 4180589, "deaths": 37311 },
+                "2022": { "cases": 7654824, "deaths": 27668 },
+                "2023": { "cases": 225378, "deaths": 2909 },
+                "2024": { "cases": 0, "deaths": 5 },
+                "2025": { "cases": 0, "deaths": 23 }
+            },
+            "totalCases": 13980340,
+            "totalDeaths": 121880,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "AUS",
+            "country": "Australia",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.16,
+                "2016": 2.76,
+                "2017": 2.29,
+                "2018": 2.87,
+                "2019": 2.19,
+                "2020": -0.13,
+                "2021": 2.01,
+                "2022": 4.25,
+                "2023": 3.58,
+                "2024": 1.37
+            },
+            "covid": {
+                "2020": { "cases": 28381, "deaths": 920 },
+                "2021": { "cases": 338226, "deaths": 1523 },
+                "2022": { "cases": 10418952, "deaths": 16467 },
+                "2023": { "cases": 935976, "deaths": 5434 },
+                "2024": { "cases": 139626, "deaths": 892 }
+            },
+            "totalCases": 11861161,
+            "totalDeaths": 25236,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "VNM",
+            "country": "Viet Nam",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.99,
+                "2016": 6.69,
+                "2017": 6.94,
+                "2018": 7.47,
+                "2019": 7.36,
+                "2020": 2.87,
+                "2021": 2.55,
+                "2022": 8.54,
+                "2023": 5.07,
+                "2024": 7.09
+            },
+            "covid": {
+                "2020": { "cases": 1456, "deaths": 35 },
+                "2021": { "cases": 1729801, "deaths": 32359 },
+                "2022": { "cases": 9793887, "deaths": 10792 },
+                "2023": { "cases": 98856, "deaths": 20 }
+            },
+            "totalCases": 11624000,
+            "totalDeaths": 43206,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "ARG",
+            "country": "Argentina",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.73,
+                "2016": -2.08,
+                "2017": 2.82,
+                "2018": -2.62,
+                "2019": -2.0,
+                "2020": -9.9,
+                "2021": 10.44,
+                "2022": 6.02,
+                "2023": -1.86,
+                "2024": -1.34
+            },
+            "covid": {
+                "2020": { "cases": 1674319, "deaths": 48271 },
+                "2021": { "cases": 4106203, "deaths": 69905 },
+                "2022": { "cases": 4110617, "deaths": 11948 },
+                "2023": { "cases": 153818, "deaths": 348 },
+                "2024": { "cases": 65805, "deaths": 264 },
+                "2025": { "cases": 7777, "deaths": 93 }
+            },
+            "totalCases": 10118539,
+            "totalDeaths": 130829,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "MEX",
+            "country": "Mexico",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.7,
+                "2016": 1.77,
+                "2017": 1.87,
+                "2018": 1.97,
+                "2019": -0.39,
+                "2020": -8.35,
+                "2021": 6.05,
+                "2022": 3.71,
+                "2023": 3.35,
+                "2024": 1.43
+            },
+            "covid": {
+                "2020": { "cases": 1496067, "deaths": 147623 },
+                "2021": { "cases": 2538755, "deaths": 156199 },
+                "2022": { "cases": 3236805, "deaths": 27677 },
+                "2023": { "cases": 336789, "deaths": 2627 },
+                "2024": { "cases": 14131, "deaths": 698 },
+                "2025": { "cases": 7191, "deaths": 266 }
+            },
+            "totalCases": 7629738,
+            "totalDeaths": 335090,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "IRN",
+            "country": "Iran, Islamic Rep.",
+            "region": "Middle East & North Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -1.42,
+                "2016": 8.82,
+                "2017": 3.03,
+                "2018": -3.75,
+                "2019": -2.36,
+                "2020": 4.44,
+                "2021": 4.13,
+                "2022": 4.35,
+                "2023": 5.33,
+                "2024": 3.66
+            },
+            "covid": {
+                "2020": { "cases": 1218753, "deaths": 55095 },
+                "2021": { "cases": 4973945, "deaths": 76477 },
+                "2022": { "cases": 1368360, "deaths": 13110 },
+                "2023": { "cases": 64405, "deaths": 2075 },
+                "2024": { "cases": 2400, "deaths": 80 }
+            },
+            "totalCases": 7627863,
+            "totalDeaths": 146837,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "POL",
+            "country": "Poland",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.43,
+                "2016": 3.03,
+                "2017": 5.15,
+                "2018": 6.25,
+                "2019": 4.58,
+                "2020": -2.04,
+                "2021": 6.93,
+                "2022": 5.26,
+                "2023": 0.25,
+                "2024": 3.03
+            },
+            "covid": {
+                "2020": { "cases": 1297400, "deaths": 28642 },
+                "2021": { "cases": 2811801, "deaths": 68416 },
+                "2022": { "cases": 2259187, "deaths": 21475 },
+                "2023": { "cases": 263677, "deaths": 1705 },
+                "2024": { "cases": 137633, "deaths": 738 },
+                "2025": { "cases": 65382, "deaths": 3 }
+            },
+            "totalCases": 6835080,
+            "totalDeaths": 120979,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "IDN",
+            "country": "Indonesia",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 4.88,
+                "2016": 5.03,
+                "2017": 5.07,
+                "2018": 5.17,
+                "2019": 5.02,
+                "2020": -2.07,
+                "2021": 3.7,
+                "2022": 5.31,
+                "2023": 5.05,
+                "2024": 5.03
+            },
+            "covid": {
+                "2020": { "cases": 743198, "deaths": 22138 },
+                "2021": { "cases": 3519522, "deaths": 121956 },
+                "2022": { "cases": 2457095, "deaths": 16518 },
+                "2023": { "cases": 101955, "deaths": 1360 },
+                "2024": { "cases": 8348, "deaths": 87 },
+                "2025": { "cases": 156, "deaths": 0 }
+            },
+            "totalCases": 6830274,
+            "totalDeaths": 162059,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "COL",
+            "country": "Colombia",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.96,
+                "2016": 2.09,
+                "2017": 1.36,
+                "2018": 2.56,
+                "2019": 3.19,
+                "2020": -7.19,
+                "2021": 10.8,
+                "2022": 7.33,
+                "2023": 0.71,
+                "2024": 1.6
+            },
+            "covid": {
+                "2020": { "cases": 1614822, "deaths": 42620 },
+                "2021": { "cases": 3523781, "deaths": 87246 },
+                "2022": { "cases": 1206512, "deaths": 12313 },
+                "2023": { "cases": 20879, "deaths": 548 },
+                "2024": { "cases": 28708, "deaths": 0 },
+                "2025": { "cases": 7800, "deaths": 75 }
+            },
+            "totalCases": 6402502,
+            "totalDeaths": 142802,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "AUT",
+            "country": "Austria",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.3,
+                "2016": 2.12,
+                "2017": 2.27,
+                "2018": 2.48,
+                "2019": 1.75,
+                "2020": -6.32,
+                "2021": 4.92,
+                "2022": 5.33,
+                "2023": -0.79,
+                "2024": -0.66
+            },
+            "covid": {
+                "2020": { "cases": 352657, "deaths": 7379 },
+                "2021": { "cases": 911872, "deaths": 9318 },
+                "2022": { "cases": 4436317, "deaths": 4937 },
+                "2023": { "cases": 381324, "deaths": 900 },
+                "2024": { "cases": 876, "deaths": 0 },
+                "2025": { "cases": 653, "deaths": 0 }
+            },
+            "totalCases": 6083699,
+            "totalDeaths": 22534,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "GRC",
+            "country": "Greece",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": -0.23,
+                "2016": -0.03,
+                "2017": 1.47,
+                "2018": 2.06,
+                "2019": 2.28,
+                "2020": -9.2,
+                "2021": 8.65,
+                "2022": 5.52,
+                "2023": 2.14,
+                "2024": 2.09
+            },
+            "covid": {
+                "2020": { "cases": 139692, "deaths": 4682 },
+                "2021": { "cases": 945395, "deaths": 15823 },
+                "2022": { "cases": 3938076, "deaths": 14471 },
+                "2023": { "cases": 547200, "deaths": 3445 },
+                "2024": { "cases": 184843, "deaths": 1481 },
+                "2025": { "cases": 92429, "deaths": 284 }
+            },
+            "totalCases": 5847635,
+            "totalDeaths": 40186,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "PRT",
+            "country": "Portugal",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.59,
+                "2016": 2.0,
+                "2017": 3.31,
+                "2018": 2.95,
+                "2019": 2.75,
+                "2020": -8.2,
+                "2021": 5.56,
+                "2022": 6.99,
+                "2023": 3.1,
+                "2024": 2.14
+            },
+            "covid": {
+                "2020": { "cases": 377474, "deaths": 6695 },
+                "2021": { "cases": 905174, "deaths": 12193 },
+                "2022": { "cases": 4267920, "deaths": 6885 },
+                "2023": { "cases": 88960, "deaths": 2157 },
+                "2024": { "cases": 31189, "deaths": 1154 },
+                "2025": { "cases": 869, "deaths": 542 }
+            },
+            "totalCases": 5671586,
+            "totalDeaths": 29626,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "UKR",
+            "country": "Ukraine",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -9.77,
+                "2016": 2.44,
+                "2017": 2.36,
+                "2018": 3.49,
+                "2019": 3.2,
+                "2020": -3.75,
+                "2021": 3.45,
+                "2022": -28.76,
+                "2023": 5.53,
+                "2024": 2.91
+            },
+            "covid": {
+                "2020": { "cases": 988108, "deaths": 15278 },
+                "2021": { "cases": 2617976, "deaths": 77255 },
+                "2022": { "cases": 1709592, "deaths": 15716 },
+                "2023": { "cases": 210004, "deaths": 1669 },
+                "2024": { "cases": 16060, "deaths": 7 },
+                "2025": { "cases": 13012, "deaths": 11 }
+            },
+            "totalCases": 5554752,
+            "totalDeaths": 109936,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "THA",
+            "country": "Thailand",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.13,
+                "2016": 3.44,
+                "2017": 4.18,
+                "2018": 4.22,
+                "2019": 2.11,
+                "2020": -6.05,
+                "2021": 1.55,
+                "2022": 2.58,
+                "2023": 2.02,
+                "2024": 2.54
+            },
+            "covid": {
+                "2020": { "cases": 6884, "deaths": 61 },
+                "2021": { "cases": 2216551, "deaths": 21637 },
+                "2022": { "cases": 2500484, "deaths": 11971 },
+                "2023": { "cases": 38456, "deaths": 848 },
+                "2024": { "cases": 46079, "deaths": 224 },
+                "2025": { "cases": 611452, "deaths": 252 }
+            },
+            "totalCases": 5419906,
+            "totalDeaths": 34993,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "CHL",
+            "country": "Chile",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.15,
+                "2016": 1.75,
+                "2017": 1.36,
+                "2018": 3.99,
+                "2019": 0.63,
+                "2020": -6.14,
+                "2021": 11.31,
+                "2022": 2.15,
+                "2023": 0.52,
+                "2024": 2.64
+            },
+            "covid": {
+                "2020": { "cases": 605950, "deaths": 16499 },
+                "2021": { "cases": 1198732, "deaths": 22597 },
+                "2022": { "cases": 3227670, "deaths": 24053 },
+                "2023": { "cases": 300625, "deaths": -922 },
+                "2024": { "cases": 76988, "deaths": 633 },
+                "2025": { "cases": 415, "deaths": 20 }
+            },
+            "totalCases": 5410380,
+            "totalDeaths": 62880,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "MYS",
+            "country": "Malaysia",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 5.09,
+                "2016": 4.45,
+                "2017": 5.81,
+                "2018": 4.84,
+                "2019": 4.41,
+                "2020": -5.46,
+                "2021": 3.32,
+                "2022": 9.03,
+                "2023": 3.54,
+                "2024": 5.11
+            },
+            "covid": {
+                "2020": { "cases": 110485, "deaths": 463 },
+                "2021": { "cases": 2647601, "deaths": 31024 },
+                "2022": { "cases": 2268078, "deaths": 5370 },
+                "2023": { "cases": 201158, "deaths": 436 },
+                "2024": { "cases": 102514, "deaths": 58 }
+            },
+            "totalCases": 5329836,
+            "totalDeaths": 37351,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "BEL",
+            "country": "Belgium",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.47,
+                "2016": 1.19,
+                "2017": 1.47,
+                "2018": 1.88,
+                "2019": 2.44,
+                "2020": -4.79,
+                "2021": 6.25,
+                "2022": 3.96,
+                "2023": 1.71,
+                "2024": 1.07
+            },
+            "covid": {
+                "2020": { "cases": 645277, "deaths": 19638 },
+                "2021": { "cases": 1451435, "deaths": 8679 },
+                "2022": { "cases": 2588192, "deaths": 5002 },
+                "2023": { "cases": 163841, "deaths": 1020 },
+                "2024": { "cases": 44113, "deaths": 0 },
+                "2025": { "cases": 12789, "deaths": 0 }
+            },
+            "totalCases": 4905647,
+            "totalDeaths": 34339,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "CZE",
+            "country": "Czechia",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.96,
+                "2016": 2.58,
+                "2017": 5.17,
+                "2018": 2.83,
+                "2019": 3.57,
+                "2020": -5.3,
+                "2021": 4.03,
+                "2022": 2.85,
+                "2023": 0.05,
+                "2024": 1.23
+            },
+            "covid": {
+                "2020": { "cases": 723577, "deaths": 11888 },
+                "2021": { "cases": 1793803, "deaths": 24444 },
+                "2022": { "cases": 2062755, "deaths": 5820 },
+                "2023": { "cases": 166488, "deaths": 1202 },
+                "2024": { "cases": 79300, "deaths": 422 },
+                "2025": { "cases": 57026, "deaths": 131 }
+            },
+            "totalCases": 4882949,
+            "totalDeaths": 43907,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "ISR",
+            "country": "Israel",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.24,
+                "2016": 4.46,
+                "2017": 4.35,
+                "2018": 4.0,
+                "2019": 3.71,
+                "2020": -2.02,
+                "2021": 9.39,
+                "2022": 6.26,
+                "2023": 1.83,
+                "2024": 0.87
+            },
+            "covid": {
+                "2020": { "cases": 419661, "deaths": 3336 },
+                "2021": { "cases": 962275, "deaths": 4923 },
+                "2022": { "cases": 3381658, "deaths": 3805 },
+                "2023": { "cases": 77964, "deaths": 643 },
+                "2025": { "cases": 122, "deaths": 0 }
+            },
+            "totalCases": 4841680,
+            "totalDeaths": 12707,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "CAN",
+            "country": "Canada",
+            "region": "North America",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.65,
+                "2016": 1.04,
+                "2017": 3.03,
+                "2018": 2.74,
+                "2019": 1.91,
+                "2020": -5.04,
+                "2021": 5.95,
+                "2022": 4.19,
+                "2023": 1.53,
+                "2024": 1.55
+            },
+            "covid": {
+                "2020": { "cases": 565504, "deaths": 15274 },
+                "2021": { "cases": 1536966, "deaths": 14684 },
+                "2022": { "cases": 2390310, "deaths": 18813 },
+                "2023": { "cases": 281456, "deaths": 5670 },
+                "2024": { "cases": 44819, "deaths": 841 }
+            },
+            "totalCases": 4819055,
+            "totalDeaths": 55282,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "PER",
+            "country": "Peru",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.25,
+                "2016": 3.95,
+                "2017": 2.52,
+                "2018": 3.97,
+                "2019": 2.24,
+                "2020": -10.93,
+                "2021": 13.36,
+                "2022": 2.81,
+                "2023": -0.4,
+                "2024": 3.3
+            },
+            "covid": {
+                "2020": { "cases": 1010496, "deaths": 93066 },
+                "2021": { "cases": 1276998, "deaths": 109518 },
+                "2022": { "cases": 2166742, "deaths": 15594 },
+                "2023": { "cases": 50984, "deaths": 2338 },
+                "2024": { "cases": 24659, "deaths": 485 },
+                "2025": { "cases": 3557, "deaths": 66 }
+            },
+            "totalCases": 4533436,
+            "totalDeaths": 221067,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "CHE",
+            "country": "Switzerland",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.64,
+                "2016": 2.07,
+                "2017": 1.36,
+                "2018": 2.86,
+                "2019": 1.14,
+                "2020": -2.14,
+                "2021": 5.56,
+                "2022": 3.04,
+                "2023": 0.68,
+                "2024": 1.3
+            },
+            "covid": {
+                "2020": { "cases": 451142, "deaths": 7528 },
+                "2021": { "cases": 883690, "deaths": 4393 },
+                "2022": { "cases": 3045631, "deaths": 1961 },
+                "2023": { "cases": 66478, "deaths": 288 },
+                "2024": { "cases": 28896, "deaths": 0 },
+                "2025": { "cases": 13985, "deaths": 0 }
+            },
+            "totalCases": 4489822,
+            "totalDeaths": 14170,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "PHL",
+            "country": "Philippines",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.35,
+                "2016": 7.15,
+                "2017": 6.93,
+                "2018": 6.34,
+                "2019": 6.12,
+                "2020": -9.52,
+                "2021": 5.71,
+                "2022": 7.58,
+                "2023": 5.52,
+                "2024": 5.69
+            },
+            "covid": {
+                "2020": { "cases": 472523, "deaths": 9230 },
+                "2021": { "cases": 2371346, "deaths": 42274 },
+                "2022": { "cases": 1218790, "deaths": 13893 },
+                "2023": { "cases": 69541, "deaths": 1398 },
+                "2024": { "cases": 8183, "deaths": 69 }
+            },
+            "totalCases": 4140383,
+            "totalDeaths": 66864,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "ZAF",
+            "country": "South Africa",
+            "region": "Sub-Saharan Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 1.32,
+                "2016": 0.66,
+                "2017": 1.16,
+                "2018": 1.56,
+                "2019": 0.26,
+                "2020": -6.17,
+                "2021": 4.86,
+                "2022": 2.06,
+                "2023": 0.81,
+                "2024": 0.53
+            },
+            "covid": {
+                "2020": { "cases": 1039161, "deaths": 28033 },
+                "2021": { "cases": 2407371, "deaths": 63028 },
+                "2022": { "cases": 602048, "deaths": 11507 },
+                "2023": { "cases": 24056, "deaths": 27 },
+                "2024": { "cases": 237, "deaths": 0 },
+                "2025": { "cases": 278, "deaths": 0 }
+            },
+            "totalCases": 4073151,
+            "totalDeaths": 102595,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "ROU",
+            "country": "Romania",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.16,
+                "2016": 2.86,
+                "2017": 8.2,
+                "2018": 5.39,
+                "2019": 3.96,
+                "2020": -3.6,
+                "2021": 5.59,
+                "2022": 4.19,
+                "2023": 2.26,
+                "2024": 0.92
+            },
+            "covid": {
+                "2020": { "cases": 627941, "deaths": 15596 },
+                "2021": { "cases": 1179282, "deaths": 43118 },
+                "2022": { "cases": 1501257, "deaths": 8660 },
+                "2023": { "cases": 204113, "deaths": 1340 },
+                "2024": { "cases": 55152, "deaths": 239 },
+                "2025": { "cases": 35715, "deaths": 137 }
+            },
+            "totalCases": 3603460,
+            "totalDeaths": 69090,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "DNK",
+            "country": "Denmark",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.1,
+                "2016": 3.07,
+                "2017": 3.06,
+                "2018": 1.86,
+                "2019": 1.71,
+                "2020": -1.78,
+                "2021": 6.5,
+                "2022": 0.44,
+                "2023": 0.6,
+                "2024": 3.48
+            },
+            "covid": {
+                "2020": { "cases": 161230, "deaths": 1256 },
+                "2021": { "cases": 622472, "deaths": 2000 },
+                "2022": { "cases": 2604737, "deaths": 4526 },
+                "2023": { "cases": 43907, "deaths": 1711 },
+                "2024": { "cases": 13266, "deaths": 519 },
+                "2025": { "cases": 6900, "deaths": 0 }
+            },
+            "totalCases": 3452512,
+            "totalDeaths": 10012,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "SGP",
+            "country": "Singapore",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.98,
+                "2016": 3.75,
+                "2017": 4.48,
+                "2018": 3.45,
+                "2019": 1.31,
+                "2020": -3.81,
+                "2021": 9.76,
+                "2022": 4.11,
+                "2023": 1.82,
+                "2024": 4.39
+            },
+            "covid": {
+                "2020": { "cases": 58569, "deaths": 29 },
+                "2021": { "cases": 220836, "deaths": 799 },
+                "2022": { "cases": 1921974, "deaths": 883 },
+                "2023": { "cases": 723136, "deaths": 243 },
+                "2024": { "cases": 81640, "deaths": 70 }
+            },
+            "totalCases": 3006155,
+            "totalDeaths": 2024,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "SWE",
+            "country": "Sweden",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.39,
+                "2016": 2.13,
+                "2017": 1.88,
+                "2018": 1.77,
+                "2019": 2.61,
+                "2020": -1.93,
+                "2021": 5.23,
+                "2022": 1.26,
+                "2023": -0.2,
+                "2024": 0.82
+            },
+            "covid": {
+                "2020": { "cases": 447759, "deaths": 9706 },
+                "2021": { "cases": 878413, "deaths": 5639 },
+                "2022": { "cases": 1354059, "deaths": 6961 },
+                "2023": { "cases": 66386, "deaths": 4380 },
+                "2024": { "cases": 25177, "deaths": 1740 },
+                "2025": { "cases": 11644, "deaths": 764 }
+            },
+            "totalCases": 2783438,
+            "totalDeaths": 29190,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "NZL",
+            "country": "New Zealand",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.69,
+                "2016": 3.78,
+                "2017": 3.38,
+                "2018": 3.47,
+                "2019": 2.32,
+                "2020": -0.31,
+                "2021": 4.54,
+                "2022": 3.5,
+                "2023": 1.39,
+                "2024": 1.29
+            },
+            "covid": {
+                "2020": { "cases": 1807, "deaths": 25 },
+                "2021": { "cases": 11939, "deaths": 26 },
+                "2022": { "cases": 2043704, "deaths": 2280 },
+                "2023": { "cases": 382925, "deaths": 1292 },
+                "2024": { "cases": 224052, "deaths": 888 },
+                "2025": { "cases": 3809, "deaths": 27 }
+            },
+            "totalCases": 2668236,
+            "totalDeaths": 4538,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "SRB",
+            "country": "Serbia",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 1.3,
+                "2016": 2.98,
+                "2017": 2.36,
+                "2018": 4.65,
+                "2019": 4.75,
+                "2020": -0.95,
+                "2021": 7.95,
+                "2022": 2.7,
+                "2023": 3.75,
+                "2024": 3.95
+            },
+            "covid": {
+                "2020": { "cases": 334991, "deaths": 3163 },
+                "2021": { "cases": 962156, "deaths": 9525 },
+                "2022": { "cases": 1148332, "deaths": 4827 },
+                "2023": { "cases": 122483, "deaths": 542 },
+                "2025": { "cases": 41, "deaths": 0 }
+            },
+            "totalCases": 2568003,
+            "totalDeaths": 18057,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "IRQ",
+            "country": "Iraq",
+            "region": "Middle East & North Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.61,
+                "2016": 13.79,
+                "2017": -1.82,
+                "2018": 2.63,
+                "2019": 5.51,
+                "2020": -12.04,
+                "2021": 1.5,
+                "2022": 7.96,
+                "2023": 0.52,
+                "2024": -1.55
+            },
+            "covid": {
+                "2020": { "cases": 594442, "deaths": 12808 },
+                "2021": { "cases": 1498994, "deaths": 11346 },
+                "2022": { "cases": 371937, "deaths": 1220 },
+                "2023": { "cases": 172, "deaths": 1 }
+            },
+            "totalCases": 2465545,
+            "totalDeaths": 25375,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "HUN",
+            "country": "Hungary",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.66,
+                "2016": 2.44,
+                "2017": 4.12,
+                "2018": 5.61,
+                "2019": 5.08,
+                "2020": -4.34,
+                "2021": 7.22,
+                "2022": 4.15,
+                "2023": -0.82,
+                "2024": 0.56
+            },
+            "covid": {
+                "2020": { "cases": 322514, "deaths": 9537 },
+                "2021": { "cases": 933901, "deaths": 29649 },
+                "2022": { "cases": 929401, "deaths": 9309 },
+                "2023": { "cases": 41343, "deaths": 496 },
+                "2024": { "cases": 10321, "deaths": 129 },
+                "2025": { "cases": 2772, "deaths": 4 }
+            },
+            "totalCases": 2240252,
+            "totalDeaths": 49124,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BGD",
+            "country": "Bangladesh",
+            "region": "South Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.55,
+                "2016": 7.11,
+                "2017": 6.59,
+                "2018": 7.32,
+                "2019": 7.88,
+                "2020": 3.45,
+                "2021": 6.94,
+                "2022": 7.1,
+                "2023": 5.78,
+                "2024": 4.22
+            },
+            "covid": {
+                "2020": { "cases": 513510, "deaths": 7559 },
+                "2021": { "cases": 1072029, "deaths": 20513 },
+                "2022": { "cases": 451586, "deaths": 1368 },
+                "2023": { "cases": 9167, "deaths": 37 },
+                "2024": { "cases": 5253, "deaths": 22 },
+                "2025": { "cases": 730, "deaths": 32 }
+            },
+            "totalCases": 2052275,
+            "totalDeaths": 29531,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "SVK",
+            "country": "Slovak Republic",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 5.18,
+                "2016": 1.95,
+                "2017": 2.87,
+                "2018": 4.06,
+                "2019": 2.28,
+                "2020": -2.59,
+                "2021": 5.66,
+                "2022": 0.54,
+                "2023": 2.11,
+                "2024": 1.94
+            },
+            "covid": {
+                "2020": { "cases": 179543, "deaths": 2138 },
+                "2021": { "cases": 662190, "deaths": 14497 },
+                "2022": { "cases": 1017453, "deaths": 4188 },
+                "2023": { "cases": 16343, "deaths": 415 },
+                "2024": { "cases": 10117, "deaths": 110 },
+                "2025": { "cases": 3656, "deaths": 34 }
+            },
+            "totalCases": 1889302,
+            "totalDeaths": 21382,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "GEO",
+            "country": "Georgia",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.35,
+                "2016": 3.45,
+                "2017": 5.16,
+                "2018": 6.06,
+                "2019": 5.38,
+                "2020": -6.29,
+                "2021": 10.64,
+                "2022": 10.96,
+                "2023": 7.83,
+                "2024": 9.68
+            },
+            "covid": {
+                "2020": { "cases": 227420, "deaths": 2505 },
+                "2021": { "cases": 707321, "deaths": 11295 },
+                "2022": { "cases": 875086, "deaths": 3103 },
+                "2023": { "cases": 47155, "deaths": 238 },
+                "2024": { "cases": 7352, "deaths": 10 },
+                "2025": { "cases": 3, "deaths": 0 }
+            },
+            "totalCases": 1864337,
+            "totalDeaths": 17151,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "IRL",
+            "country": "Ireland",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 24.62,
+                "2016": 1.22,
+                "2017": 10.11,
+                "2018": 7.69,
+                "2019": 4.97,
+                "2020": 7.15,
+                "2021": 16.26,
+                "2022": 7.51,
+                "2023": -2.54,
+                "2024": 2.6
+            },
+            "covid": {
+                "2020": { "cases": 89517, "deaths": 2264 },
+                "2021": { "cases": 662914, "deaths": 3820 },
+                "2022": { "cases": 939715, "deaths": 2407 },
+                "2023": { "cases": 36807, "deaths": 919 },
+                "2024": { "cases": 23302, "deaths": 313 },
+                "2025": { "cases": 12946, "deaths": 41 }
+            },
+            "totalCases": 1765201,
+            "totalDeaths": 9764,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "JOR",
+            "country": "Jordan",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 2.5,
+                "2016": 1.99,
+                "2017": 2.47,
+                "2018": 1.92,
+                "2019": 1.75,
+                "2020": -1.1,
+                "2021": 3.66,
+                "2022": 2.65,
+                "2023": 2.88,
+                "2024": 2.49
+            },
+            "covid": {
+                "2020": { "cases": 293067, "deaths": 3815 },
+                "2021": { "cases": 768493, "deaths": 8805 },
+                "2022": { "cases": 685437, "deaths": 1502 }
+            },
+            "totalCases": 1746997,
+            "totalDeaths": 14122,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "PAK",
+            "country": "Pakistan",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.22,
+                "2016": 6.57,
+                "2017": 4.43,
+                "2018": 6.15,
+                "2019": 2.5,
+                "2020": -1.27,
+                "2021": 6.51,
+                "2022": 4.78,
+                "2023": -0.41,
+                "2024": 3.05
+            },
+            "covid": {
+                "2020": { "cases": 477240, "deaths": 10047 },
+                "2021": { "cases": 817621, "deaths": 18874 },
+                "2022": { "cases": 280790, "deaths": 1714 },
+                "2023": { "cases": 4980, "deaths": 21 }
+            },
+            "totalCases": 1580631,
+            "totalDeaths": 30656,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "NOR",
+            "country": "Norway",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.86,
+                "2016": 1.16,
+                "2017": 2.46,
+                "2018": 0.83,
+                "2019": 1.12,
+                "2020": -1.28,
+                "2021": 3.91,
+                "2022": 3.25,
+                "2023": 0.07,
+                "2024": 2.1
+            },
+            "covid": {
+                "2020": { "cases": 49785, "deaths": 436 },
+                "2021": { "cases": 345124, "deaths": 958 },
+                "2022": { "cases": 1080762, "deaths": 3442 },
+                "2023": { "cases": 28258, "deaths": 896 },
+                "2024": { "cases": 28527, "deaths": 0 },
+                "2025": { "cases": 16477, "deaths": 0 }
+            },
+            "totalCases": 1548933,
+            "totalDeaths": 5732,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "FIN",
+            "country": "Finland",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.47,
+                "2016": 2.57,
+                "2017": 3.3,
+                "2018": 1.19,
+                "2019": 1.35,
+                "2020": -2.49,
+                "2021": 2.68,
+                "2022": 0.76,
+                "2023": -0.94,
+                "2024": 0.42
+            },
+            "covid": {
+                "2020": { "cases": 39086, "deaths": 635 },
+                "2021": { "cases": 327023, "deaths": 1292 },
+                "2022": { "cases": 1091346, "deaths": 6837 },
+                "2023": { "cases": 42257, "deaths": 2644 },
+                "2024": { "cases": 9232, "deaths": 58 },
+                "2025": { "cases": 7207, "deaths": 0 }
+            },
+            "totalCases": 1516151,
+            "totalDeaths": 11466,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "KAZ",
+            "country": "Kazakhstan",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 1.2,
+                "2016": 1.1,
+                "2017": 4.1,
+                "2018": 4.1,
+                "2019": 4.5,
+                "2020": -2.5,
+                "2021": 4.3,
+                "2022": 3.2,
+                "2023": 5.1,
+                "2024": 5.0
+            },
+            "covid": {
+                "2020": { "cases": 200443, "deaths": 2749 },
+                "2021": { "cases": 871594, "deaths": 15478 },
+                "2022": { "cases": 421499, "deaths": 831 },
+                "2023": { "cases": 9669, "deaths": 14 },
+                "2024": { "cases": 1165, "deaths": 0 }
+            },
+            "totalCases": 1504370,
+            "totalDeaths": 19072,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "LTU",
+            "country": "Lithuania",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.83,
+                "2016": 2.67,
+                "2017": 4.61,
+                "2018": 4.92,
+                "2019": 4.68,
+                "2020": 0.04,
+                "2021": 6.38,
+                "2022": 2.54,
+                "2023": 0.34,
+                "2024": 2.77
+            },
+            "covid": {
+                "2020": { "cases": 145051, "deaths": 1800 },
+                "2021": { "cases": 379375, "deaths": 5597 },
+                "2022": { "cases": 763996, "deaths": 2085 },
+                "2023": { "cases": 79725, "deaths": 291 },
+                "2024": { "cases": 51718, "deaths": 97 },
+                "2025": { "cases": 26250, "deaths": 43 }
+            },
+            "totalCases": 1446115,
+            "totalDeaths": 9913,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "HRV",
+            "country": "Croatia",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.32,
+                "2016": 3.47,
+                "2017": 3.28,
+                "2018": 2.91,
+                "2019": 3.1,
+                "2020": -8.31,
+                "2021": 12.63,
+                "2022": 7.29,
+                "2023": 3.76,
+                "2024": 3.83
+            },
+            "covid": {
+                "2020": { "cases": 208446, "deaths": 3860 },
+                "2021": { "cases": 501232, "deaths": 8633 },
+                "2022": { "cases": 553839, "deaths": 5090 },
+                "2023": { "cases": 46211, "deaths": 1104 },
+                "2024": { "cases": 44248, "deaths": 97 },
+                "2025": { "cases": 16861, "deaths": 20 }
+            },
+            "totalCases": 1370837,
+            "totalDeaths": 18804,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "SVN",
+            "country": "Slovenia",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.39,
+                "2016": 3.03,
+                "2017": 5.17,
+                "2018": 4.38,
+                "2019": 3.51,
+                "2020": -4.09,
+                "2021": 8.42,
+                "2022": 2.67,
+                "2023": 2.38,
+                "2024": 1.73
+            },
+            "covid": {
+                "2020": { "cases": 115411, "deaths": 2881 },
+                "2021": { "cases": 341431, "deaths": 3208 },
+                "2022": { "cases": 843961, "deaths": 2712 },
+                "2023": { "cases": 53614, "deaths": 889 },
+                "2024": { "cases": 7931, "deaths": 224 },
+                "2025": { "cases": 4196, "deaths": 0 }
+            },
+            "totalCases": 1366544,
+            "totalDeaths": 9914,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BGR",
+            "country": "Bulgaria",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.4,
+                "2016": 3.03,
+                "2017": 2.75,
+                "2018": 2.33,
+                "2019": 3.79,
+                "2020": -3.13,
+                "2021": 7.83,
+                "2022": 4.08,
+                "2023": 1.68,
+                "2024": 3.39
+            },
+            "covid": {
+                "2020": { "cases": 197384, "deaths": 7123 },
+                "2021": { "cases": 536498, "deaths": 23405 },
+                "2022": { "cases": 546735, "deaths": 7508 },
+                "2023": { "cases": 42961, "deaths": 594 },
+                "2024": { "cases": 14655, "deaths": 132 },
+                "2025": { "cases": 2602, "deaths": 13 }
+            },
+            "totalCases": 1340835,
+            "totalDeaths": 38775,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "MAR",
+            "country": "Morocco",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.34,
+                "2016": 0.52,
+                "2017": 5.06,
+                "2018": 3.07,
+                "2019": 2.89,
+                "2020": -7.18,
+                "2021": 8.15,
+                "2022": 1.81,
+                "2023": 3.66,
+                "2024": 3.79
+            },
+            "covid": {
+                "2020": { "cases": 437332, "deaths": 7355 },
+                "2021": { "cases": 523726, "deaths": 7489 },
+                "2022": { "cases": 310490, "deaths": 1450 },
+                "2023": { "cases": 6721, "deaths": 6 },
+                "2024": { "cases": 846, "deaths": 5 }
+            },
+            "totalCases": 1279115,
+            "totalDeaths": 16305,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "GTM",
+            "country": "Guatemala",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 4.09,
+                "2016": 2.68,
+                "2017": 3.08,
+                "2018": 3.41,
+                "2019": 4.02,
+                "2020": -1.79,
+                "2021": 8.04,
+                "2022": 4.18,
+                "2023": 3.53,
+                "2024": 3.65
+            },
+            "covid": {
+                "2020": { "cases": 137166, "deaths": 4803 },
+                "2021": { "cases": 489509, "deaths": 11299 },
+                "2022": { "cases": 574976, "deaths": 3896 },
+                "2023": { "cases": 48656, "deaths": 203 },
+                "2024": { "cases": 139, "deaths": 2 },
+                "2025": { "cases": 4720, "deaths": 2 }
+            },
+            "totalCases": 1255166,
+            "totalDeaths": 20205,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "CRI",
+            "country": "Costa Rica",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.65,
+                "2016": 4.2,
+                "2017": 4.16,
+                "2018": 2.62,
+                "2019": 2.42,
+                "2020": -4.27,
+                "2021": 7.94,
+                "2022": 4.55,
+                "2023": 5.11,
+                "2024": 4.32
+            },
+            "covid": {
+                "2020": { "cases": 166799, "deaths": 2156 },
+                "2021": { "cases": 404161, "deaths": 5198 },
+                "2022": { "cases": 595882, "deaths": 1731 },
+                "2023": { "cases": 63710, "deaths": 281 },
+                "2024": { "cases": 5317, "deaths": 8 },
+                "2025": { "cases": 5833, "deaths": 20 }
+            },
+            "totalCases": 1241702,
+            "totalDeaths": 9394,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "LBN",
+            "country": "Lebanon",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 0.46,
+                "2016": 1.55,
+                "2017": 0.9,
+                "2018": -1.88,
+                "2019": -6.91,
+                "2020": -21.4,
+                "2021": -7.0,
+                "2022": -0.62,
+                "2023": -0.76
+            },
+            "covid": {
+                "2020": { "cases": 177996, "deaths": 1443 },
+                "2021": { "cases": 545644, "deaths": 7659 },
+                "2022": { "cases": 499021, "deaths": 1645 },
+                "2023": { "cases": 17243, "deaths": 200 }
+            },
+            "totalCases": 1239904,
+            "totalDeaths": 10947,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "BOL",
+            "country": "Bolivia",
+            "region": "Latin America & Caribbean",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.86,
+                "2016": 4.26,
+                "2017": 4.2,
+                "2018": 2.87,
+                "2019": 1.51,
+                "2020": -12.72,
+                "2021": 10.03,
+                "2022": 3.75,
+                "2023": 2.52,
+                "2024": -1.12
+            },
+            "covid": {
+                "2020": { "cases": 156887, "deaths": 9135 },
+                "2021": { "cases": 434886, "deaths": 10515 },
+                "2022": { "cases": 564384, "deaths": 2641 },
+                "2023": { "cases": 55939, "deaths": 94 },
+                "2024": { "cases": 68, "deaths": 3 },
+                "2025": { "cases": 16, "deaths": 1 }
+            },
+            "totalCases": 1212180,
+            "totalDeaths": 22389,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "TUN",
+            "country": "Tunisia",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 0.97,
+                "2016": 1.12,
+                "2017": 2.25,
+                "2018": 2.61,
+                "2019": 1.55,
+                "2020": -8.98,
+                "2021": 4.74,
+                "2022": 2.75,
+                "2023": 0.18,
+                "2024": 1.61
+            },
+            "covid": {
+                "2020": { "cases": 137216, "deaths": 4620 },
+                "2021": { "cases": 588626, "deaths": 20944 },
+                "2022": { "cases": 421729, "deaths": 3720 },
+                "2023": { "cases": 5790, "deaths": 139 }
+            },
+            "totalCases": 1153361,
+            "totalDeaths": 29423,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "CUB",
+            "country": "Cuba",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 4.44,
+                "2016": 0.51,
+                "2017": 1.81,
+                "2018": 2.25,
+                "2019": -0.16,
+                "2020": -10.95,
+                "2021": 1.25,
+                "2022": 1.77,
+                "2023": -1.93,
+                "2024": -1.06
+            },
+            "covid": {
+                "2020": { "cases": 11687, "deaths": 145 },
+                "2021": { "cases": 953884, "deaths": 8177 },
+                "2022": { "cases": 146401, "deaths": 208 },
+                "2023": { "cases": 1622, "deaths": 0 },
+                "2024": { "cases": 68, "deaths": 0 },
+                "2025": { "cases": 170, "deaths": 0 }
+            },
+            "totalCases": 1113832,
+            "totalDeaths": 8530,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "ECU",
+            "country": "Ecuador",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 0.12,
+                "2016": -0.69,
+                "2017": 5.97,
+                "2018": 1.04,
+                "2019": 0.17,
+                "2020": -9.25,
+                "2021": 9.42,
+                "2022": 5.87,
+                "2023": 1.99,
+                "2024": -2.0
+            },
+            "covid": {
+                "2020": { "cases": 211512, "deaths": 14023 },
+                "2021": { "cases": 334288, "deaths": 19646 },
+                "2022": { "cases": 498949, "deaths": 2279 },
+                "2023": { "cases": 23650, "deaths": 76 },
+                "2024": { "cases": 10614, "deaths": 32 },
+                "2025": { "cases": 2854, "deaths": 8 }
+            },
+            "totalCases": 1081867,
+            "totalDeaths": 36064,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "ARE",
+            "country": "United Arab Emirates",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 7.09,
+                "2016": 5.66,
+                "2017": -1.06,
+                "2018": 1.54,
+                "2019": 1.27,
+                "2020": -8.69,
+                "2021": 4.55,
+                "2022": 7.51,
+                "2023": 4.3,
+                "2024": 3.99
+            },
+            "covid": {
+                "2020": { "cases": 206092, "deaths": 665 },
+                "2021": { "cases": 553419, "deaths": 1497 },
+                "2022": { "cases": 287407, "deaths": 186 },
+                "2023": { "cases": 20112, "deaths": 1 }
+            },
+            "totalCases": 1067030,
+            "totalDeaths": 2349,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "PAN",
+            "country": "Panama",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 5.27,
+                "2016": 4.57,
+                "2017": 5.74,
+                "2018": 3.92,
+                "2019": 3.1,
+                "2020": -17.82,
+                "2021": 16.47,
+                "2022": 11.04,
+                "2023": 7.17,
+                "2024": 2.75
+            },
+            "covid": {
+                "2020": { "cases": 238279, "deaths": 3933 },
+                "2021": { "cases": 252764, "deaths": 3492 },
+                "2022": { "cases": 532735, "deaths": 1142 },
+                "2023": { "cases": 19049, "deaths": 87 },
+                "2024": { "cases": 2239, "deaths": 110 },
+                "2025": { "cases": 586, "deaths": 66 }
+            },
+            "totalCases": 1045652,
+            "totalDeaths": 8830,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "URY",
+            "country": "Uruguay",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.37,
+                "2016": 1.69,
+                "2017": 1.74,
+                "2018": 0.16,
+                "2019": 0.93,
+                "2020": -7.36,
+                "2021": 5.84,
+                "2022": 4.49,
+                "2023": 0.74,
+                "2024": 3.11
+            },
+            "covid": {
+                "2020": { "cases": 17962, "deaths": 168 },
+                "2021": { "cases": 392349, "deaths": 6000 },
+                "2022": { "cases": 601677, "deaths": 1394 },
+                "2023": { "cases": 25905, "deaths": 63 },
+                "2024": { "cases": 4669, "deaths": 69 },
+                "2025": { "cases": 638, "deaths": 2 }
+            },
+            "totalCases": 1043200,
+            "totalDeaths": 7696,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "MNG",
+            "country": "Mongolia",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.38,
+                "2016": 1.49,
+                "2017": 5.64,
+                "2018": 7.74,
+                "2019": 5.6,
+                "2020": -4.56,
+                "2021": 1.64,
+                "2022": 5.03,
+                "2023": 7.42,
+                "2024": 5.12
+            },
+            "covid": {
+                "2020": { "cases": 1215, "deaths": 1 },
+                "2021": { "cases": 691904, "deaths": 1985 },
+                "2022": { "cases": 314303, "deaths": 150 },
+                "2023": { "cases": 3912, "deaths": 0 },
+                "2024": { "cases": 155, "deaths": 0 }
+            },
+            "totalCases": 1011489,
+            "totalDeaths": 2136,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "NPL",
+            "country": "Nepal",
+            "region": "South Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 3.98,
+                "2016": 0.43,
+                "2017": 8.98,
+                "2018": 7.62,
+                "2019": 6.66,
+                "2020": -2.37,
+                "2021": 4.84,
+                "2022": 5.63,
+                "2023": 1.98,
+                "2024": 3.67
+            },
+            "covid": {
+                "2020": { "cases": 260593, "deaths": 2758 },
+                "2021": { "cases": 567838, "deaths": 8836 },
+                "2022": { "cases": 172569, "deaths": 425 },
+                "2023": { "cases": 2450, "deaths": 12 },
+                "2025": { "cases": 496, "deaths": 3 }
+            },
+            "totalCases": 1003946,
+            "totalDeaths": 12034,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "BLR",
+            "country": "Belarus",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -3.83,
+                "2016": -2.53,
+                "2017": 2.53,
+                "2018": 3.15,
+                "2019": 1.45,
+                "2020": -0.67,
+                "2021": 2.44,
+                "2022": -4.66,
+                "2023": 4.13,
+                "2024": 4.01
+            },
+            "covid": {
+                "2020": { "cases": 192361, "deaths": 1414 },
+                "2021": { "cases": 505239, "deaths": 4147 },
+                "2022": { "cases": 296437, "deaths": 1557 },
+                "2024": { "cases": 8, "deaths": 0 },
+                "2025": { "cases": 28, "deaths": 0 }
+            },
+            "totalCases": 994073,
+            "totalDeaths": 7118,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "LVA",
+            "country": "Latvia",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.78,
+                "2016": 2.55,
+                "2017": 3.4,
+                "2018": 4.31,
+                "2019": 0.68,
+                "2020": -3.47,
+                "2021": 6.94,
+                "2022": 1.91,
+                "2023": -0.94,
+                "2024": -0.05
+            },
+            "covid": {
+                "2020": { "cases": 36330, "deaths": 632 },
+                "2021": { "cases": 235099, "deaths": 4183 },
+                "2022": { "cases": 699090, "deaths": 2196 },
+                "2023": { "cases": 7182, "deaths": 454 },
+                "2024": { "cases": 69, "deaths": 88 },
+                "2025": { "cases": 20, "deaths": 129 }
+            },
+            "totalCases": 977790,
+            "totalDeaths": 7682,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "SAU",
+            "country": "Saudi Arabia",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.66,
+                "2016": 1.7,
+                "2017": 1.18,
+                "2018": 3.23,
+                "2019": 1.65,
+                "2020": -3.8,
+                "2021": 6.52,
+                "2022": 12.0,
+                "2023": 0.54,
+                "2024": 2.0
+            },
+            "covid": {
+                "2020": { "cases": 362601, "deaths": 6214 },
+                "2021": { "cases": 192816, "deaths": 2661 },
+                "2022": { "cases": 271567, "deaths": 640 },
+                "2023": { "cases": 14485, "deaths": 131 }
+            },
+            "totalCases": 841469,
+            "totalDeaths": 9646,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "AZE",
+            "country": "Azerbaijan",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 1.05,
+                "2016": -3.06,
+                "2017": 0.15,
+                "2018": 1.5,
+                "2019": 2.48,
+                "2020": -4.2,
+                "2021": 5.62,
+                "2022": 4.71,
+                "2023": 1.35,
+                "2024": 4.07
+            },
+            "covid": {
+                "2020": { "cases": 216584, "deaths": 2575 },
+                "2021": { "cases": 399768, "deaths": 5771 },
+                "2022": { "cases": 209959, "deaths": 1662 },
+                "2023": { "cases": 7943, "deaths": 345 },
+                "2024": { "cases": 2244, "deaths": 0 },
+                "2025": { "cases": 12, "deaths": 0 }
+            },
+            "totalCases": 836510,
+            "totalDeaths": 10353,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "PRY",
+            "country": "Paraguay",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.96,
+                "2016": 4.27,
+                "2017": 4.81,
+                "2018": 3.2,
+                "2019": -0.4,
+                "2020": -0.82,
+                "2021": 4.02,
+                "2022": 0.18,
+                "2023": 5.0,
+                "2024": 4.25
+            },
+            "covid": {
+                "2020": { "cases": 106136, "deaths": 2220 },
+                "2021": { "cases": 359965, "deaths": 14404 },
+                "2022": { "cases": 259264, "deaths": 3064 },
+                "2023": { "cases": 10394, "deaths": 192 }
+            },
+            "totalCases": 735759,
+            "totalDeaths": 19880,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "CYP",
+            "country": "Cyprus",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.42,
+                "2016": 6.57,
+                "2017": 5.75,
+                "2018": 6.27,
+                "2019": 5.88,
+                "2020": -3.22,
+                "2021": 11.4,
+                "2022": 8.27,
+                "2023": 3.62,
+                "2024": 3.94
+            },
+            "covid": {
+                "2020": { "cases": 22347, "deaths": 122 },
+                "2021": { "cases": 139432, "deaths": 524 },
+                "2022": { "cases": 469332, "deaths": 612 },
+                "2023": { "cases": 44364, "deaths": 106 },
+                "2024": { "cases": 36408, "deaths": 0 },
+                "2025": { "cases": 6264, "deaths": 0 }
+            },
+            "totalCases": 718147,
+            "totalDeaths": 1364,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BHR",
+            "country": "Bahrain",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.51,
+                "2016": 3.81,
+                "2017": 4.95,
+                "2018": 2.05,
+                "2019": 2.05,
+                "2020": -5.91,
+                "2021": 4.35,
+                "2022": 6.18,
+                "2023": 3.88,
+                "2024": 2.6
+            },
+            "covid": {
+                "2020": { "cases": 92425, "deaths": 352 },
+                "2021": { "cases": 188981, "deaths": 1042 },
+                "2022": { "cases": 415208, "deaths": 142 }
+            },
+            "totalCases": 696614,
+            "totalDeaths": 1536,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "LKA",
+            "country": "Sri Lanka",
+            "region": "South Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.21,
+                "2016": 5.05,
+                "2017": 6.46,
+                "2018": 2.31,
+                "2019": -0.22,
+                "2020": -4.62,
+                "2021": 4.21,
+                "2022": -7.35,
+                "2023": -2.33,
+                "2024": 5.01
+            },
+            "covid": {
+                "2020": { "cases": 43299, "deaths": 204 },
+                "2021": { "cases": 543946, "deaths": 14775 },
+                "2022": { "cases": 84639, "deaths": 1838 },
+                "2023": { "cases": 823, "deaths": 73 },
+                "2024": { "cases": 105, "deaths": 17 }
+            },
+            "totalCases": 672812,
+            "totalDeaths": 16907,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "KWT",
+            "country": "Kuwait",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.59,
+                "2016": 2.93,
+                "2017": -4.71,
+                "2018": 2.74,
+                "2019": 2.26,
+                "2020": -4.82,
+                "2021": 1.67,
+                "2022": 6.76,
+                "2023": -1.67,
+                "2024": -2.56
+            },
+            "covid": {
+                "2020": { "cases": 150298, "deaths": 933 },
+                "2021": { "cases": 266333, "deaths": 1535 },
+                "2022": { "cases": 246287, "deaths": 102 },
+                "2023": { "cases": 3668, "deaths": 0 },
+                "2024": { "cases": 704, "deaths": 0 }
+            },
+            "totalCases": 667290,
+            "totalDeaths": 2570,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "DOM",
+            "country": "Dominican Republic",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 6.99,
+                "2016": 6.72,
+                "2017": 3.93,
+                "2018": 7.1,
+                "2019": 4.89,
+                "2020": -7.93,
+                "2021": 14.01,
+                "2022": 5.24,
+                "2023": 2.19,
+                "2024": 4.95
+            },
+            "covid": {
+                "2020": { "cases": 169579, "deaths": 2409 },
+                "2021": { "cases": 247689, "deaths": 1837 },
+                "2022": { "cases": 241741, "deaths": 138 },
+                "2023": { "cases": 2094, "deaths": 0 }
+            },
+            "totalCases": 661103,
+            "totalDeaths": 4384,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "MDA",
+            "country": "Moldova",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -0.34,
+                "2016": 4.65,
+                "2017": 4.18,
+                "2018": 4.08,
+                "2019": 3.55,
+                "2020": -8.28,
+                "2021": 13.93,
+                "2022": -4.6,
+                "2023": 1.2,
+                "2024": 0.1
+            },
+            "covid": {
+                "2020": { "cases": 143841, "deaths": 3110 },
+                "2021": { "cases": 231939, "deaths": 7159 },
+                "2022": { "cases": 220678, "deaths": 1664 },
+                "2023": { "cases": 34603, "deaths": 241 },
+                "2024": { "cases": 19813, "deaths": 109 },
+                "2025": { "cases": 5580, "deaths": 7 }
+            },
+            "totalCases": 656454,
+            "totalDeaths": 12290,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "MMR",
+            "country": "Myanmar",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.99,
+                "2016": 5.86,
+                "2017": 6.14,
+                "2018": 6.27,
+                "2019": 6.58,
+                "2020": -9.05,
+                "2021": -12.02,
+                "2022": 4.04,
+                "2023": 0.96,
+                "2024": -0.97
+            },
+            "covid": {
+                "2020": { "cases": 124630, "deaths": 2682 },
+                "2021": { "cases": 406204, "deaths": 16586 },
+                "2022": { "cases": 102849, "deaths": 222 },
+                "2023": { "cases": 7765, "deaths": 4 },
+                "2024": { "cases": 1793, "deaths": 0 },
+                "2025": { "cases": 160, "deaths": 0 }
+            },
+            "totalCases": 643401,
+            "totalDeaths": 19494,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "EST",
+            "country": "Estonia",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.84,
+                "2016": 3.09,
+                "2017": 5.63,
+                "2018": 3.7,
+                "2019": 3.73,
+                "2020": -2.88,
+                "2021": 8.25,
+                "2022": -1.23,
+                "2023": -2.74,
+                "2024": -0.09
+            },
+            "covid": {
+                "2020": { "cases": 31031, "deaths": 284 },
+                "2021": { "cases": 195778, "deaths": 1544 },
+                "2022": { "cases": 367408, "deaths": 899 },
+                "2023": { "cases": 14364, "deaths": 357 },
+                "2024": { "cases": 5230, "deaths": 219 },
+                "2025": { "cases": 2612, "deaths": 94 }
+            },
+            "totalCases": 616423,
+            "totalDeaths": 3397,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "EGY",
+            "country": "Egypt, Arab Rep.",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.37,
+                "2016": 4.35,
+                "2017": 4.18,
+                "2018": 5.33,
+                "2019": 5.55,
+                "2020": 3.55,
+                "2021": 3.29,
+                "2022": 6.59,
+                "2023": 3.76,
+                "2024": 2.4
+            },
+            "covid": {
+                "2020": { "cases": 136644, "deaths": 7576 },
+                "2021": { "cases": 248084, "deaths": 14151 },
+                "2022": { "cases": 130805, "deaths": 3075 },
+                "2023": { "cases": 490, "deaths": 28 }
+            },
+            "totalCases": 516023,
+            "totalDeaths": 24830,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "QAT",
+            "country": "Qatar",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.75,
+                "2016": 3.06,
+                "2017": -1.5,
+                "2018": 1.23,
+                "2019": 0.69,
+                "2020": -3.56,
+                "2021": 1.63,
+                "2022": 4.18,
+                "2023": 1.54,
+                "2024": 2.36
+            },
+            "covid": {
+                "2020": { "cases": 143621, "deaths": 245 },
+                "2021": { "cases": 106166, "deaths": 372 },
+                "2022": { "cases": 239545, "deaths": 68 },
+                "2023": { "cases": 25192, "deaths": 5 }
+            },
+            "totalCases": 514524,
+            "totalDeaths": 690,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "LBY",
+            "country": "Libya",
+            "region": "Middle East & North Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -0.84,
+                "2016": -1.49,
+                "2017": 32.49,
+                "2018": 7.94,
+                "2019": -11.2,
+                "2020": -29.46,
+                "2021": 28.3,
+                "2022": -8.3,
+                "2023": 10.2,
+                "2024": 1.9
+            },
+            "covid": {
+                "2020": { "cases": 99935, "deaths": 1459 },
+                "2021": { "cases": 288248, "deaths": 4237 },
+                "2022": { "cases": 118959, "deaths": 741 },
+                "2023": { "cases": 127, "deaths": 0 }
+            },
+            "totalCases": 507269,
+            "totalDeaths": 6437,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "HND",
+            "country": "Honduras",
+            "region": "Latin America & Caribbean",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 3.84,
+                "2016": 3.89,
+                "2017": 4.84,
+                "2018": 3.84,
+                "2019": 2.56,
+                "2020": -8.97,
+                "2021": 12.57,
+                "2022": 4.14,
+                "2023": 3.58,
+                "2024": 3.55
+            },
+            "covid": {
+                "2020": { "cases": 120912, "deaths": 3111 },
+                "2021": { "cases": 258630, "deaths": 7323 },
+                "2022": { "cases": 86373, "deaths": 637 },
+                "2023": { "cases": 6832, "deaths": 43 },
+                "2024": { "cases": 164, "deaths": 0 },
+                "2025": { "cases": 130, "deaths": 0 }
+            },
+            "totalCases": 473041,
+            "totalDeaths": 11114,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "ARM",
+            "country": "Armenia",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.2,
+                "2016": 0.2,
+                "2017": 7.5,
+                "2018": 5.2,
+                "2019": 7.6,
+                "2020": -7.2,
+                "2021": 5.8,
+                "2022": 12.6,
+                "2023": 8.3,
+                "2024": 5.9
+            },
+            "covid": {
+                "2020": { "cases": 159409, "deaths": 2823 },
+                "2021": { "cases": 185521, "deaths": 5149 },
+                "2022": { "cases": 100690, "deaths": 738 },
+                "2023": { "cases": 5806, "deaths": 65 },
+                "2024": { "cases": 2644, "deaths": 9 },
+                "2025": { "cases": 815, "deaths": 1 }
+            },
+            "totalCases": 454885,
+            "totalDeaths": 8785,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BIH",
+            "country": "Bosnia and Herzegovina",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 4.28,
+                "2016": 3.24,
+                "2017": 3.24,
+                "2018": 3.83,
+                "2019": 2.89,
+                "2020": -3.02,
+                "2021": 7.39,
+                "2022": 4.23,
+                "2023": 1.99,
+                "2024": 2.97
+            },
+            "covid": {
+                "2020": { "cases": 110985, "deaths": 4050 },
+                "2021": { "cases": 179486, "deaths": 9378 },
+                "2022": { "cases": 110622, "deaths": 2806 },
+                "2023": { "cases": 2415, "deaths": 146 },
+                "2024": { "cases": 641, "deaths": 24 },
+                "2025": { "cases": 140, "deaths": 15 }
+            },
+            "totalCases": 404289,
+            "totalDeaths": 16419,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "LUX",
+            "country": "Luxembourg",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.27,
+                "2016": 4.98,
+                "2017": 1.32,
+                "2018": 1.61,
+                "2019": 2.75,
+                "2020": -0.51,
+                "2021": 6.93,
+                "2022": -1.1,
+                "2023": 0.1,
+                "2024": 0.36
+            },
+            "covid": {
+                "2020": { "cases": 38383, "deaths": 285 },
+                "2021": { "cases": 57505, "deaths": 350 },
+                "2022": { "cases": 268979, "deaths": 320 },
+                "2023": { "cases": 25170, "deaths": 45 },
+                "2024": { "cases": 6867, "deaths": 0 },
+                "2025": { "cases": 4111, "deaths": 0 }
+            },
+            "totalCases": 401015,
+            "totalDeaths": 1000,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "OMN",
+            "country": "Oman",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 5.02,
+                "2016": 5.05,
+                "2017": 0.3,
+                "2018": 1.29,
+                "2019": -1.13,
+                "2020": -3.38,
+                "2021": 2.58,
+                "2022": 7.99,
+                "2023": 1.41,
+                "2024": 1.63
+            },
+            "covid": {
+                "2020": { "cases": 128719, "deaths": 1497 },
+                "2021": { "cases": 176770, "deaths": 2986 },
+                "2022": { "cases": 93819, "deaths": 145 },
+                "2023": { "cases": 141, "deaths": 0 }
+            },
+            "totalCases": 399449,
+            "totalDeaths": 4628,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "MKD",
+            "country": "North Macedonia",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.86,
+                "2016": 2.85,
+                "2017": 1.08,
+                "2018": 2.88,
+                "2019": 3.91,
+                "2020": -4.69,
+                "2021": 4.51,
+                "2022": 2.76,
+                "2023": 2.55,
+                "2024": 2.99
+            },
+            "covid": {
+                "2020": { "cases": 81796, "deaths": 2896 },
+                "2021": { "cases": 141513, "deaths": 5456 },
+                "2022": { "cases": 122279, "deaths": 1524 },
+                "2023": { "cases": 4728, "deaths": 89 },
+                "2024": { "cases": 1755, "deaths": 26 },
+                "2025": { "cases": 22, "deaths": 0 }
+            },
+            "totalCases": 352093,
+            "totalDeaths": 9991,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BRN",
+            "country": "Brunei Darussalam",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": -0.39,
+                "2016": -2.48,
+                "2017": 1.33,
+                "2018": 0.05,
+                "2019": 3.87,
+                "2020": 1.13,
+                "2021": -1.59,
+                "2022": -1.63,
+                "2023": 1.13,
+                "2024": 4.05
+            },
+            "covid": {
+                "2020": { "cases": 157, "deaths": 3 },
+                "2021": { "cases": 15317, "deaths": 58 },
+                "2022": { "cases": 254725, "deaths": 87 },
+                "2023": { "cases": 60577, "deaths": 23 },
+                "2024": { "cases": 19639, "deaths": 11 },
+                "2025": { "cases": 135, "deaths": 0 }
+            },
+            "totalCases": 350550,
+            "totalDeaths": 182,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "ZMB",
+            "country": "Zambia",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 2.92,
+                "2016": 3.76,
+                "2017": 3.53,
+                "2018": 4.03,
+                "2019": 1.44,
+                "2020": -2.79,
+                "2021": 6.23,
+                "2022": 5.21,
+                "2023": 5.37,
+                "2024": 3.82
+            },
+            "covid": {
+                "2020": { "cases": 20462, "deaths": 386 },
+                "2021": { "cases": 228731, "deaths": 3344 },
+                "2022": { "cases": 85003, "deaths": 293 },
+                "2023": { "cases": 15108, "deaths": 46 },
+                "2024": { "cases": 588, "deaths": 9 }
+            },
+            "totalCases": 349892,
+            "totalDeaths": 4078,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "KEN",
+            "country": "Kenya",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.97,
+                "2016": 4.21,
+                "2017": 3.84,
+                "2018": 5.65,
+                "2019": 5.11,
+                "2020": -0.27,
+                "2021": 7.59,
+                "2022": 4.86,
+                "2023": 5.72,
+                "2024": 4.72
+            },
+            "covid": {
+                "2020": { "cases": 96251, "deaths": 1667 },
+                "2021": { "cases": 195986, "deaths": 3709 },
+                "2022": { "cases": 50233, "deaths": 312 },
+                "2023": { "cases": 1624, "deaths": 1 },
+                "2024": { "cases": 31, "deaths": 0 },
+                "2025": { "cases": 15, "deaths": 0 }
+            },
+            "totalCases": 344140,
+            "totalDeaths": 5689,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "ALB",
+            "country": "Albania",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.23,
+                "2016": 3.91,
+                "2017": 3.28,
+                "2018": 3.67,
+                "2019": 2.06,
+                "2020": -3.31,
+                "2021": 8.97,
+                "2022": 4.83,
+                "2023": 4.02,
+                "2024": 4.05
+            },
+            "covid": {
+                "2020": { "cases": 57146, "deaths": 1170 },
+                "2021": { "cases": 151753, "deaths": 2042 },
+                "2022": { "cases": 123869, "deaths": 384 },
+                "2023": { "cases": 1828, "deaths": 8 },
+                "2024": { "cases": 2600, "deaths": 4 },
+                "2025": { "cases": 38, "deaths": 0 }
+            },
+            "totalCases": 337234,
+            "totalDeaths": 3608,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "MUS",
+            "country": "Mauritius",
+            "region": "Sub-Saharan Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.69,
+                "2016": 3.86,
+                "2017": 3.94,
+                "2018": 4.01,
+                "2019": 2.89,
+                "2020": -14.55,
+                "2021": 3.4,
+                "2022": 8.69,
+                "2023": 5.01,
+                "2024": 4.93
+            },
+            "covid": {
+                "2020": { "cases": 527, "deaths": 10 },
+                "2021": { "cases": 90567, "deaths": 776 },
+                "2022": { "cases": 201095, "deaths": 254 },
+                "2023": { "cases": 31531, "deaths": 20 },
+                "2024": { "cases": 6994, "deaths": 14 },
+                "2025": { "cases": 1391, "deaths": 0 }
+            },
+            "totalCases": 332105,
+            "totalDeaths": 1074,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "BWA",
+            "country": "Botswana",
+            "region": "Sub-Saharan Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -4.85,
+                "2016": 7.2,
+                "2017": 4.11,
+                "2018": 4.19,
+                "2019": 3.03,
+                "2020": -8.73,
+                "2021": 11.92,
+                "2022": 5.49,
+                "2023": 3.21,
+                "2024": -2.99
+            },
+            "covid": {
+                "2020": { "cases": 14637, "deaths": 43 },
+                "2021": { "cases": 207416, "deaths": 2409 },
+                "2022": { "cases": 105978, "deaths": 334 },
+                "2023": { "cases": 2386, "deaths": 14 },
+                "2024": { "cases": 282, "deaths": 1 }
+            },
+            "totalCases": 330699,
+            "totalDeaths": 2801,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "DZA",
+            "country": "Algeria",
+            "region": "Middle East & North Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.2,
+                "2016": 3.9,
+                "2017": 1.5,
+                "2018": 1.4,
+                "2019": 0.9,
+                "2020": -5.0,
+                "2021": 3.8,
+                "2022": 3.6,
+                "2023": 4.1,
+                "2024": 3.7
+            },
+            "covid": {
+                "2020": { "cases": 99311, "deaths": 2751 },
+                "2021": { "cases": 118726, "deaths": 3520 },
+                "2022": { "cases": 53180, "deaths": 610 },
+                "2023": { "cases": 793, "deaths": 0 },
+                "2024": { "cases": 197, "deaths": 0 },
+                "2025": { "cases": 228, "deaths": 0 }
+            },
+            "totalCases": 272435,
+            "totalDeaths": 6881,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "NGA",
+            "country": "Nigeria",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 2.65,
+                "2016": -1.62,
+                "2017": 0.81,
+                "2018": 1.92,
+                "2019": 2.21,
+                "2020": -6.37,
+                "2021": 1.11,
+                "2022": 4.32,
+                "2023": 3.33,
+                "2024": 4.06
+            },
+            "covid": {
+                "2020": { "cases": 86576, "deaths": 1278 },
+                "2021": { "cases": 154937, "deaths": 1752 },
+                "2022": { "cases": 24937, "deaths": 125 },
+                "2023": { "cases": 738, "deaths": 0 },
+                "2024": { "cases": 2, "deaths": 0 },
+                "2025": { "cases": 39, "deaths": 0 }
+            },
+            "totalCases": 267229,
+            "totalDeaths": 3155,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "ZWE",
+            "country": "Zimbabwe",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.78,
+                "2016": 0.76,
+                "2017": 4.73,
+                "2018": 5.01,
+                "2019": -6.33,
+                "2020": -7.82,
+                "2021": 8.47,
+                "2022": 6.14,
+                "2023": 5.35,
+                "2024": 1.74
+            },
+            "covid": {
+                "2020": { "cases": 13625, "deaths": 360 },
+                "2021": { "cases": 198103, "deaths": 4637 },
+                "2022": { "cases": 48372, "deaths": 640 },
+                "2023": { "cases": 5971, "deaths": 94 },
+                "2024": { "cases": 331, "deaths": 9 },
+                "2025": { "cases": 34, "deaths": 0 }
+            },
+            "totalCases": 266436,
+            "totalDeaths": 5740,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "MNE",
+            "country": "Montenegro",
+            "region": "Europe & Central Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.52,
+                "2016": 3.44,
+                "2017": 3.22,
+                "2018": 4.73,
+                "2019": 4.39,
+                "2020": -14.99,
+                "2021": 13.05,
+                "2022": 7.74,
+                "2023": 6.48,
+                "2024": 3.16
+            },
+            "covid": {
+                "2020": { "cases": 35210, "deaths": 543 },
+                "2021": { "cases": 122800, "deaths": 1733 },
+                "2022": { "cases": 85963, "deaths": 340 },
+                "2023": { "cases": 7307, "deaths": 38 }
+            },
+            "totalCases": 251280,
+            "totalDeaths": 2654,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "AFG",
+            "country": "Afghanistan",
+            "region": "Middle East & North Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 1.45,
+                "2016": 2.26,
+                "2017": 2.65,
+                "2018": 1.19,
+                "2019": 3.91,
+                "2020": -2.35,
+                "2021": -20.74,
+                "2022": -6.24,
+                "2023": 2.27
+            },
+            "covid": {
+                "2020": { "cases": 52330, "deaths": 2189 },
+                "2021": { "cases": 105729, "deaths": 5167 },
+                "2022": { "cases": 49495, "deaths": 493 },
+                "2023": { "cases": 22821, "deaths": 124 },
+                "2024": { "cases": 4839, "deaths": 25 }
+            },
+            "totalCases": 235214,
+            "totalDeaths": 7998,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "MOZ",
+            "country": "Mozambique",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 7.39,
+                "2016": 4.7,
+                "2017": 2.64,
+                "2018": 3.48,
+                "2019": 2.32,
+                "2020": -1.22,
+                "2021": 2.38,
+                "2022": 4.36,
+                "2023": 5.48,
+                "2024": 2.15
+            },
+            "covid": {
+                "2020": { "cases": 18485, "deaths": 165 },
+                "2021": { "cases": 165734, "deaths": 1831 },
+                "2022": { "cases": 46820, "deaths": 236 },
+                "2023": { "cases": 2692, "deaths": 18 },
+                "2024": { "cases": 159, "deaths": 2 },
+                "2025": { "cases": 37, "deaths": 0 }
+            },
+            "totalCases": 233927,
+            "totalDeaths": 2252,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "LAO",
+            "country": "Lao PDR",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 7.27,
+                "2016": 7.02,
+                "2017": 6.89,
+                "2018": 6.25,
+                "2019": 5.46,
+                "2020": 0.5,
+                "2021": 2.53,
+                "2022": 2.71,
+                "2023": 3.75,
+                "2024": 4.13
+            },
+            "covid": {
+                "2020": { "cases": 41, "deaths": 0 },
+                "2021": { "cases": 111019, "deaths": 372 },
+                "2022": { "cases": 106716, "deaths": 299 },
+                "2023": { "cases": 1130, "deaths": 0 },
+                "2024": { "cases": 154, "deaths": 0 }
+            },
+            "totalCases": 219060,
+            "totalDeaths": 671,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "ISL",
+            "country": "Iceland",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.77,
+                "2016": 6.22,
+                "2017": 3.49,
+                "2018": 4.66,
+                "2019": 1.14,
+                "2020": -6.65,
+                "2021": 5.18,
+                "2022": 8.82,
+                "2023": 5.19,
+                "2024": -0.97
+            },
+            "covid": {
+                "2020": { "cases": 5743, "deaths": 28 },
+                "2021": { "cases": 18463, "deaths": 9 },
+                "2022": { "cases": 183007, "deaths": 149 },
+                "2023": { "cases": 2578, "deaths": 0 },
+                "2024": { "cases": 958, "deaths": 0 },
+                "2025": { "cases": 430, "deaths": 0 }
+            },
+            "totalCases": 211179,
+            "totalDeaths": 186,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "SLV",
+            "country": "El Salvador",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.4,
+                "2016": 2.54,
+                "2017": 2.25,
+                "2018": 2.41,
+                "2019": 2.44,
+                "2020": -7.89,
+                "2021": 11.9,
+                "2022": 2.95,
+                "2023": 3.54,
+                "2024": 2.6
+            },
+            "covid": {
+                "2020": { "cases": 45960, "deaths": 1327 },
+                "2021": { "cases": 75781, "deaths": 2496 },
+                "2022": { "cases": 80044, "deaths": 407 },
+                "2023": { "cases": 51, "deaths": 0 },
+                "2024": { "cases": 134, "deaths": 0 },
+                "2025": { "cases": 96, "deaths": 0 }
+            },
+            "totalCases": 202066,
+            "totalDeaths": 4230,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "TTO",
+            "country": "Trinidad and Tobago",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": -0.41,
+                "2016": -7.54,
+                "2017": -4.87,
+                "2018": -0.95,
+                "2019": 0.47,
+                "2020": -8.79,
+                "2021": -0.72,
+                "2022": 0.86,
+                "2023": 1.47,
+                "2024": 2.51
+            },
+            "covid": {
+                "2020": { "cases": 7132, "deaths": 126 },
+                "2021": { "cases": 83697, "deaths": 2699 },
+                "2022": { "cases": 95204, "deaths": 1458 },
+                "2023": { "cases": 5463, "deaths": 107 }
+            },
+            "totalCases": 191496,
+            "totalDeaths": 4390,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "MDV",
+            "country": "Maldives",
+            "region": "South Asia",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.87,
+                "2016": 6.38,
+                "2017": 7.07,
+                "2018": 8.57,
+                "2019": 6.92,
+                "2020": -32.91,
+                "2021": 37.51,
+                "2022": 13.83,
+                "2023": 4.94,
+                "2024": 3.49
+            },
+            "covid": {
+                "2020": { "cases": 13757, "deaths": 48 },
+                "2021": { "cases": 81943, "deaths": 214 },
+                "2022": { "cases": 89993, "deaths": 49 },
+                "2023": { "cases": 1001, "deaths": 5 }
+            },
+            "totalCases": 186694,
+            "totalDeaths": 316,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "UZB",
+            "country": "Uzbekistan",
+            "region": "Europe & Central Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 7.22,
+                "2016": 5.93,
+                "2017": 4.4,
+                "2018": 5.56,
+                "2019": 6.78,
+                "2020": 1.56,
+                "2021": 8.03,
+                "2022": 6.0,
+                "2023": 6.29,
+                "2024": 6.5
+            },
+            "covid": {
+                "2020": { "cases": 9, "deaths": 0 },
+                "2021": { "cases": 116776, "deaths": 860 },
+                "2022": { "cases": 50507, "deaths": 156 },
+                "2023": { "cases": 7789, "deaths": 0 },
+                "2024": { "cases": 1, "deaths": 0 },
+                "2025": { "cases": 76, "deaths": 0 }
+            },
+            "totalCases": 175158,
+            "totalDeaths": 1016,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "GHA",
+            "country": "Ghana",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 2.12,
+                "2016": 3.37,
+                "2017": 8.13,
+                "2018": 6.2,
+                "2019": 6.51,
+                "2020": 0.51,
+                "2021": 5.08,
+                "2022": 3.8,
+                "2023": 3.14,
+                "2024": 5.59
+            },
+            "covid": {
+                "2020": { "cases": 55064, "deaths": 335 },
+                "2021": { "cases": 91055, "deaths": 971 },
+                "2022": { "cases": 24929, "deaths": 155 },
+                "2023": { "cases": 786, "deaths": 1 },
+                "2024": { "cases": 497, "deaths": 1 },
+                "2025": { "cases": 448, "deaths": 0 }
+            },
+            "totalCases": 172779,
+            "totalDeaths": 1463,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "NAM",
+            "country": "Namibia",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.26,
+                "2016": 0.03,
+                "2017": -1.03,
+                "2018": 1.06,
+                "2019": -0.84,
+                "2020": -8.1,
+                "2021": 3.6,
+                "2022": 5.4,
+                "2023": 4.44,
+                "2024": 3.71
+            },
+            "covid": {
+                "2020": { "cases": 23932, "deaths": 208 },
+                "2021": { "cases": 124907, "deaths": 3437 },
+                "2022": { "cases": 21513, "deaths": 437 },
+                "2023": { "cases": 1897, "deaths": 21 },
+                "2024": { "cases": 307, "deaths": 7 },
+                "2025": { "cases": 1, "deaths": 0 }
+            },
+            "totalCases": 172557,
+            "totalDeaths": 4110,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "UGA",
+            "country": "Uganda",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 5.19,
+                "2016": 4.78,
+                "2017": 3.13,
+                "2018": 6.3,
+                "2019": 6.44,
+                "2020": 2.95,
+                "2021": 3.54,
+                "2022": 4.59,
+                "2023": 5.34,
+                "2024": 6.06
+            },
+            "covid": {
+                "2020": { "cases": 35220, "deaths": 304 },
+                "2021": { "cases": 107451, "deaths": 2993 },
+                "2022": { "cases": 27219, "deaths": 333 },
+                "2023": { "cases": 1998, "deaths": 2 },
+                "2024": { "cases": 275, "deaths": 0 },
+                "2025": { "cases": 59, "deaths": 0 }
+            },
+            "totalCases": 172222,
+            "totalDeaths": 3632,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "JAM",
+            "country": "Jamaica",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 0.92,
+                "2016": 2.76,
+                "2017": 2.29,
+                "2018": 2.52,
+                "2019": 1.81,
+                "2020": -8.3,
+                "2021": 5.7,
+                "2022": 6.44,
+                "2023": 2.75,
+                "2024": -0.54
+            },
+            "covid": {
+                "2020": { "cases": 12793, "deaths": 302 },
+                "2021": { "cases": 80798, "deaths": 2168 },
+                "2022": { "cases": 59200, "deaths": 993 },
+                "2023": { "cases": 3855, "deaths": 136 },
+                "2024": { "cases": 704, "deaths": 22 },
+                "2025": { "cases": 314, "deaths": 13 }
+            },
+            "totalCases": 157664,
+            "totalDeaths": 3634,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "KHM",
+            "country": "Cambodia",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 7.21,
+                "2016": 7.91,
+                "2017": 8.08,
+                "2018": 8.78,
+                "2019": 7.94,
+                "2020": -3.56,
+                "2021": 3.09,
+                "2022": 5.13,
+                "2023": 5.01,
+                "2024": 5.98
+            },
+            "covid": {
+                "2020": { "cases": 366, "deaths": 0 },
+                "2021": { "cases": 120127, "deaths": 3012 },
+                "2022": { "cases": 18085, "deaths": 44 },
+                "2023": { "cases": 436, "deaths": 0 },
+                "2024": { "cases": 312, "deaths": 0 }
+            },
+            "totalCases": 139326,
+            "totalDeaths": 3056,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "RWA",
+            "country": "Rwanda",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 8.86,
+                "2016": 5.97,
+                "2017": 3.92,
+                "2018": 8.52,
+                "2019": 9.45,
+                "2020": -3.37,
+                "2021": 10.86,
+                "2022": 8.16,
+                "2023": 8.25,
+                "2024": 8.89
+            },
+            "covid": {
+                "2020": { "cases": 8250, "deaths": 86 },
+                "2021": { "cases": 102308, "deaths": 1263 },
+                "2022": { "cases": 22421, "deaths": 118 },
+                "2023": { "cases": 229, "deaths": 1 },
+                "2024": { "cases": 58, "deaths": 0 },
+                "2025": { "cases": 8, "deaths": 0 }
+            },
+            "totalCases": 133274,
+            "totalDeaths": 1468,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "CMR",
+            "country": "Cameroon",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 5.67,
+                "2016": 4.54,
+                "2017": 3.54,
+                "2018": 3.96,
+                "2019": 3.48,
+                "2020": 0.26,
+                "2021": 3.34,
+                "2022": 3.74,
+                "2023": 3.35,
+                "2024": 3.52
+            },
+            "covid": {
+                "2020": { "cases": 26848, "deaths": 448 },
+                "2021": { "cases": 82818, "deaths": 1405 },
+                "2022": { "cases": 14327, "deaths": 112 },
+                "2023": { "cases": 1144, "deaths": 9 },
+                "2024": { "cases": 142, "deaths": 0 },
+                "2025": { "cases": 41, "deaths": 0 }
+            },
+            "totalCases": 125320,
+            "totalDeaths": 1974,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "MLT",
+            "country": "Malta",
+            "region": "Middle East & North Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 9.62,
+                "2016": 4.08,
+                "2017": 12.97,
+                "2018": 7.19,
+                "2019": 4.09,
+                "2020": -3.46,
+                "2021": 13.41,
+                "2022": 2.48,
+                "2023": 10.62,
+                "2024": 6.8
+            },
+            "covid": {
+                "2020": { "cases": 12616, "deaths": 227 },
+                "2021": { "cases": 34820, "deaths": 266 },
+                "2022": { "cases": 68801, "deaths": 341 },
+                "2023": { "cases": 4903, "deaths": 61 },
+                "2024": { "cases": 2462, "deaths": 119 },
+                "2025": { "cases": 1667, "deaths": 102 }
+            },
+            "totalCases": 125269,
+            "totalDeaths": 1116,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "BRB",
+            "country": "Barbados",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": -1.17,
+                "2016": 1.5,
+                "2017": 0.71,
+                "2018": -1.28,
+                "2019": 0.23,
+                "2020": -14.36,
+                "2021": -0.1,
+                "2022": 17.23,
+                "2023": 2.91,
+                "2024": 2.48
+            },
+            "covid": {
+                "2020": { "cases": 372, "deaths": 7 },
+                "2021": { "cases": 27938, "deaths": 253 },
+                "2022": { "cases": 77205, "deaths": 308 },
+                "2023": { "cases": 2279, "deaths": 25 },
+                "2024": { "cases": 1043, "deaths": 0 },
+                "2025": { "cases": 304, "deaths": 0 }
+            },
+            "totalCases": 109141,
+            "totalDeaths": 593,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "AGO",
+            "country": "Angola",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 0.76,
+                "2016": -1.7,
+                "2017": -0.15,
+                "2018": -0.59,
+                "2019": -0.2,
+                "2020": -4.04,
+                "2021": 2.1,
+                "2022": 4.22,
+                "2023": 1.26,
+                "2024": 4.42
+            },
+            "covid": {
+                "2020": { "cases": 17433, "deaths": 405 },
+                "2021": { "cases": 59354, "deaths": 1352 },
+                "2022": { "cases": 28308, "deaths": 173 },
+                "2023": { "cases": 1833, "deaths": 7 },
+                "2024": { "cases": 559, "deaths": 0 }
+            },
+            "totalCases": 107487,
+            "totalDeaths": 1937,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "SEN",
+            "country": "Senegal",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.37,
+                "2016": 6.36,
+                "2017": 7.41,
+                "2018": 6.21,
+                "2019": 4.61,
+                "2020": 1.34,
+                "2021": 6.54,
+                "2022": 3.85,
+                "2023": 4.26,
+                "2024": 6.06
+            },
+            "covid": {
+                "2020": { "cases": 18945, "deaths": 402 },
+                "2021": { "cases": 55925, "deaths": 1488 },
+                "2022": { "cases": 14030, "deaths": 78 },
+                "2023": { "cases": 150, "deaths": 3 },
+                "2024": { "cases": 270, "deaths": 1 },
+                "2025": { "cases": 117, "deaths": 0 }
+            },
+            "totalCases": 89437,
+            "totalDeaths": 1972,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "MWI",
+            "country": "Malawi",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 2.8,
+                "2016": 2.5,
+                "2017": 4.0,
+                "2018": 4.35,
+                "2019": 5.72,
+                "2020": 0.79,
+                "2021": 4.56,
+                "2022": 0.92,
+                "2023": 1.95,
+                "2024": 1.67
+            },
+            "covid": {
+                "2020": { "cases": 6471, "deaths": 189 },
+                "2021": { "cases": 67730, "deaths": 2166 },
+                "2022": { "cases": 14010, "deaths": 330 },
+                "2023": { "cases": 957, "deaths": 1 }
+            },
+            "totalCases": 89168,
+            "totalDeaths": 2686,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "KGZ",
+            "country": "Kyrgyz Republic",
+            "region": "Europe & Central Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 3.88,
+                "2016": 4.34,
+                "2017": 4.74,
+                "2018": 3.76,
+                "2019": 4.6,
+                "2020": -7.15,
+                "2021": 5.51,
+                "2022": 8.97,
+                "2023": 9.01,
+                "2024": 9.04
+            },
+            "covid": {
+                "2021": { "cases": 68891, "deaths": 860 },
+                "2022": { "cases": 19564, "deaths": 164 },
+                "2023": { "cases": 488, "deaths": 0 },
+                "2024": { "cases": 10, "deaths": 0 }
+            },
+            "totalCases": 88953,
+            "totalDeaths": 1024,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "CIV",
+            "country": "Cote d'Ivoire",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 7.19,
+                "2016": 7.17,
+                "2017": 7.41,
+                "2018": 4.84,
+                "2019": 6.72,
+                "2020": 0.7,
+                "2021": 7.06,
+                "2022": 6.4,
+                "2023": 6.6,
+                "2024": 6.02
+            },
+            "covid": {
+                "2020": { "cases": 22250, "deaths": 138 },
+                "2021": { "cases": 45896, "deaths": 574 },
+                "2022": { "cases": 19795, "deaths": 119 },
+                "2023": { "cases": 443, "deaths": 4 },
+                "2024": { "cases": 72, "deaths": 0 },
+                "2025": { "cases": 75, "deaths": 0 }
+            },
+            "totalCases": 88531,
+            "totalDeaths": 835,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "SUR",
+            "country": "Suriname",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -3.41,
+                "2016": -4.91,
+                "2017": 1.57,
+                "2018": 4.95,
+                "2019": 1.17,
+                "2020": -15.98,
+                "2021": -2.44,
+                "2022": 2.41,
+                "2023": 2.42,
+                "2024": 1.72
+            },
+            "covid": {
+                "2020": { "cases": 6098, "deaths": 120 },
+                "2021": { "cases": 45933, "deaths": 1069 },
+                "2022": { "cases": 29550, "deaths": 204 },
+                "2023": { "cases": 914, "deaths": 11 },
+                "2024": { "cases": 11, "deaths": 2 },
+                "2025": { "cases": 10, "deaths": 0 }
+            },
+            "totalCases": 82516,
+            "totalDeaths": 1406,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "NCL",
+            "country": "New Caledonia",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2018": 0.4,
+                "2019": -1.4,
+                "2020": -2.4,
+                "2021": -2.1,
+                "2022": 3.5,
+                "2023": 2.8,
+                "2024": -13.5
+            },
+            "covid": {
+                "2020": { "cases": 38, "deaths": 0 },
+                "2021": { "cases": 12890, "deaths": 281 },
+                "2022": { "cases": 66649, "deaths": 33 },
+                "2023": { "cases": 487, "deaths": 0 },
+                "2024": { "cases": 139, "deaths": 0 }
+            },
+            "totalCases": 80203,
+            "totalDeaths": 314,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "PYF",
+            "country": "French Polynesia",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.8,
+                "2016": 2.3,
+                "2017": 4.29,
+                "2018": 1.81,
+                "2019": 2.69,
+                "2020": -10.57,
+                "2021": 3.37,
+                "2022": 2.94,
+                "2023": 2.77,
+                "2024": 1.13
+            },
+            "covid": {
+                "2020": { "cases": 16851, "deaths": 114 },
+                "2021": { "cases": 29574, "deaths": 522 },
+                "2022": { "cases": 31532, "deaths": 13 },
+                "2023": { "cases": 1270, "deaths": 0 },
+                "2024": { "cases": 224, "deaths": 1 }
+            },
+            "totalCases": 79451,
+            "totalDeaths": 650,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "GUY",
+            "country": "Guyana",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.69,
+                "2016": 3.81,
+                "2017": 3.73,
+                "2018": 4.44,
+                "2019": 5.35,
+                "2020": 43.48,
+                "2021": 20.06,
+                "2022": 63.33,
+                "2023": 33.8,
+                "2024": 43.82
+            },
+            "covid": {
+                "2020": { "cases": 6301, "deaths": 164 },
+                "2021": { "cases": 32937, "deaths": 887 },
+                "2022": { "cases": 32848, "deaths": 235 },
+                "2023": { "cases": 1597, "deaths": 13 },
+                "2024": { "cases": 812, "deaths": 3 },
+                "2025": { "cases": 1025, "deaths": 10 }
+            },
+            "totalCases": 75520,
+            "totalDeaths": 1312,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "SWZ",
+            "country": "Eswatini",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.7,
+                "2016": 2.95,
+                "2017": 3.52,
+                "2018": 0.07,
+                "2019": 6.43,
+                "2020": -2.95,
+                "2021": 4.24,
+                "2022": 0.39,
+                "2023": 3.53,
+                "2024": 2.97
+            },
+            "covid": {
+                "2020": { "cases": 9144, "deaths": 185 },
+                "2021": { "cases": 56688, "deaths": 1114 },
+                "2022": { "cases": 8189, "deaths": 123 },
+                "2023": { "cases": 1170, "deaths": 5 },
+                "2024": { "cases": 165, "deaths": 0 }
+            },
+            "totalCases": 75356,
+            "totalDeaths": 1427,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "BLZ",
+            "country": "Belize",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 2.76,
+                "2016": -0.02,
+                "2017": -1.83,
+                "2018": 0.82,
+                "2019": 4.26,
+                "2020": -13.52,
+                "2021": 17.99,
+                "2022": 9.25,
+                "2023": 0.5,
+                "2024": 3.5
+            },
+            "covid": {
+                "2020": { "cases": 10668, "deaths": 241 },
+                "2021": { "cases": 21399, "deaths": 356 },
+                "2022": { "cases": 37879, "deaths": 91 },
+                "2023": { "cases": 1437, "deaths": 0 },
+                "2024": { "cases": 47, "deaths": 0 },
+                "2025": { "cases": 63, "deaths": 0 }
+            },
+            "totalCases": 71493,
+            "totalDeaths": 688,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "FJI",
+            "country": "Fiji",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 4.5,
+                "2016": 2.45,
+                "2017": 5.35,
+                "2018": 3.81,
+                "2019": -0.58,
+                "2020": -17.18,
+                "2021": -4.35,
+                "2022": 17.75,
+                "2023": 9.44,
+                "2024": 3.53
+            },
+            "covid": {
+                "2020": { "cases": 49, "deaths": 2 },
+                "2021": { "cases": 53842, "deaths": 696 },
+                "2022": { "cases": 14859, "deaths": 183 },
+                "2023": { "cases": 297, "deaths": 4 }
+            },
+            "totalCases": 69047,
+            "totalDeaths": 885,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "MDG",
+            "country": "Madagascar",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 3.13,
+                "2016": 3.99,
+                "2017": 3.93,
+                "2018": 3.19,
+                "2019": 4.41,
+                "2020": -7.14,
+                "2021": 4.65,
+                "2022": 4.16,
+                "2023": 4.2,
+                "2024": 4.2
+            },
+            "covid": {
+                "2020": { "cases": 17714, "deaths": 261 },
+                "2021": { "cases": 32565, "deaths": 766 },
+                "2022": { "cases": 17471, "deaths": 391 },
+                "2023": { "cases": 732, "deaths": 8 },
+                "2024": { "cases": 121, "deaths": 2 },
+                "2025": { "cases": 130, "deaths": 0 }
+            },
+            "totalCases": 68733,
+            "totalDeaths": 1428,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "CPV",
+            "country": "Cabo Verde",
+            "region": "Sub-Saharan Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 0.94,
+                "2016": 4.28,
+                "2017": 4.55,
+                "2018": 3.71,
+                "2019": 6.95,
+                "2020": -20.81,
+                "2021": 7.03,
+                "2022": 15.84,
+                "2023": 4.79,
+                "2024": 7.24
+            },
+            "covid": {
+                "2020": { "cases": 11793, "deaths": 112 },
+                "2021": { "cases": 28945, "deaths": 240 },
+                "2022": { "cases": 22462, "deaths": 60 },
+                "2023": { "cases": 1274, "deaths": 5 },
+                "2025": { "cases": 76, "deaths": 0 }
+            },
+            "totalCases": 64550,
+            "totalDeaths": 417,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "SDN",
+            "country": "Sudan",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 1.91,
+                "2016": 3.47,
+                "2017": 0.71,
+                "2018": -2.68,
+                "2019": -2.18,
+                "2020": -3.63,
+                "2021": -1.87,
+                "2022": -0.96,
+                "2023": -29.43,
+                "2024": -13.96
+            },
+            "covid": {
+                "2020": { "cases": 25500, "deaths": 1561 },
+                "2021": { "cases": 21411, "deaths": 1776 },
+                "2022": { "cases": 16791, "deaths": 1658 },
+                "2023": { "cases": 291, "deaths": 51 }
+            },
+            "totalCases": 63993,
+            "totalDeaths": 5046,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "MRT",
+            "country": "Mauritania",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 5.38,
+                "2016": 1.26,
+                "2017": 6.27,
+                "2018": 4.77,
+                "2019": 3.14,
+                "2020": -0.36,
+                "2021": 0.74,
+                "2022": 6.8,
+                "2023": 6.81,
+                "2024": 6.31
+            },
+            "covid": {
+                "2020": { "cases": 14191, "deaths": 340 },
+                "2021": { "cases": 26963, "deaths": 523 },
+                "2022": { "cases": 22275, "deaths": 134 },
+                "2023": { "cases": 358, "deaths": 0 },
+                "2024": { "cases": 93, "deaths": 0 },
+                "2025": { "cases": 11, "deaths": 0 }
+            },
+            "totalCases": 63891,
+            "totalDeaths": 997,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "BTN",
+            "country": "Bhutan",
+            "region": "South Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.66,
+                "2016": 8.48,
+                "2017": 2.09,
+                "2018": 3.5,
+                "2019": 5.76,
+                "2020": -10.22,
+                "2021": 4.42,
+                "2022": 5.21,
+                "2023": 4.63
+            },
+            "covid": {
+                "2020": { "cases": 670, "deaths": 0 },
+                "2021": { "cases": 1990, "deaths": 3 },
+                "2022": { "cases": 59871, "deaths": 18 },
+                "2023": { "cases": 166, "deaths": 0 },
+                "2025": { "cases": 496, "deaths": 0 }
+            },
+            "totalCases": 63193,
+            "totalDeaths": 21,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "SYR",
+            "country": "Syrian Arab Republic",
+            "region": "Middle East & North Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": -4.18,
+                "2016": -6.41,
+                "2017": -0.72,
+                "2018": 1.39,
+                "2019": 1.22,
+                "2020": -0.7,
+                "2021": 1.85,
+                "2022": 0.73
+            },
+            "covid": {
+                "2020": { "cases": 11344, "deaths": 704 },
+                "2021": { "cases": 38899, "deaths": 2189 },
+                "2022": { "cases": 7180, "deaths": 270 }
+            },
+            "totalCases": 57423,
+            "totalDeaths": 3163,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "BDI",
+            "country": "Burundi",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": -0.4,
+                "2016": 3.2,
+                "2017": 3.83,
+                "2018": 5.34,
+                "2019": 4.46,
+                "2020": 0.31,
+                "2021": 3.24,
+                "2022": 2.32,
+                "2023": 3.25,
+                "2024": 4.11
+            },
+            "covid": {
+                "2020": { "cases": 818, "deaths": 2 },
+                "2021": { "cases": 29732, "deaths": 12 },
+                "2022": { "cases": 21612, "deaths": 1 },
+                "2023": { "cases": 2299, "deaths": 0 },
+                "2024": { "cases": 108, "deaths": 0 }
+            },
+            "totalCases": 54569,
+            "totalDeaths": 15,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "GUM",
+            "country": "Guam",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.83,
+                "2016": 0.18,
+                "2017": 0.89,
+                "2018": -0.83,
+                "2019": 2.52,
+                "2020": -10.52,
+                "2021": 2.06,
+                "2022": 5.1
+            },
+            "covid": {
+                "2020": { "cases": 7129, "deaths": 121 },
+                "2021": { "cases": 8223, "deaths": 149 },
+                "2022": { "cases": 34650, "deaths": 141 },
+                "2023": { "cases": 2285, "deaths": 8 }
+            },
+            "totalCases": 52287,
+            "totalDeaths": 419,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "SYC",
+            "country": "Seychelles",
+            "region": "Sub-Saharan Africa",
+            "income": "High income",
+            "gdp": {
+                "2015": 8.91,
+                "2016": 12.12,
+                "2017": 6.95,
+                "2018": 4.94,
+                "2019": 5.51,
+                "2020": -11.74,
+                "2021": 0.55,
+                "2022": 12.71,
+                "2023": 2.26,
+                "2024": 3.47
+            },
+            "covid": {
+                "2020": { "cases": 226, "deaths": 0 },
+                "2021": { "cases": 24562, "deaths": 126 },
+                "2022": { "cases": 25567, "deaths": 46 },
+                "2023": { "cases": 865, "deaths": 0 },
+                "2024": { "cases": 679, "deaths": 0 }
+            },
+            "totalCases": 51899,
+            "totalDeaths": 172,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "GAB",
+            "country": "Gabon",
+            "region": "Sub-Saharan Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.88,
+                "2016": 2.09,
+                "2017": 0.47,
+                "2018": 0.84,
+                "2019": 3.92,
+                "2020": -1.84,
+                "2021": 1.47,
+                "2022": 3.04,
+                "2023": 2.44,
+                "2024": 3.39
+            },
+            "covid": {
+                "2020": { "cases": 9571, "deaths": 64 },
+                "2021": { "cases": 32227, "deaths": 224 },
+                "2022": { "cases": 7182, "deaths": 18 },
+                "2023": { "cases": 71, "deaths": 1 },
+                "2024": { "cases": 6, "deaths": 0 },
+                "2025": { "cases": 12, "deaths": 0 }
+            },
+            "totalCases": 49069,
+            "totalDeaths": 307,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "AND",
+            "country": "Andorra",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.43,
+                "2016": 3.71,
+                "2017": 0.35,
+                "2018": 1.59,
+                "2019": 2.02,
+                "2020": -11.18,
+                "2021": 8.29,
+                "2022": 9.56,
+                "2023": 2.58,
+                "2024": 3.37
+            },
+            "covid": {
+                "2020": { "cases": 7983, "deaths": 84 },
+                "2021": { "cases": 15139, "deaths": 56 },
+                "2022": { "cases": 24629, "deaths": 18 },
+                "2023": { "cases": 264, "deaths": 1 }
+            },
+            "totalCases": 48015,
+            "totalDeaths": 159,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "PNG",
+            "country": "Papua New Guinea",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.58,
+                "2016": 5.49,
+                "2017": 3.53,
+                "2018": -0.28,
+                "2019": 4.48,
+                "2020": -3.17,
+                "2021": -0.51,
+                "2022": 5.71,
+                "2023": 3.81,
+                "2024": 3.8
+            },
+            "covid": {
+                "2020": { "cases": 780, "deaths": 9 },
+                "2021": { "cases": 35410, "deaths": 581 },
+                "2022": { "cases": 10524, "deaths": 79 },
+                "2023": { "cases": 150, "deaths": 1 }
+            },
+            "totalCases": 46864,
+            "totalDeaths": 670,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "CUW",
+            "country": "Curacao",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.46,
+                "2016": -1.07,
+                "2017": -1.28,
+                "2018": -2.1,
+                "2019": -3.21,
+                "2020": -18.44,
+                "2021": 4.18,
+                "2022": 6.91,
+                "2023": 4.2,
+                "2024": 5.03
+            },
+            "covid": {
+                "2020": { "cases": 4179, "deaths": 14 },
+                "2021": { "cases": 16020, "deaths": 173 },
+                "2022": { "cases": 25521, "deaths": 112 },
+                "2023": { "cases": 163, "deaths": 6 }
+            },
+            "totalCases": 45883,
+            "totalDeaths": 305,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "ABW",
+            "country": "Aruba",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.61,
+                "2016": 1.23,
+                "2017": 3.49,
+                "2018": 3.21,
+                "2019": 1.23,
+                "2020": -23.9,
+                "2021": 14.73,
+                "2022": 10.64,
+                "2023": 7.71,
+                "2024": 6.81
+            },
+            "covid": {
+                "2020": { "cases": 5373, "deaths": 49 },
+                "2021": { "cases": 13648, "deaths": 132 },
+                "2022": { "cases": 24839, "deaths": 99 },
+                "2023": { "cases": 364, "deaths": 12 }
+            },
+            "totalCases": 44224,
+            "totalDeaths": 292,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "TZA",
+            "country": "Tanzania",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.16,
+                "2016": 6.87,
+                "2017": 6.73,
+                "2018": 5.5,
+                "2019": 5.8,
+                "2020": 1.99,
+                "2021": 4.32,
+                "2022": 4.57,
+                "2023": 5.07,
+                "2024": 5.53
+            },
+            "covid": {
+                "2020": { "cases": 509, "deaths": 21 },
+                "2021": { "cases": 28797, "deaths": 716 },
+                "2022": { "cases": 13090, "deaths": 108 },
+                "2023": { "cases": 827, "deaths": 1 },
+                "2024": { "cases": 145, "deaths": 0 },
+                "2025": { "cases": 238, "deaths": 0 }
+            },
+            "totalCases": 43606,
+            "totalDeaths": 846,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "TGO",
+            "country": "Togo",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 5.47,
+                "2016": 4.21,
+                "2017": 4.01,
+                "2018": 4.8,
+                "2019": 4.92,
+                "2020": 2.16,
+                "2021": 5.13,
+                "2022": 6.29,
+                "2023": 6.19,
+                "2024": 6.53
+            },
+            "covid": {
+                "2020": { "cases": 3611, "deaths": 68 },
+                "2021": { "cases": 26552, "deaths": 180 },
+                "2022": { "cases": 9180, "deaths": 42 },
+                "2023": { "cases": 184, "deaths": 0 },
+                "2024": { "cases": 10, "deaths": 0 },
+                "2025": { "cases": 16, "deaths": 0 }
+            },
+            "totalCases": 39553,
+            "totalDeaths": 290,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "BHS",
+            "country": "Bahamas, The",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.0,
+                "2016": -1.16,
+                "2017": 3.37,
+                "2018": 2.4,
+                "2019": -0.84,
+                "2020": -20.09,
+                "2021": 17.59,
+                "2022": 10.88,
+                "2023": 3.05,
+                "2024": 3.38
+            },
+            "covid": {
+                "2020": { "cases": 7857, "deaths": 170 },
+                "2021": { "cases": 16619, "deaths": 547 },
+                "2022": { "cases": 13015, "deaths": 116 },
+                "2023": { "cases": 656, "deaths": 13 },
+                "2024": { "cases": 980, "deaths": 3 }
+            },
+            "totalCases": 39127,
+            "totalDeaths": 849,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "GIN",
+            "country": "Guinea",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 3.83,
+                "2016": 10.82,
+                "2017": 10.3,
+                "2018": 6.36,
+                "2019": 5.62,
+                "2020": 4.7,
+                "2021": 5.58,
+                "2022": 3.97,
+                "2023": 5.54,
+                "2024": 5.35
+            },
+            "covid": {
+                "2020": { "cases": 13722, "deaths": 81 },
+                "2021": { "cases": 18726, "deaths": 310 },
+                "2022": { "cases": 5776, "deaths": 76 },
+                "2023": { "cases": 348, "deaths": 1 },
+                "2024": { "cases": 10, "deaths": 0 },
+                "2025": { "cases": 11, "deaths": 0 }
+            },
+            "totalCases": 38593,
+            "totalDeaths": 468,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "IMN",
+            "country": "Isle of Man",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": -0.39,
+                "2016": 6.95,
+                "2017": 2.84,
+                "2018": 2.21,
+                "2019": 0.25,
+                "2020": -8.84,
+                "2021": 3.84,
+                "2022": -4.17
+            },
+            "covid": {
+                "2020": { "cases": 379, "deaths": 35 },
+                "2021": { "cases": 14987, "deaths": 32 },
+                "2022": { "cases": 22642, "deaths": 49 }
+            },
+            "totalCases": 38008,
+            "totalDeaths": 116,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "LSO",
+            "country": "Lesotho",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 3.12,
+                "2016": 3.61,
+                "2017": -3.14,
+                "2018": -1.48,
+                "2019": -1.42,
+                "2020": -8.16,
+                "2021": 2.27,
+                "2022": 2.39,
+                "2023": 1.83,
+                "2024": 2.85
+            },
+            "covid": {
+                "2020": { "cases": 2577, "deaths": 64 },
+                "2021": { "cases": 27075, "deaths": 607 },
+                "2022": { "cases": 4838, "deaths": 35 },
+                "2023": { "cases": 1648, "deaths": 3 },
+                "2025": { "cases": 2, "deaths": 0 }
+            },
+            "totalCases": 36140,
+            "totalDeaths": 709,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "HTI",
+            "country": "Haiti",
+            "region": "Latin America & Caribbean",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.4,
+                "2016": 1.81,
+                "2017": 2.51,
+                "2018": 1.67,
+                "2019": -1.72,
+                "2020": -3.31,
+                "2021": -1.8,
+                "2022": -1.68,
+                "2023": -1.86,
+                "2024": -4.17
+            },
+            "covid": {
+                "2020": { "cases": 9999, "deaths": 236 },
+                "2021": { "cases": 16170, "deaths": 537 },
+                "2022": { "cases": 7800, "deaths": 87 },
+                "2023": { "cases": 259, "deaths": 0 },
+                "2024": { "cases": 541, "deaths": 0 },
+                "2025": { "cases": 132, "deaths": 0 }
+            },
+            "totalCases": 34901,
+            "totalDeaths": 860,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "FRO",
+            "country": "Faroe Islands",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.96,
+                "2016": 1.39,
+                "2017": 3.51,
+                "2018": 2.76,
+                "2019": 4.54,
+                "2020": -1.64,
+                "2021": 5.07,
+                "2022": 3.86,
+                "2023": 3.16,
+                "2024": 0.84
+            },
+            "covid": {
+                "2020": { "cases": 608, "deaths": 0 },
+                "2021": { "cases": 5161, "deaths": 14 },
+                "2022": { "cases": 28889, "deaths": 14 }
+            },
+            "totalCases": 34658,
+            "totalDeaths": 28,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "MLI",
+            "country": "Mali",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 6.24,
+                "2016": 6.01,
+                "2017": 5.38,
+                "2018": 4.87,
+                "2019": 5.0,
+                "2020": -1.17,
+                "2021": 3.1,
+                "2022": 3.7,
+                "2023": 4.73,
+                "2024": 4.99
+            },
+            "covid": {
+                "2020": { "cases": 7029, "deaths": 269 },
+                "2021": { "cases": 13641, "deaths": 389 },
+                "2022": { "cases": 12100, "deaths": 85 },
+                "2023": { "cases": 394, "deaths": 0 },
+                "2024": { "cases": 19, "deaths": 0 },
+                "2025": { "cases": 16, "deaths": 0 }
+            },
+            "totalCases": 33199,
+            "totalDeaths": 743,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "FSM",
+            "country": "Micronesia, Fed. Sts.",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.43,
+                "2016": 0.94,
+                "2017": 2.18,
+                "2018": 0.0,
+                "2019": 4.08,
+                "2020": -1.67,
+                "2021": 3.1,
+                "2022": -2.91,
+                "2023": 0.45,
+                "2024": 0.72
+            },
+            "covid": {
+                "2022": { "cases": 22234, "deaths": 58 },
+                "2023": { "cases": 4313, "deaths": 7 },
+                "2024": { "cases": 5218, "deaths": -3 }
+            },
+            "totalCases": 31765,
+            "totalDeaths": 62,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "CYM",
+            "country": "Cayman Islands",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.83,
+                "2016": 3.24,
+                "2017": 3.18,
+                "2018": 4.27,
+                "2019": 3.92,
+                "2020": -4.95,
+                "2021": 4.87,
+                "2022": 5.78,
+                "2023": 5.82
+            },
+            "covid": {
+                "2020": { "cases": 326, "deaths": 2 },
+                "2021": { "cases": 8492, "deaths": 9 },
+                "2022": { "cases": 22654, "deaths": 26 }
+            },
+            "totalCases": 31472,
+            "totalDeaths": 37,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "BEN",
+            "country": "Benin",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.78,
+                "2016": 3.34,
+                "2017": 5.67,
+                "2018": 6.7,
+                "2019": 6.87,
+                "2020": 3.85,
+                "2021": 7.16,
+                "2022": 6.25,
+                "2023": 6.35,
+                "2024": 7.45
+            },
+            "covid": {
+                "2020": { "cases": 3251, "deaths": 44 },
+                "2021": { "cases": 21793, "deaths": 117 },
+                "2022": { "cases": 2942, "deaths": 2 },
+                "2023": { "cases": 50, "deaths": 0 }
+            },
+            "totalCases": 28036,
+            "totalDeaths": 163,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "SLB",
+            "country": "Solomon Islands",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.68,
+                "2016": 5.55,
+                "2017": 3.08,
+                "2018": 2.75,
+                "2019": 1.75,
+                "2020": -3.38,
+                "2021": -0.23,
+                "2022": -2.58,
+                "2023": 2.84,
+                "2024": 3.0
+            },
+            "covid": {
+                "2020": { "cases": 17, "deaths": 0 },
+                "2021": { "cases": 7, "deaths": 0 },
+                "2022": { "cases": 21587, "deaths": 153 },
+                "2023": { "cases": 4343, "deaths": 46 }
+            },
+            "totalCases": 25954,
+            "totalDeaths": 199,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "SMR",
+            "country": "San Marino",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 2.29,
+                "2016": 2.34,
+                "2017": 0.26,
+                "2018": 1.49,
+                "2019": 2.07,
+                "2020": -6.65,
+                "2021": 13.9,
+                "2022": 7.9,
+                "2023": 0.4
+            },
+            "covid": {
+                "2020": { "cases": 2401, "deaths": 59 },
+                "2021": { "cases": 5850, "deaths": 40 },
+                "2022": { "cases": 14918, "deaths": 22 },
+                "2023": { "cases": 2123, "deaths": 5 }
+            },
+            "totalCases": 25292,
+            "totalDeaths": 126,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "TLS",
+            "country": "Timor-Leste",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 2.48,
+                "2016": 3.01,
+                "2017": -3.18,
+                "2018": -0.47,
+                "2019": 24.21,
+                "2020": 31.73,
+                "2021": 5.37,
+                "2022": -20.52,
+                "2023": -18.14,
+                "2024": -9.1
+            },
+            "covid": {
+                "2020": { "cases": 44, "deaths": 0 },
+                "2021": { "cases": 19793, "deaths": 122 },
+                "2022": { "cases": 3560, "deaths": 16 },
+                "2023": { "cases": 63, "deaths": 0 }
+            },
+            "totalCases": 23460,
+            "totalDeaths": 138,
+            "whoRegion": "SEAR"
+        },
+        {
+            "code": "BFA",
+            "country": "Burkina Faso",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 3.92,
+                "2016": 5.96,
+                "2017": 6.2,
+                "2018": 6.6,
+                "2019": 5.89,
+                "2020": 2.01,
+                "2021": 6.94,
+                "2022": 1.63,
+                "2023": 3.0,
+                "2024": 4.8
+            },
+            "covid": {
+                "2020": { "cases": 6707, "deaths": 85 },
+                "2021": { "cases": 10925, "deaths": 233 },
+                "2022": { "cases": 4391, "deaths": 77 },
+                "2023": { "cases": 86, "deaths": 5 },
+                "2024": { "cases": 55, "deaths": 0 },
+                "2025": { "cases": 53, "deaths": 0 }
+            },
+            "totalCases": 22217,
+            "totalDeaths": 400,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "GRD",
+            "country": "Grenada",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 6.45,
+                "2016": 3.74,
+                "2017": 4.44,
+                "2018": 4.36,
+                "2019": 0.68,
+                "2020": -13.76,
+                "2021": 4.7,
+                "2022": 7.31,
+                "2023": 4.53,
+                "2024": 3.96
+            },
+            "covid": {
+                "2020": { "cases": 128, "deaths": 0 },
+                "2021": { "cases": 5945, "deaths": 200 },
+                "2022": { "cases": 13598, "deaths": 38 },
+                "2023": { "cases": 22, "deaths": 0 }
+            },
+            "totalCases": 19693,
+            "totalDeaths": 238,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "SSD",
+            "country": "South Sudan",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": { "2015": -10.79 },
+            "covid": {
+                "2020": { "cases": 3540, "deaths": 64 },
+                "2021": { "cases": 12086, "deaths": 72 },
+                "2022": { "cases": 2742, "deaths": 2 },
+                "2023": { "cases": 451, "deaths": 9 },
+                "2024": { "cases": 41, "deaths": 0 },
+                "2025": { "cases": 13, "deaths": 0 }
+            },
+            "totalCases": 18873,
+            "totalDeaths": 147,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "BMU",
+            "country": "Bermuda",
+            "region": "North America",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.78,
+                "2016": -0.66,
+                "2017": 3.61,
+                "2018": -0.43,
+                "2019": 0.31,
+                "2020": -6.83,
+                "2021": 4.61,
+                "2022": 6.48,
+                "2023": 4.92,
+                "2024": 5.97
+            },
+            "covid": {
+                "2020": { "cases": 595, "deaths": 10 },
+                "2021": { "cases": 5736, "deaths": 96 },
+                "2022": { "cases": 12291, "deaths": 47 },
+                "2023": { "cases": 238, "deaths": 12 }
+            },
+            "totalCases": 18860,
+            "totalDeaths": 165,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "TJK",
+            "country": "Tajikistan",
+            "region": "Europe & Central Asia",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 6.02,
+                "2016": 6.9,
+                "2017": 7.1,
+                "2018": 7.6,
+                "2019": 7.4,
+                "2020": 4.4,
+                "2021": 9.4,
+                "2022": 8.0,
+                "2023": 8.3,
+                "2024": 8.4
+            },
+            "covid": {
+                "2020": { "cases": 13665, "deaths": 90 },
+                "2021": { "cases": 3828, "deaths": 35 },
+                "2022": { "cases": 293, "deaths": 0 }
+            },
+            "totalCases": 17786,
+            "totalDeaths": 125,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "MCO",
+            "country": "Monaco",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": 4.91,
+                "2016": 3.01,
+                "2017": -3.21,
+                "2018": 5.7,
+                "2019": 7.12,
+                "2020": -13.24,
+                "2021": 22.23,
+                "2022": 11.27,
+                "2023": 5.44,
+                "2024": 8.51
+            },
+            "covid": {
+                "2020": { "cases": 726, "deaths": 3 },
+                "2021": { "cases": 4320, "deaths": 35 },
+                "2022": { "cases": 11428, "deaths": 27 },
+                "2023": { "cases": 707, "deaths": 2 }
+            },
+            "totalCases": 17181,
+            "totalDeaths": 67,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "GNQ",
+            "country": "Equatorial Guinea",
+            "region": "Sub-Saharan Africa",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -9.11,
+                "2016": -8.82,
+                "2017": -5.67,
+                "2018": -6.24,
+                "2019": -5.48,
+                "2020": -4.79,
+                "2021": 0.86,
+                "2022": 3.22,
+                "2023": -5.09,
+                "2024": 0.91
+            },
+            "covid": {
+                "2020": { "cases": 5277, "deaths": 86 },
+                "2021": { "cases": 8433, "deaths": 89 },
+                "2022": { "cases": 3379, "deaths": 8 },
+                "2023": { "cases": 41, "deaths": 0 }
+            },
+            "totalCases": 17130,
+            "totalDeaths": 183,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "WSM",
+            "country": "Samoa",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 3.85,
+                "2016": 7.98,
+                "2017": 1.41,
+                "2018": -0.61,
+                "2019": 4.45,
+                "2020": -3.11,
+                "2021": -5.04,
+                "2022": 2.27,
+                "2023": 15.23,
+                "2024": 4.75
+            },
+            "covid": {
+                "2020": { "cases": 1, "deaths": 0 },
+                "2021": { "cases": 1, "deaths": 0 },
+                "2022": { "cases": 16277, "deaths": 29 },
+                "2023": { "cases": 683, "deaths": 2 },
+                "2024": { "cases": 95, "deaths": 0 }
+            },
+            "totalCases": 17057,
+            "totalDeaths": 31,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "TON",
+            "country": "Tonga",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 1.11,
+                "2016": 6.6,
+                "2017": 3.2,
+                "2018": 0.53,
+                "2019": -0.29,
+                "2020": 1.81,
+                "2021": -0.93,
+                "2022": -2.13,
+                "2023": 2.79
+            },
+            "covid": {
+                "2021": { "cases": 1, "deaths": 0 },
+                "2022": { "cases": 16411, "deaths": 12 },
+                "2023": { "cases": 537, "deaths": 0 },
+                "2024": { "cases": 43, "deaths": 1 }
+            },
+            "totalCases": 16992,
+            "totalDeaths": 13,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "NIC",
+            "country": "Nicaragua",
+            "region": "Latin America & Caribbean",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 4.79,
+                "2016": 4.56,
+                "2017": 4.63,
+                "2018": -3.36,
+                "2019": -2.9,
+                "2020": -2.24,
+                "2021": 10.45,
+                "2022": 3.55,
+                "2023": 4.43,
+                "2024": 3.59
+            },
+            "covid": {
+                "2020": { "cases": 4829, "deaths": 165 },
+                "2021": { "cases": 8734, "deaths": 52 },
+                "2022": { "cases": 1802, "deaths": 28 },
+                "2023": { "cases": 750, "deaths": 0 },
+                "2024": { "cases": 84, "deaths": 0 },
+                "2025": { "cases": 604, "deaths": 0 }
+            },
+            "totalCases": 16803,
+            "totalDeaths": 245,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "MHL",
+            "country": "Marshall Islands",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 1.89,
+                "2016": 2.5,
+                "2017": 3.56,
+                "2018": 5.49,
+                "2019": 10.45,
+                "2020": -2.77,
+                "2021": 2.16,
+                "2022": -0.7,
+                "2023": -5.01,
+                "2024": 2.5
+            },
+            "covid": {
+                "2020": { "cases": 4, "deaths": 0 },
+                "2022": { "cases": 15540, "deaths": 17 },
+                "2023": { "cases": 594, "deaths": 0 },
+                "2024": { "cases": 159, "deaths": 0 }
+            },
+            "totalCases": 16297,
+            "totalDeaths": 17,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "DMA",
+            "country": "Dominica",
+            "region": "Latin America & Caribbean",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": -3.37,
+                "2016": 1.45,
+                "2017": -7.54,
+                "2018": 2.96,
+                "2019": 3.95,
+                "2020": -15.71,
+                "2021": 5.38,
+                "2022": 10.4,
+                "2023": 3.65,
+                "2024": 2.05
+            },
+            "covid": {
+                "2020": { "cases": 96, "deaths": 0 },
+                "2021": { "cases": 6718, "deaths": 47 },
+                "2022": { "cases": 8946, "deaths": 27 },
+                "2023": { "cases": 287, "deaths": 0 }
+            },
+            "totalCases": 16047,
+            "totalDeaths": 74,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "DJI",
+            "country": "Djibouti",
+            "region": "Middle East & North Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 7.31,
+                "2016": 7.12,
+                "2017": 5.46,
+                "2018": 4.77,
+                "2019": 5.55,
+                "2020": 1.2,
+                "2021": 4.41,
+                "2022": 5.17,
+                "2023": 6.81,
+                "2024": 6.98
+            },
+            "covid": {
+                "2020": { "cases": 5824, "deaths": 61 },
+                "2021": { "cases": 7808, "deaths": 128 },
+                "2022": { "cases": 2058, "deaths": 0 }
+            },
+            "totalCases": 15690,
+            "totalDeaths": 189,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "CAF",
+            "country": "Central African Republic",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 4.34,
+                "2016": 4.75,
+                "2017": 4.53,
+                "2018": 3.79,
+                "2019": 3.1,
+                "2020": 0.9,
+                "2021": 0.98,
+                "2022": 0.45,
+                "2023": 0.7,
+                "2024": 1.5
+            },
+            "covid": {
+                "2020": { "cases": 5818, "deaths": 63 },
+                "2021": { "cases": 6636, "deaths": 38 },
+                "2022": { "cases": 2906, "deaths": 12 },
+                "2023": { "cases": 80, "deaths": 0 },
+                "2024": { "cases": 3, "deaths": 0 },
+                "2025": { "cases": 49, "deaths": 0 }
+            },
+            "totalCases": 15492,
+            "totalDeaths": 113,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "MNP",
+            "country": "Northern Mariana Islands",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.38,
+                "2016": 29.21,
+                "2017": 23.17,
+                "2018": -19.5,
+                "2019": -11.45,
+                "2020": -29.06,
+                "2021": 4.97,
+                "2022": 16.64
+            },
+            "covid": {
+                "2020": { "cases": 122, "deaths": 2 },
+                "2021": { "cases": 3133, "deaths": 11 },
+                "2022": { "cases": 9981, "deaths": 28 },
+                "2023": { "cases": 1105, "deaths": 0 },
+                "2024": { "cases": 644, "deaths": 0 }
+            },
+            "totalCases": 14985,
+            "totalDeaths": 41,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "GMB",
+            "country": "Gambia, The",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 4.06,
+                "2016": 1.94,
+                "2017": 4.82,
+                "2018": 7.23,
+                "2019": 6.22,
+                "2020": 0.59,
+                "2021": 5.26,
+                "2022": 5.49,
+                "2023": 5.92,
+                "2024": 5.55
+            },
+            "covid": {
+                "2020": { "cases": 3800, "deaths": 124 },
+                "2021": { "cases": 6370, "deaths": 219 },
+                "2022": { "cases": 2416, "deaths": 29 },
+                "2023": { "cases": 40, "deaths": 0 },
+                "2024": { "cases": 1, "deaths": 0 }
+            },
+            "totalCases": 12627,
+            "totalDeaths": 372,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "VUT",
+            "country": "Vanuatu",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 3.97,
+                "2016": 3.47,
+                "2017": 4.41,
+                "2018": 2.9,
+                "2019": 3.24,
+                "2020": -4.99,
+                "2021": -1.55,
+                "2022": 5.19,
+                "2023": 2.09,
+                "2024": 0.94
+            },
+            "covid": {
+                "2020": { "cases": 1, "deaths": 0 },
+                "2021": { "cases": 6, "deaths": 0 },
+                "2022": { "cases": 12007, "deaths": 14 },
+                "2023": { "cases": 5, "deaths": 0 }
+            },
+            "totalCases": 12019,
+            "totalDeaths": 14,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "GRL",
+            "country": "Greenland",
+            "region": "Europe & Central Asia",
+            "income": "High income",
+            "gdp": {
+                "2015": -2.53,
+                "2016": 4.68,
+                "2017": 0.05,
+                "2018": 0.62,
+                "2019": 2.83,
+                "2020": 0.25,
+                "2021": 1.63,
+                "2022": 2.0,
+                "2023": 0.87
+            },
+            "covid": {
+                "2020": { "cases": 27, "deaths": 0 },
+                "2021": { "cases": 2474, "deaths": 1 },
+                "2022": { "cases": 9470, "deaths": 20 }
+            },
+            "totalCases": 11971,
+            "totalDeaths": 21,
+            "whoRegion": "EUR"
+        },
+        {
+            "code": "YEM",
+            "country": "Yemen, Rep.",
+            "region": "Middle East & North Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": -27.99,
+                "2016": -9.38,
+                "2017": -5.07,
+                "2018": 0.75
+            },
+            "covid": {
+                "2020": { "cases": 2101, "deaths": 611 },
+                "2021": { "cases": 8025, "deaths": 1373 },
+                "2022": { "cases": 1819, "deaths": 175 }
+            },
+            "totalCases": 11945,
+            "totalDeaths": 2159,
+            "whoRegion": "EMR"
+        },
+        {
+            "code": "SXM",
+            "country": "Sint Maarten (Dutch part)",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 0.11,
+                "2016": 0.97,
+                "2017": -7.54,
+                "2018": -6.86,
+                "2019": 10.97,
+                "2020": -13.32,
+                "2021": 4.58,
+                "2022": 13.9,
+                "2023": 3.8,
+                "2024": 3.0
+            },
+            "covid": {
+                "2020": { "cases": 1423, "deaths": 27 },
+                "2021": { "cases": 3631, "deaths": 48 },
+                "2022": { "cases": 5938, "deaths": 14 },
+                "2023": { "cases": 59, "deaths": 3 }
+            },
+            "totalCases": 11051,
+            "totalDeaths": 92,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "GNB",
+            "country": "Guinea-Bissau",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 6.13,
+                "2016": 5.43,
+                "2017": 4.66,
+                "2018": 3.76,
+                "2019": 5.33,
+                "2020": 2.89,
+                "2021": 5.05,
+                "2022": 5.53,
+                "2023": 5.83,
+                "2024": 4.15
+            },
+            "covid": {
+                "2020": { "cases": 2452, "deaths": 45 },
+                "2021": { "cases": 4032, "deaths": 104 },
+                "2022": { "cases": 2463, "deaths": 27 },
+                "2023": { "cases": 667, "deaths": 1 }
+            },
+            "totalCases": 9614,
+            "totalDeaths": 177,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "NER",
+            "country": "Niger",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 4.39,
+                "2016": 5.74,
+                "2017": 5.01,
+                "2018": 7.21,
+                "2019": 5.94,
+                "2020": 3.55,
+                "2021": 1.38,
+                "2022": 11.9,
+                "2023": 1.67,
+                "2024": 10.3
+            },
+            "covid": {
+                "2020": { "cases": 3208, "deaths": 101 },
+                "2021": { "cases": 4157, "deaths": 173 },
+                "2022": { "cases": 2129, "deaths": 40 },
+                "2023": { "cases": 21, "deaths": 1 },
+                "2024": { "cases": 14, "deaths": 0 },
+                "2025": { "cases": 44, "deaths": 0 }
+            },
+            "totalCases": 9573,
+            "totalDeaths": 315,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "COM",
+            "country": "Comoros",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.15,
+                "2016": 3.32,
+                "2017": 3.82,
+                "2018": 3.64,
+                "2019": 1.76,
+                "2020": -0.2,
+                "2021": 2.0,
+                "2022": 2.6,
+                "2023": 3.0,
+                "2024": 3.34
+            },
+            "covid": {
+                "2020": { "cases": 695, "deaths": 9 },
+                "2021": { "cases": 5820, "deaths": 148 },
+                "2022": { "cases": 2470, "deaths": 3 },
+                "2023": { "cases": 124, "deaths": 0 }
+            },
+            "totalCases": 9109,
+            "totalDeaths": 160,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "ATG",
+            "country": "Antigua and Barbuda",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 1.42,
+                "2016": 4.12,
+                "2017": 2.71,
+                "2018": 6.71,
+                "2019": 3.17,
+                "2020": -18.87,
+                "2021": 8.17,
+                "2022": 9.11,
+                "2023": 2.43,
+                "2024": 3.66
+            },
+            "covid": {
+                "2020": { "cases": 158, "deaths": 5 },
+                "2021": { "cases": 4137, "deaths": 114 },
+                "2022": { "cases": 4811, "deaths": 27 }
+            },
+            "totalCases": 9106,
+            "totalDeaths": 146,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "ASM",
+            "country": "American Samoa",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.15,
+                "2016": -1.68,
+                "2017": -6.99,
+                "2018": 2.67,
+                "2019": -0.49,
+                "2020": 4.41,
+                "2021": -0.78,
+                "2022": 1.74
+            },
+            "covid": {
+                "2021": { "cases": 11, "deaths": 0 },
+                "2022": { "cases": 8274, "deaths": 34 },
+                "2023": { "cases": 74, "deaths": 0 }
+            },
+            "totalCases": 8359,
+            "totalDeaths": 34,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "SLE",
+            "country": "Sierra Leone",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": -4.36,
+                "2016": 6.44,
+                "2017": 3.21,
+                "2018": 2.89,
+                "2019": 5.5,
+                "2020": -1.25,
+                "2021": 5.9,
+                "2022": 5.31,
+                "2023": 5.71,
+                "2024": 4.29
+            },
+            "covid": {
+                "2020": { "cases": 2583, "deaths": 76 },
+                "2021": { "cases": 4400, "deaths": 47 },
+                "2022": { "cases": 777, "deaths": 2 },
+                "2023": { "cases": 19, "deaths": 0 },
+                "2024": { "cases": 206, "deaths": 0 }
+            },
+            "totalCases": 7985,
+            "totalDeaths": 125,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "LBR",
+            "country": "Liberia",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": -0.02,
+                "2016": -1.55,
+                "2017": 2.46,
+                "2018": 1.16,
+                "2019": -2.47,
+                "2020": -2.98,
+                "2021": 4.99,
+                "2022": 4.81,
+                "2023": 4.68,
+                "2024": 4.02
+            },
+            "covid": {
+                "2020": { "cases": 1854, "deaths": 89 },
+                "2021": { "cases": 4730, "deaths": 198 },
+                "2022": { "cases": 1469, "deaths": 7 },
+                "2023": { "cases": -123, "deaths": 0 },
+                "2024": { "cases": 2, "deaths": 0 }
+            },
+            "totalCases": 7932,
+            "totalDeaths": 294,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "TCD",
+            "country": "Chad",
+            "region": "Sub-Saharan Africa",
+            "income": "Low income",
+            "gdp": {
+                "2015": 3.3,
+                "2016": -4.12,
+                "2017": -1.62,
+                "2018": 5.74,
+                "2019": 5.38,
+                "2020": -0.39,
+                "2021": 0.29,
+                "2022": 4.13,
+                "2023": 3.98,
+                "2024": 4.2
+            },
+            "covid": {
+                "2020": { "cases": 2077, "deaths": 105 },
+                "2021": { "cases": 3624, "deaths": 76 },
+                "2022": { "cases": 1949, "deaths": 13 },
+                "2023": { "cases": 48, "deaths": 0 },
+                "2024": { "cases": 4, "deaths": 0 }
+            },
+            "totalCases": 7702,
+            "totalDeaths": 194,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "TCA",
+            "country": "Turks and Caicos Islands",
+            "region": "Latin America & Caribbean",
+            "income": "High income",
+            "gdp": {
+                "2015": 11.31,
+                "2016": 7.25,
+                "2017": 74.59,
+                "2018": 6.75,
+                "2019": 4.98,
+                "2020": -33.82,
+                "2021": 29.63,
+                "2022": 14.09,
+                "2023": 13.73,
+                "2024": 5.64
+            },
+            "covid": {
+                "2020": { "cases": 865, "deaths": 6 },
+                "2021": { "cases": 2418, "deaths": 20 },
+                "2022": { "cases": 3196, "deaths": 10 },
+                "2023": { "cases": 231, "deaths": 4 },
+                "2024": { "cases": 123, "deaths": 0 },
+                "2025": { "cases": 98, "deaths": 1 }
+            },
+            "totalCases": 6931,
+            "totalDeaths": 41,
+            "whoRegion": "AMR"
+        },
+        {
+            "code": "STP",
+            "country": "Sao Tome and Principe",
+            "region": "Sub-Saharan Africa",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 1.54,
+                "2016": 5.18,
+                "2017": 4.11,
+                "2018": 4.38,
+                "2019": 2.01,
+                "2020": 2.62,
+                "2021": 1.9,
+                "2022": 0.17,
+                "2023": 0.37,
+                "2024": 1.1
+            },
+            "covid": {
+                "2020": { "cases": 1014, "deaths": 17 },
+                "2021": { "cases": 2863, "deaths": 40 },
+                "2022": { "cases": 2402, "deaths": 20 },
+                "2023": { "cases": 457, "deaths": 3 },
+                "2024": { "cases": 35, "deaths": 0 }
+            },
+            "totalCases": 6771,
+            "totalDeaths": 80,
+            "whoRegion": "AFR"
+        },
+        {
+            "code": "PLW",
+            "country": "Palau",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 7.92,
+                "2016": 1.33,
+                "2017": -2.99,
+                "2018": -1.24,
+                "2019": -0.36,
+                "2020": -6.87,
+                "2021": -13.26,
+                "2022": 1.51,
+                "2023": 2.22
+            },
+            "covid": {
+                "2021": { "cases": 12, "deaths": 0 },
+                "2022": { "cases": 5959, "deaths": 9 },
+                "2023": { "cases": 294, "deaths": 0 },
+                "2024": { "cases": 107, "deaths": 1 }
+            },
+            "totalCases": 6372,
+            "totalDeaths": 10,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "NRU",
+            "country": "Nauru",
+            "region": "East Asia & Pacific",
+            "income": "High income",
+            "gdp": {
+                "2015": 3.42,
+                "2016": 4.13,
+                "2017": -6.35,
+                "2018": -0.85,
+                "2019": 8.55,
+                "2020": 1.57,
+                "2021": 7.75,
+                "2022": 2.88,
+                "2023": 0.7,
+                "2024": 1.39
+            },
+            "covid": {
+                "2022": { "cases": 4621, "deaths": 1 },
+                "2023": { "cases": 772, "deaths": 0 }
+            },
+            "totalCases": 5393,
+            "totalDeaths": 1,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "KIR",
+            "country": "Kiribati",
+            "region": "East Asia & Pacific",
+            "income": "Lower middle income",
+            "gdp": {
+                "2015": 11.27,
+                "2016": 7.09,
+                "2017": 3.75,
+                "2018": 3.48,
+                "2019": 3.26,
+                "2020": -1.47,
+                "2021": 8.48,
+                "2022": 4.57,
+                "2023": 2.65,
+                "2024": 5.27
+            },
+            "covid": {
+                "2022": { "cases": 3430, "deaths": 13 },
+                "2023": { "cases": 1655, "deaths": 11 }
+            },
+            "totalCases": 5085,
+            "totalDeaths": 24,
+            "whoRegion": "WPR"
+        },
+        {
+            "code": "TUV",
+            "country": "Tuvalu",
+            "region": "East Asia & Pacific",
+            "income": "Upper middle income",
+            "gdp": {
+                "2015": 10.42,
+                "2016": 5.66,
+                "2017": 2.45,
+                "2018": 1.39,
+                "2019": 13.82,
+                "2020": -4.27,
+                "2021": 1.8,
+                "2022": 0.68,
+                "2023": 3.85
+            },
+            "covid": {
+                "2022": { "cases": 2779, "deaths": 0 },
+                "2023": { "cases": 164, "deaths": 1 }
+            },
+            "totalCases": 2943,
+            "totalDeaths": 1,
+            "whoRegion": "WPR"
+        }
+    ],
+    "regions": {
+        "East Asia & Pacific": {
+            "countries": 33,
+            "gdp2019": 4.09,
+            "gdp2020": -3.14,
+            "gdp2021": 1.47,
+            "gdp2024": 2.23,
+            "cases2020": 1901725,
+            "deaths2020": 44037
+        },
+        "Europe & Central Asia": {
+            "countries": 52,
+            "gdp2019": 3.17,
+            "gdp2020": -4.34,
+            "gdp2021": 7.45,
+            "gdp2024": 2.8,
+            "cases2020": 25397616,
+            "deaths2020": 596671
+        },
+        "Latin America & Caribbean": {
+            "countries": 34,
+            "gdp2019": 1.76,
+            "gdp2020": -9.45,
+            "gdp2021": 8.86,
+            "gdp2024": 3.71,
+            "cases2020": 15426681,
+            "deaths2020": 585824
+        },
+        "Middle East & North Africa": {
+            "countries": 22,
+            "gdp2019": 1.21,
+            "gdp2020": -5.52,
+            "gdp2021": 4.13,
+            "gdp2024": 2.54,
+            "cases2020": 5259568,
+            "deaths2020": 124003
+        },
+        "North America": {
+            "countries": 3,
+            "gdp2019": 1.6,
+            "gdp2020": -4.68,
+            "gdp2021": 5.54,
+            "gdp2024": 3.44,
+            "cases2020": 20143684,
+            "deaths2020": 367288
+        },
+        "South Asia": {
+            "countries": 6,
+            "gdp2019": 5.15,
+            "gdp2020": -8.74,
+            "gdp2021": 11.27,
+            "gdp2024": 4.58,
+            "cases2020": 11098503,
+            "deaths2020": 159307
+        },
+        "Sub-Saharan Africa": {
+            "countries": 43,
+            "gdp2019": 3.46,
+            "gdp2020": -2.35,
+            "gdp2021": 4.19,
+            "gdp2024": 3.8,
+            "cases2020": 1662818,
+            "deaths2020": 38393
+        }
+    }
+}
