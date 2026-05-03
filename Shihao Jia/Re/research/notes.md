@@ -24,3 +24,34 @@
 他们有学科背景（不是完全无知）
 但在数据可视化解读这一具体技能上是"非专家"
 这也是 tutor 最想看到的"具体用户描述"——不是泛泛的"普通人"，也不是"专业数据分析师"，而是一个有边界、有具体场景的用户群。
+
+---
+
+## English translation
+
+1. **Non-expert**  
+A key distinction: "non-expert" does not mean "not in a related field."  
+Here, **non-expert** is a *cognitive* label, not a *discipline* label.
+
+- **Non-expert** = not proficient in *reading data* or *quantitative analysis methods*, even if they study economics or policy.  
+- **Expert** = professional economists, data scientists, policy analysts (for whom data interpretation is daily work).
+
+An undergraduate in ECON or POLS can:
+
+- understand macro concepts (GDP, unemployment),  
+- yet still misread complex cross-country, time-series visualizations,  
+- and still lack the ability to *jointly* interpret health and economic indicators in linked ways.
+
+This is what refs #4, #11, and #16 document—even students with economics training still make *systematic* errors when reading data visualizations.
+
+**How to phrase this more accurately**
+
+The old wording was easy to misread. A clearer version:
+
+**Student users**: undergraduates/postgraduates in policy, economics-adjacent, or design courses. They have basic subject knowledge but lack systematic experience interpreting multi-variable, cross-country, time-series visualizations.
+
+That captures:
+
+- they have domain background (not clueless),  
+- but on *this specific skill*—reading visualizations—they are "non-experts,"  
+- which matches what tutors want: a **concrete** user profile with clear boundaries and scenarios—not a vague "general public" or "pro data analyst."

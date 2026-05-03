@@ -128,3 +128,69 @@
 - 周四-周五：访谈/问卷执行  
 - 周六：综合分析  
 - 周日：Design Brief v2 + 下周原型决策
+
+---
+
+## English translation
+
+### DECO7180 Research + Problem Definition Checklist
+
+> Goal: finish research and problem definition before prototyping.  
+> Usage: check off each item so the team does not fall back to “build features first, justify later.”
+
+#### 0. Alignment before start (Day 0)
+
+- Clarify this cycle’s goal: problem definition and research only; no new feature development.
+- Align on one project framing: COVID-19 and global economic impact (avoid multiple conflicting versions).
+- Collect and organize tutor feedback verbatim (A01 / in-class verbal feedback).
+- Assign one person responsible for traceable evidence (docs, screenshots, citations, interview logs).
+
+#### 1. Feedback audit (Day 1)
+
+- Extract 3–5 failure points from tutor feedback (e.g., unclear user definition, weak argument chain).
+- Classify each failure as: problem definition / research method / use of evidence / prototype scope.
+- Produce a one-page feedback audit (failure point → impact → corrective action).
+
+#### 2. Define users and scenarios (Day 1–2)
+
+- Lock only 1–2 **primary** users (not generic stakeholders).
+- For each user, document: typical task, usage context, current pain, cost of failure.
+- Optionally define secondary users and who is **not** prioritized this cycle.
+
+#### 3. Problem Statement v2 (Day 2)
+
+- One-page statement must include: background, concrete target users, core problem (not “how to visualize”), opportunity for design, scope boundaries.
+- 3–4 measurable success criteria for later testing.
+
+#### 4. Map-the-Gap / Rumsfeld (Day 2–3)
+
+- Fill known knowns, known unknowns, unknown unknowns, key assumptions, and derive 2–3 verifiable research questions.
+
+#### 5. Research execution plan (Day 3)
+
+- Map one primary method per RQ (interview / survey / literature), each with: why, what data, which gap it reduces, minimum sample (e.g., interviews n≥4, survey n≥10), bias controls (e.g., liked vs understood).
+
+#### 6. Literature and argument chain (Day 3–4)
+
+- Build a claim–evidence table; literature must cover COVID–economy background, comprehension/risk communication, target user behavior, and methodological justification; each source states what claim it supports and what it does **not** prove.
+
+#### 7. Execute research (Day 4–6)
+
+- Run interviews with scripts; record quotes; summarize questionnaire basics; log misunderstandings and trust-related feedback.
+
+#### 8. Synthesize evidence (Day 6–7)
+
+- Key insights (3–5), invalidated assumptions, remaining unknowns; output Design Brief v2; decide prototype direction (continue / pivot / merge).
+
+#### 9. Gate before prototyping (all must pass)
+
+- Problem statement is clear and evidence-backed; RQs map to methods; at least one user pain is validated with data; “liked” and “understood” are analyzed separately; team agrees not to add features until the above holds.
+
+#### Suggested weekly rhythm
+
+- Mon: feedback audit + user definition  
+- Tue: Problem Statement v2 + Gap Matrix  
+- Wed: research plan + literature chain  
+- Thu–Fri: interviews / questionnaire  
+- Sat: synthesis  
+- Sun: Design Brief v2 + next-week prototype decision
