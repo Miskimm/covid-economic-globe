@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DECO7180 Study Tool</title>
+        <style>
+            :root {
+                --bg: #f3f4f8;
+                --card: #fff;
+                --line: #e5e7eb;
+                --text: #111827;
+                --muted: #6b7280;
+                --primary: #2563eb;
+                --econ: #0f766e;
+                --econ-bg: #f0fdf9;
+                --econ-border: #99f6e4;
+                --health: #b45309;
+                --health-bg: #fffbeb;
+                --health-border: #fde68a;
+                --chip-bg: #dbeafe;
+                --chip-text: #1e40af;
+                --warn-bg: #fff7ed;
+                --warn-border: #fed7aa;
+                --warn-text: #9a3412;
+                --danger: #dc2626;
+                --step-active: #2563eb;
+                --step-done: #16a34a;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                color: var(--text);
+                background: var(--bg);
+                line-height: 1.55;
+            }
+            .container {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .card {
+                background: var(--card);
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                padding: 18px;
+                margin-bottom: 16px;
+            }
+            h1 {
+                margin: 0 0 8px;
+                font-size: 26px;
+            }
+            h2 {
+                margin: 0 0 10px;
+                font-size: 18px;
+            }
+            h3 {
+                margin: 10px 0 6px;
+                font-size: 15px;
+            }
+            .muted {
+                color: var(--muted);
+                font-size: 13px;
+            }
+            .chips {
+                margin: 6px 0 0;
+            }
+            .chip {
+                display: inline-block;
+                border-radius: 999px;
+                background: var(--chip-bg);
+                color: var(--chip-text);
+                font-size: 11px;
+                font-weight: 600;
+                padding: 3px 8px;
+                margin: 0 6px 6px 0;
+            }
+            /* domain badges */
+            .badge-econ {
+                display: inline-block;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                background: var(--econ-bg);
+                color: var(--econ);
+                border: 1px solid var(--econ-border);
+                border-radius: 4px;
+                padding: 2px 6px;
+                margin-right: 6px;
+            }
+            .badge-health {
+                display: inline-block;
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                background: var(--health-bg);
+                color: var(--health);
+                border: 1px solid var(--health-border);
+                border-radius: 4px;
+                padding: 2px 6px;
+                margin-right: 6px;
+            }
+            /* step nav */
+            .steps {
+                display: flex;
+                gap: 0;
+                margin-bottom: 16px;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 1px solid var(--line);
+            }
+            .step-btn {
+                flex: 1;
+                padding: 10px 6px;
+                border: none;
+                border-right: 1px solid var(--line);
+                background: #f9fafb;
+                color: var(--muted);
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                text-align: center;
+            }
+            .step-btn:last-child {
+                border-right: none;
+            }
+            .step-btn.active {
+                background: var(--primary);
+                color: #fff;
+            }
+            .step-btn.done {
+                background: #dcfce7;
+                color: #15803d;
+            }
+            /* prototype screens */
+            .screen {
+                display: none;
+            }
+            .screen.visible {
+                display: block;
+            }
+            /* metric primer */
+            .metric-block {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 12px;
+                background: #fafafa;
+            }
+            .metric-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 8px;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+            .metric-name {
+                font-size: 14px;
+                font-weight: 700;
+                color: var(--text);
+            }
+            .metric-val {
+                font-family: ui-monospace, Menlo, monospace;
+                font-size: 13px;
+                font-weight: 700;
+            }
+            .metric-neg {
+                color: #b91c1c;
+            }
+            .metric-pos {
+                color: #065f46;
+            }
+            .metric-def {
+                font-size: 13px;
+                color: #374151;
+                margin: 6px 0;
+            }
+            .metric-example {
+                background: #f0f9ff;
+                border: 1px solid #bae6fd;
+                border-radius: 6px;
+                padding: 7px 10px;
+                font-size: 12px;
+                color: #0369a1;
+                margin: 6px 0;
+            }
+            .metric-not {
+                background: var(--warn-bg);
+                border: 1px solid var(--warn-border);
+                border-radius: 6px;
+                padding: 7px 10px;
+                font-size: 12px;
+                color: var(--warn-text);
+                font-weight: 600;
+                margin-top: 6px;
+            }
+            .glossary-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 8px;
+                margin-top: 10px;
+            }
+            .glossary-item {
+                background: #f3f4f6;
+                border-radius: 8px;
+                padding: 8px;
+                font-size: 12px;
+            }
+            .glossary-term {
+                font-weight: 700;
+                color: var(--primary);
+            }
+            /* comparison panel */
+            .compare-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin: 10px 0;
+            }
+            .country-card {
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 12px;
+                background: #fff;
+            }
+            .country-flag {
+                font-size: 20px;
+                margin-right: 6px;
+            }
+            .country-title {
+                font-size: 14px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+            .time-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            .time-col-label {
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                border-bottom: 1px solid var(--line);
+                padding-bottom: 4px;
+                margin-bottom: 6px;
+            }
+            .indicator-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 0;
+                border-bottom: 1px dashed #e5e7eb;
+                font-size: 12px;
+            }
+            .indicator-row:last-child {
+                border-bottom: none;
+            }
+            .indicator-label {
+                color: #374151;
+            }
+            .evidence-chip {
+                display: inline-block;
+                background: #fef3c7;
+                border: 1px solid #fcd34d;
+                border-radius: 6px;
+                padding: 2px 7px;
+                font-size: 12px;
+                font-weight: 700;
+                font-family: ui-monospace, Menlo, monospace;
+                color: #92400e;
+            }
+            .evidence-chip.neg {
+                background: #fee2e2;
+                border-color: #fca5a5;
+                color: #991b1b;
+            }
+            .evidence-chip.pos {
+                background: #dcfce7;
+                border-color: #86efac;
+                color: #166534;
+            }
+            .correlation-banner {
+                background: var(--warn-bg);
+                border: 1px solid var(--warn-border);
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 12px;
+                color: var(--warn-text);
+                font-weight: 600;
+                margin-top: 10px;
+            }
+            /* interpretation builder */
+            .interp-field {
+                margin-bottom: 14px;
+            }
+            .interp-label {
+                font-size: 13px;
+                font-weight: 700;
+                margin-bottom: 4px;
+                color: var(--text);
+            }
+            .interp-starter {
+                font-size: 12px;
+                color: var(--muted);
+                font-style: italic;
+                background: #f9fafb;
+                border: 1px dashed var(--line);
+                border-radius: 6px;
+                padding: 6px 8px;
+                margin-bottom: 4px;
+            }
+            /* source panel */
+            .source-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin: 10px 0;
+            }
+            .source-item {
+                background: #f9fafb;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 10px;
+                font-size: 13px;
+            }
+            .source-item-label {
+                font-size: 11px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--muted);
+                margin-bottom: 4px;
+            }
+            details summary {
+                cursor: pointer;
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--primary);
+                margin-top: 6px;
+            }
+            /* workspace split */
+            .workspace {
+                display: grid;
+                grid-template-columns: minmax(340px, 480px) 1fr;
+                gap: 16px;
+                align-items: start;
+            }
+            .proto-column {
+                position: sticky;
+                top: 16px;
+                max-height: calc(100vh - 32px);
+                overflow: auto;
+            }
+            label {
+                display: block;
+                margin: 10px 0 5px;
+                font-weight: 600;
+                font-size: 13px;
+            }
+            input[type="text"],
+            input[type="number"],
+            textarea,
+            select {
+                width: 100%;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 9px;
+                font-size: 13px;
+                background: #fff;
+            }
+            textarea {
+                min-height: 72px;
+                resize: vertical;
+            }
+            .row2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .row3 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px;
+            }
+            button {
+                border: none;
+                border-radius: 8px;
+                padding: 9px 14px;
+                font-size: 13px;
+                cursor: pointer;
+            }
+            .btn-primary {
+                background: var(--primary);
+                color: #fff;
+            }
+            .btn-secondary {
+                background: #e5e7eb;
+                color: #111;
+            }
+            .btn-danger {
+                background: #fee2e2;
+                color: var(--danger);
+            }
+            .actions {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-top: 12px;
+            }
+            .status {
+                margin-top: 8px;
+                font-size: 12px;
+                color: var(--muted);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 12px;
+                margin-top: 10px;
+            }
+            th,
+            td {
+                border: 1px solid var(--line);
+                padding: 7px;
+                text-align: left;
+            }
+            th {
+                background: #f9fafb;
+            }
+            .task-section {
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--line);
+            }
+            .task-section:last-child {
+                border-bottom: none;
+            }
+            .task-title {
+                background: #eff6ff;
+                border: 1px solid #bfdbfe;
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 13px;
+                font-weight: 700;
+                color: #1d4ed8;
+                margin-bottom: 12px;
+            }
+            .boundary-options {
+                margin: 8px 0;
+            }
+            .boundary-options label {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                font-weight: 400;
+                padding: 8px;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                margin-bottom: 6px;
+                cursor: pointer;
+            }
+            .boundary-options label:hover {
+                background: #f0f9ff;
+            }
+            .primer-timer {
+                background: #fef9c3;
+                border: 1px solid #fde047;
+                border-radius: 8px;
+                padding: 7px 12px;
+                font-size: 12px;
+                color: #713f12;
+                margin-bottom: 10px;
+            }
+            @media (max-width: 860px) {
+                .workspace {
+                    grid-template-columns: 1fr;
+                }
+                .proto-column {
+                    position: static;
+                    max-height: none;
+                }
+                .compare-wrapper {
+                    grid-template-columns: 1fr;
+                }
+                .source-grid {
+                    grid-template-columns: 1fr;
+                }
+                .glossary-row {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .row2,
+                .row3 {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <div class="card">
+                <h1>COVID-19 × Economy — Interpretation Study</h1>
+                <p class="muted">
+                    DECO7180 · Prototype evaluation · Guided Comparison
+                    Dashboard
+                </p>
+                <div class="chips">
+                    <span class="chip">Estimated time: 20–25 min</span>
+                    <span class="chip">4 tasks · 4 prototype screens</span>
+                    <span class="chip">Anonymous · Self-paced</span>
+                </div>
+            </div>
+
+            <!-- Consent -->
+            <div class="card">
+                <h2>Consent</h2>
+                <p class="muted">
+                    Your response will be used for DECO7180 coursework research
+                    only. No personal identity is collected.
+                </p>
+                <label style="font-weight: 400"
+                    ><input id="consent" type="checkbox" /> I agree to
+                    participate in this study and understand I can stop at any
+                    time.</label
+                >
+            </div>
+
+            <!-- Background -->
+            <div class="card">
+                <h2>Background</h2>
+                <div class="row2">
+                    <div>
+                        <label for="bg"
+                            >Your academic background (degree / major /
+                            year)</label
+                        >
+                        <input
+                            id="bg"
+                            type="text"
+                            placeholder="e.g. Economics Year 2, Design postgraduate"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="familiarity"
+                            >Prior familiarity with COVID-19 economic
+                            data</label
+                        >
+                        <select id="familiarity" required>
+                            <option value="">Select one</option>
+                            <option>Very low</option>
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option>High</option>
+                            <option>Very high</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="primer_time"
+                        >Approximately how long did you spend reading Screen 1
+                        (Metric Primer) before moving on?</label
+                    >
+                    <select id="primer_time" required>
+                        <option value="">Select one</option>
+                        <option>
+                            Less than 15 seconds — I skimmed it quickly
+                        </option>
+                        <option>15–30 seconds</option>
+                        <option>30–60 seconds</option>
+                        <option>
+                            More than 1 minute — I read it carefully
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Main workspace -->
+            <div class="workspace">
+                <!-- LEFT: Prototype -->
+                <aside class="proto-column">
+                    <div class="card" style="padding: 12px">
+                        <!-- Step nav -->
+                        <div class="steps" id="stepNav">
+                            <button
+                                class="step-btn active"
+                                onclick="showScreen(0)"
+                            >
+                                ① Metric Primer
+                            </button>
+                            <button class="step-btn" onclick="showScreen(1)">
+                                ② Comparison
+                            </button>
+                            <button class="step-btn" onclick="showScreen(2)">
+                                ③ Interpretation
+                            </button>
+                            <button class="step-btn" onclick="showScreen(3)">
+                                ④ Source &amp; Trust
+                            </button>
+                        </div>
+
+                        <!-- Screen 1: Metric Primer -->
+                        <div class="screen visible" id="sc0">
+                            <h3>Screen 1 — Metric Primer</h3>
+                            <p class="muted" style="margin-bottom: 10px">
+                                Read these indicator definitions before
+                                exploring the comparison.
+                            </p>
+
+                            <!-- GDP gap -->
+                            <div class="metric-block">
+                                <div class="metric-header">
+                                    <span class="badge-econ">ECONOMIC</span>
+                                    <span class="metric-name"
+                                        >GDP gap from 2019 baseline</span
+                                    >
+                                </div>
+                                <div class="metric-def">
+                                    How far a country's total economic output
+                                    (GDP) is from its pre-pandemic level in
+                                    2019. Measured in
+                                    <strong>percentage points (pp)</strong> — a
+                                    unit of absolute change, not a proportion.
+                                </div>
+                                <div class="metric-example">
+                                    📊 <strong>Example:</strong> UK 2020 =
+                                    <span
+                                        class="metric-neg"
+                                        style="font-weight: 700"
+                                        >−12.0 pp</span
+                                    >
+                                    → the UK economy was 12 percentage points
+                                    below its 2019 size at the worst point of
+                                    the pandemic.
+                                </div>
+                                <div class="metric-not">
+                                    ⚠ Does NOT mean: total GDP in dollars, a
+                                    percentage drop in GDP growth rate, or
+                                    anything about health outcomes.
+                                </div>
+                            </div>
+
+                            <!-- Economic recovery -->
+                            <div class="metric-block">
+                                <div class="metric-header">
+                                    <span class="badge-econ">ECONOMIC</span>
+                                    <span class="metric-name"
+                                        >Economic recovery from 2020
+                                        trough</span
+                                    >
+                                </div>
+                                <div class="metric-def">
+                                    How much the economy has
+                                    <strong>grown back</strong> since its lowest
+                                    point (<em>trough</em>) in 2020. A higher
+                                    number means more economic ground has been
+                                    regained — not a health or wellbeing
+                                    measure.
+                                </div>
+                                <div class="metric-example">
+                                    📊 <strong>Example:</strong> UK 2023 =
+                                    <span
+                                        class="metric-pos"
+                                        style="font-weight: 700"
+                                        >+8.9 pp</span
+                                    >
+                                    → the UK economy has grown back 8.9
+                                    percentage points from its 2020 low point.
+                                </div>
+                                <div class="metric-not">
+                                    ⚠ Does NOT mean: recovery from illness,
+                                    improvement in COVID case numbers, or that
+                                    the economy is above its 2019 level.
+                                </div>
+                            </div>
+
+                            <!-- Glossary -->
+                            <h3 style="margin-top: 14px">Quick Glossary</h3>
+                            <div class="glossary-row">
+                                <div class="glossary-item">
+                                    <div class="glossary-term">pp</div>
+                                    Percentage points — a unit of absolute
+                                    change between two values (e.g., 5% → 3% is
+                                    a drop of 2 pp).
+                                </div>
+                                <div class="glossary-item">
+                                    <div class="glossary-term">Baseline</div>
+                                    The reference level everything is compared
+                                    against. Here: 2019 GDP = the baseline.
+                                </div>
+                                <div class="glossary-item">
+                                    <div class="glossary-term">Trough</div>
+                                    The lowest point in an economic cycle. Here:
+                                    the sharpest GDP contraction in 2020.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Screen 2: Guided Country Comparison -->
+                        <div class="screen" id="sc1">
+                            <h3>Screen 2 — Country Comparison</h3>
+                            <p class="muted" style="margin-bottom: 8px">
+                                Compare United Kingdom vs Australia across two
+                                time points.
+                            </p>
+
+                            <div class="compare-wrapper">
+                                <!-- UK -->
+                                <div class="country-card">
+                                    <div class="country-title">
+                                        <span class="country-flag">🇬🇧</span
+                                        >United Kingdom
+                                    </div>
+                                    <div class="time-row">
+                                        <div>
+                                            <div class="time-col-label">
+                                                2020
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-health"
+                                                        >HEALTH</span
+                                                    >Cases</span
+                                                >
+                                                <span class="metric-val"
+                                                    >2.3 M</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >GDP gap</span
+                                                >
+                                                <span class="evidence-chip neg"
+                                                    >−12.0 pp</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >Recovery</span
+                                                >
+                                                <span class="metric-val"
+                                                    >0.0 pp</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="time-col-label">
+                                                2023
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-health"
+                                                        >HEALTH</span
+                                                    >Cases</span
+                                                >
+                                                <span class="metric-val"
+                                                    >24.0 M</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >GDP gap</span
+                                                >
+                                                <span class="evidence-chip neg"
+                                                    >−1.5 pp</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >Recovery</span
+                                                >
+                                                <span class="evidence-chip pos"
+                                                    >+8.9 pp</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Australia -->
+                                <div class="country-card">
+                                    <div class="country-title">
+                                        <span class="country-flag">🇦🇺</span
+                                        >Australia
+                                    </div>
+                                    <div class="time-row">
+                                        <div>
+                                            <div class="time-col-label">
+                                                2020
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-health"
+                                                        >HEALTH</span
+                                                    >Cases</span
+                                                >
+                                                <span class="metric-val"
+                                                    >28 K</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >GDP gap</span
+                                                >
+                                                <span class="evidence-chip neg"
+                                                    >−3.7 pp</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >Recovery</span
+                                                >
+                                                <span class="metric-val"
+                                                    >0.0 pp</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="time-col-label">
+                                                2023
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-health"
+                                                        >HEALTH</span
+                                                    >Cases</span
+                                                >
+                                                <span class="metric-val"
+                                                    >11.7 M</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >GDP gap</span
+                                                >
+                                                <span class="evidence-chip neg"
+                                                    >−0.3 pp</span
+                                                >
+                                            </div>
+                                            <div class="indicator-row">
+                                                <span class="indicator-label"
+                                                    ><span class="badge-econ"
+                                                        >ECON</span
+                                                    >Recovery</span
+                                                >
+                                                <span class="evidence-chip pos"
+                                                    >+3.4 pp</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="correlation-banner">
+                                ⚠ Aligned trends between cases and GDP indicate
+                                <strong>correlation only</strong> — not
+                                automatic causation.
+                            </div>
+                        </div>
+
+                        <!-- Screen 3: Interpretation Builder -->
+                        <div class="screen" id="sc2">
+                            <h3>Screen 3 — Interpretation Builder</h3>
+                            <p class="muted" style="margin-bottom: 10px">
+                                Build your evidence-based interpretation using
+                                the three fields below.
+                            </p>
+
+                            <div class="interp-field">
+                                <div class="interp-label">
+                                    Field A — Observed pattern
+                                </div>
+                                <div class="interp-starter">
+                                    Starter: "The data shows that [country] had
+                                    a [value] [metric] in [year], compared to
+                                    [value] for [country]."
+                                </div>
+                                <div class="muted">
+                                    Write what you observe from the comparison
+                                    panel.
+                                </div>
+                            </div>
+
+                            <div class="interp-field">
+                                <div class="interp-label">
+                                    Field B — Evidence used
+                                </div>
+                                <div class="interp-starter">
+                                    Starter: "This is supported by the [metric]
+                                    value of [number] for [country] in [year]."
+                                </div>
+                                <div class="muted">
+                                    Cite the specific number(s) you are drawing
+                                    from.
+                                </div>
+                            </div>
+
+                            <div class="interp-field">
+                                <div class="interp-label">
+                                    Field C — What this does NOT prove
+                                </div>
+                                <div class="interp-starter">
+                                    Starter: "However, this data does not prove
+                                    that [causal claim], because [reason]."
+                                </div>
+                                <div class="muted">
+                                    Identify at least one claim the data cannot
+                                    support.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Screen 4: Source and Trust -->
+                        <div class="screen" id="sc3">
+                            <h3>Screen 4 — Source &amp; Trust</h3>
+                            <div class="source-grid">
+                                <div class="source-item">
+                                    <div class="source-item-label">
+                                        Data sources
+                                    </div>
+                                    World Bank (GDP growth, annual) · OWID / WHO
+                                    (COVID cases)
+                                </div>
+                                <div class="source-item">
+                                    <div class="source-item-label">
+                                        Snapshot date
+                                    </div>
+                                    2026-04-27
+                                </div>
+                                <div class="source-item">
+                                    <div class="source-item-label">
+                                        Missing data note
+                                    </div>
+                                    Cross-country reporting differences may
+                                    affect case counts. Economic data has a
+                                    12–18 month reporting lag.
+                                </div>
+                                <div class="source-item">
+                                    <div class="source-item-label">
+                                        Limitation
+                                    </div>
+                                    No controlled experiment. Observed alignment
+                                    does not establish direct causation.
+                                </div>
+                            </div>
+                            <details style="margin-top: 12px">
+                                <summary>
+                                    View calculation formula (GDP gap)
+                                </summary>
+                                <div
+                                    style="
+                                        background: #f3f4f6;
+                                        border-radius: 8px;
+                                        padding: 10px;
+                                        margin-top: 8px;
+                                        font-size: 12px;
+                                        font-family: monospace;
+                                    "
+                                >
+                                    GDP gap (pp) = ((GDP_t / GDP_2019) − 1) ×
+                                    100<br />
+                                    Where GDP_t = GDP in current year; GDP_2019
+                                    = GDP in baseline year 2019<br />
+                                    Source: World Bank national accounts data
+                                    (constant 2015 USD)
+                                </div>
+                            </details>
+                            <div
+                                class="correlation-banner"
+                                style="margin-top: 12px"
+                            >
+                                ⚠ Observed alignment between health and economic
+                                indicators does not prove causation.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </aside>
+
+                <!-- RIGHT: Questionnaire -->
+                <section>
+                    <div class="card">
+                        <h2>Study Tasks</h2>
+                        <form id="surveyForm">
+                            <!-- Task 1 -->
+                            <div class="task-section">
+                                <div class="task-title">
+                                    Task 1 — Metric Understanding (refer to
+                                    Screen 1)
+                                </div>
+
+                                <label for="q_gdp"
+                                    >1a) In your own words, explain what "GDP
+                                    gap from 2019 baseline" means. What unit is
+                                    it measured in?</label
+                                >
+                                <textarea id="q_gdp" required></textarea>
+
+                                <label for="q_recovery"
+                                    >1b) In your own words, explain what
+                                    "Economic recovery from 2020 trough" means.
+                                    Is it about health or the economy?</label
+                                >
+                                <textarea id="q_recovery" required></textarea>
+
+                                <label for="q_diff"
+                                    >1c) What is the key difference between
+                                    these two indicators?</label
+                                >
+                                <textarea id="q_diff" required></textarea>
+
+                                <label for="q_pp"
+                                    >1d) What does "pp" stand for, and why does
+                                    it matter for reading these values?</label
+                                >
+                                <input
+                                    id="q_pp"
+                                    type="text"
+                                    required
+                                    placeholder="pp stands for..."
+                                />
+                            </div>
+
+                            <!-- Task 2 -->
+                            <div class="task-section">
+                                <div class="task-title">
+                                    Task 2 — Country Comparison (refer to Screen
+                                    2)
+                                </div>
+
+                                <label for="q_shock"
+                                    >2a) Which country had a deeper economic
+                                    shock in 2020? What specific value from the
+                                    panel supports your answer?</label
+                                >
+                                <textarea id="q_shock" required></textarea>
+
+                                <label for="q_2023"
+                                    >2b) By 2023, which country was closer to
+                                    its 2019 economic level? Cite the evidence
+                                    value.</label
+                                >
+                                <textarea id="q_2023" required></textarea>
+
+                                <label for="q_recovery_compare"
+                                    >2c) The UK has a higher "Recovery" value
+                                    (+8.9 pp) than Australia (+3.4 pp). Does
+                                    this mean the UK economy is performing
+                                    better than Australia's in 2023? Explain why
+                                    or why not.</label
+                                >
+                                <textarea
+                                    id="q_recovery_compare"
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <!-- Task 3 -->
+                            <div class="task-section">
+                                <div class="task-title">
+                                    Task 3 — Interpretation &amp; Boundary Check
+                                    (refer to Screen 3)
+                                </div>
+
+                                <label for="q_pattern"
+                                    >3a) Using the sentence-starter format from
+                                    Screen 3 Field A, write your observed
+                                    pattern about UK vs Australia.</label
+                                >
+                                <textarea
+                                    id="q_pattern"
+                                    required
+                                    placeholder="The data shows that..."
+                                ></textarea>
+
+                                <label for="q_evidence"
+                                    >3b) Cite the specific evidence value(s) you
+                                    used (Field B format).</label
+                                >
+                                <textarea
+                                    id="q_evidence"
+                                    required
+                                    placeholder="This is supported by the value of..."
+                                ></textarea>
+
+                                <label for="q_limit"
+                                    >3c) Write what the data does NOT prove
+                                    (Field C format).</label
+                                >
+                                <textarea
+                                    id="q_limit"
+                                    required
+                                    placeholder="However, this data does not prove that..."
+                                ></textarea>
+
+                                <label
+                                    >3d) Which statement is best supported by
+                                    the data?</label
+                                >
+                                <div class="boundary-options">
+                                    <label
+                                        ><input
+                                            type="radio"
+                                            name="boundary"
+                                            value="A"
+                                            required
+                                        />
+                                        <span
+                                            ><strong>A.</strong> High COVID case
+                                            numbers directly caused the GDP
+                                            decline in the UK.</span
+                                        ></label
+                                    >
+                                    <label
+                                        ><input
+                                            type="radio"
+                                            name="boundary"
+                                            value="B"
+                                        />
+                                        <span
+                                            ><strong>B.</strong> COVID cases and
+                                            GDP decline moved together during
+                                            the same period, but the data alone
+                                            does not prove direct
+                                            causation.</span
+                                        ></label
+                                    >
+                                    <label
+                                        ><input
+                                            type="radio"
+                                            name="boundary"
+                                            value="C"
+                                        />
+                                        <span
+                                            ><strong>C.</strong> There is no
+                                            relationship between COVID cases and
+                                            GDP in this dataset.</span
+                                        ></label
+                                    >
+                                </div>
+
+                                <label for="q_boundary_explain"
+                                    >3e) In your own words (not the options
+                                    above), explain what you can and cannot
+                                    conclude from this data.</label
+                                >
+                                <textarea
+                                    id="q_boundary_explain"
+                                    required
+                                ></textarea>
+
+                                <div class="row2">
+                                    <div>
+                                        <label for="confidence"
+                                            >3f) Confidence score (1 = not at
+                                            all, 5 = very confident)</label
+                                        >
+                                        <input
+                                            id="confidence"
+                                            type="number"
+                                            min="1"
+                                            max="5"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task 4 -->
+                            <div class="task-section">
+                                <div class="task-title">
+                                    Task 4 — Source Awareness &amp; Trust (refer
+                                    to Screen 4)
+                                </div>
+
+                                <label for="q_limitation"
+                                    >4a) Name one limitation of this dataset
+                                    that you noticed on Screen 4.</label
+                                >
+                                <textarea
+                                    id="q_limitation"
+                                    required
+                                    placeholder="One limitation is..."
+                                ></textarea>
+
+                                <label for="q_formula"
+                                    >4b) Did you read the calculation formula
+                                    for GDP gap? What did it tell you?</label
+                                >
+                                <textarea id="q_formula" required></textarea>
+
+                                <label for="q_cite"
+                                    >4c) Would you cite this tool in a
+                                    university assignment? What additional
+                                    source or method information would you
+                                    need?</label
+                                >
+                                <textarea id="q_cite" required></textarea>
+
+                                <div class="row2">
+                                    <div>
+                                        <label for="trust"
+                                            >4d) Trust score (1–5)</label
+                                        >
+                                        <input
+                                            id="trust"
+                                            type="number"
+                                            min="1"
+                                            max="5"
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label for="preference"
+                                            >4e) Preference/usefulness score
+                                            (1–5)</label
+                                        >
+                                        <input
+                                            id="preference"
+                                            type="number"
+                                            min="1"
+                                            max="5"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <label for="q_improve"
+                                    >4f) If you could improve one thing about
+                                    this prototype, what would it be?</label
+                                >
+                                <textarea id="q_improve" required></textarea>
+                            </div>
+
+                            <div class="actions">
+                                <button class="btn-primary" type="submit">
+                                    Submit Response
+                                </button>
+                                <button
+                                    class="btn-secondary"
+                                    type="button"
+                                    id="resetBtn"
+                                >
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
+                        <div id="submitStatus" class="status">
+                            No response submitted yet.
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Researcher panel -->
+            <div class="card">
+                <details>
+                    <summary>
+                        Researcher panel — export CSV / clear data
+                    </summary>
+                    <p class="muted">
+                        Exports all responses stored in this browser session.
+                    </p>
+                    <div class="actions">
+                        <button
+                            class="btn-secondary"
+                            id="exportBtn"
+                            type="button"
+                        >
+                            Export CSV
+                        </button>
+                        <button class="btn-danger" id="clearBtn" type="button">
+                            Clear Local Data
+                        </button>
+                    </div>
+                    <div id="adminStatus" class="status">
+                        Stored responses: 0
+                    </div>
+                    <table id="previewTable">
+                        <thead>
+                            <tr>
+                                <th>submittedAt</th>
+                                <th>background</th>
+                                <th>primerTime</th>
+                                <th>boundary</th>
+                                <th>trust</th>
+                                <th>confidence</th>
+                                <th>preference</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </details>
+            </div>
+        </div>
+        <!-- end container -->
+
+        <script>
+            // Screen toggle
+            const screens = document.querySelectorAll(".screen");
+            const stepBtns = document.querySelectorAll(".step-btn");
+            function showScreen(idx) {
+                screens.forEach((s, i) =>
+                    s.classList.toggle("visible", i === idx),
+                );
+                stepBtns.forEach((b, i) => {
+                    b.classList.remove("active");
+                    if (i === idx) b.classList.add("active");
+                });
+            }
+
+            // Storage
+            const KEY = "deco7180_midfi_responses";
+            const byId = (id) => document.getElementById(id);
+            function load() {
+                try {
+                    return JSON.parse(localStorage.getItem(KEY) || "[]");
+                } catch {
+                    return [];
+                }
+            }
+            function save(rows) {
+                localStorage.setItem(KEY, JSON.stringify(rows));
+            }
+
+            function collect() {
+                return {
+                    submittedAt: new Date().toISOString(),
+                    background: byId("bg").value.trim(),
+                    familiarity: byId("familiarity").value,
+                    primerTime: byId("primer_time").value,
+                    q_gdp: byId("q_gdp").value.trim(),
+                    q_recovery: byId("q_recovery").value.trim(),
+                    q_diff: byId("q_diff").value.trim(),
+                    q_pp: byId("q_pp").value.trim(),
+                    q_shock: byId("q_shock").value.trim(),
+                    q_2023: byId("q_2023").value.trim(),
+                    q_recovery_compare: byId("q_recovery_compare").value.trim(),
+                    q_pattern: byId("q_pattern").value.trim(),
+                    q_evidence: byId("q_evidence").value.trim(),
+                    q_limit: byId("q_limit").value.trim(),
+                    boundary:
+                        (
+                            document.querySelector(
+                                'input[name="boundary"]:checked',
+                            ) || {}
+                        ).value || "",
+                    q_boundary_explain: byId("q_boundary_explain").value.trim(),
+                    confidence: byId("confidence").value,
+                    q_limitation: byId("q_limitation").value.trim(),
+                    q_formula: byId("q_formula").value.trim(),
+                    q_cite: byId("q_cite").value.trim(),
+                    trust: byId("trust").value,
+                    preference: byId("preference").value,
+                    q_improve: byId("q_improve").value.trim(),
+                };
+            }
+
+            function toCsv(rows) {
+                const headers = [
+                    "submittedAt",
+                    "background",
+                    "familiarity",
+                    "primerTime",
+                    "q_gdp",
+                    "q_recovery",
+                    "q_diff",
+                    "q_pp",
+                    "q_shock",
+                    "q_2023",
+                    "q_recovery_compare",
+                    "q_pattern",
+                    "q_evidence",
+                    "q_limit",
+                    "boundary",
+                    "q_boundary_explain",
+                    "confidence",
+                    "q_limitation",
+                    "q_formula",
+                    "q_cite",
+                    "trust",
+                    "preference",
+                    "q_improve",
+                ];
+                const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+                return [
+                    headers.join(","),
+                    ...rows.map((r) => headers.map((h) => esc(r[h])).join(",")),
+                ].join("\n");
+            }
+
+            function refreshAdmin() {
+                const rows = load();
+                byId("adminStatus").textContent =
+                    `Stored responses: ${rows.length}`;
+                const tbody = document.querySelector("#previewTable tbody");
+                tbody.innerHTML = "";
+                rows.slice(-8).forEach((r) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `<td>${r.submittedAt?.slice(0, 16)}</td><td>${r.background}</td><td>${r.primerTime?.slice(0, 20)}…</td><td>${r.boundary}</td><td>${r.trust}</td><td>${r.confidence}</td><td>${r.preference}</td>`;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            byId("surveyForm").addEventListener("submit", (e) => {
+                e.preventDefault();
+                if (!byId("consent").checked) {
+                    byId("submitStatus").textContent =
+                        "Please provide consent first.";
+                    return;
+                }
+                if (!e.target.reportValidity()) return;
+                const rows = load();
+                rows.push(collect());
+                save(rows);
+                e.target.reset();
+                byId("consent").checked = false;
+                byId("submitStatus").textContent =
+                    "Response submitted. Thank you.";
+                refreshAdmin();
+            });
+
+            byId("resetBtn").addEventListener("click", () => {
+                byId("surveyForm").reset();
+                byId("consent").checked = false;
+                byId("submitStatus").textContent = "Form reset.";
+            });
+
+            byId("exportBtn").addEventListener("click", () => {
+                const rows = load();
+                if (!rows.length) {
+                    byId("adminStatus").textContent = "No responses to export.";
+                    return;
+                }
+                const blob = new Blob([toCsv(rows)], {
+                    type: "text/csv;charset=utf-8;",
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `deco7180_midfi_${new Date().toISOString().replace(/[:.]/g, "-")}.csv`;
+                a.click();
+                URL.revokeObjectURL(url);
+                byId("adminStatus").textContent =
+                    `Exported ${rows.length} responses.`;
+            });
+
+            byId("clearBtn").addEventListener("click", () => {
+                if (!confirm("Clear all stored responses?")) return;
+                localStorage.removeItem(KEY);
+                refreshAdmin();
+                byId("adminStatus").textContent = "Cleared.";
+            });
+
+            refreshAdmin();
+        </script>
+    </body>
+</html>

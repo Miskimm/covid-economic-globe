@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DECO7180 Hi-fi Study Tool</title>
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --bg: #f0f2f7;
+      --surface: #fff;
+      --line: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+
+      /* domain colours */
+      --econ: #0f766e;
+      --econ-bg: #f0fdf9;
+      --econ-border: #5eead4;
+      --health: #b45309;
+      --health-bg: #fffbeb;
+      --health-border: #fcd34d;
+
+      /* chip colours */
+      --ev-neg-bg: #fee2e2; --ev-neg-border: #fca5a5; --ev-neg-text: #991b1b;
+      --ev-pos-bg: #dcfce7; --ev-pos-border: #86efac; --ev-pos-text: #166534;
+      --ev-neu-bg: #f3f4f6; --ev-neu-border: #d1d5db; --ev-neu-text: #374151;
+
+      /* warning */
+      --warn-bg: #fff7ed; --warn-border: #fed7aa; --warn-text: #9a3412;
+
+      /* layer accent */
+      --layer-bg: #eff6ff; --layer-border: #bfdbfe;
+
+      /* success */
+      --ok: #16a34a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    .page { max-width: 1400px; margin: 0 auto; padding: 20px 16px; }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    h2 { margin: 0 0 8px; font-size: 16px; }
+    h3 { margin: 10px 0 6px; font-size: 14px; font-weight: 700; }
+    .muted { color: var(--muted); font-size: 12px; }
+    .tag {
+      display: inline-block; border-radius: 999px;
+      background: #dbeafe; color: #1e40af;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 8px; margin: 0 4px 4px 0;
+    }
+
+    /* ── Domain badges ── */
+    .bd-econ {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: var(--econ-bg); color: var(--econ);
+      border: 1px solid var(--econ-border);
+      border-radius: 4px; font-size: 9px; font-weight: 800;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: 2px 5px; white-space: nowrap;
+    }
+    .bd-health {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: var(--health-bg); color: var(--health);
+      border: 1px solid var(--health-border);
+      border-radius: 4px; font-size: 9px; font-weight: 800;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: 2px 5px; white-space: nowrap;
+    }
+
+    /* ── Evidence chips ── */
+    .ev {
+      display: inline-block;
+      border-radius: 6px; padding: 2px 8px;
+      font-size: 12px; font-weight: 700;
+      font-family: ui-monospace, Menlo, monospace;
+      border: 1px solid;
+    }
+    .ev-neg { background: var(--ev-neg-bg); border-color: var(--ev-neg-border); color: var(--ev-neg-text); }
+    .ev-pos { background: var(--ev-pos-bg); border-color: var(--ev-pos-border); color: var(--ev-pos-text); }
+    .ev-neu { background: var(--ev-neu-bg); border-color: var(--ev-neu-border); color: var(--ev-neu-text); }
+
+    /* ── Value grid: 2-column 2020/2023 layout ── */
+    .val-grid {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 2px 6px;
+      text-align: center;
+      flex-shrink: 0;
+      align-items: center;
+    }
+    .val-yr {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ── Workspace split ── */
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(580px, 680px) 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .proto-col {
+      position: sticky; top: 16px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      min-width: 0;
+    }
+
+    /* ── Proto header bar ── */
+    .proto-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px; gap: 8px; flex-wrap: wrap;
+    }
+    .proto-title { font-size: 13px; font-weight: 700; }
+    .gloss-btn {
+      background: #f3f4f6; border: 1px solid var(--line);
+      border-radius: 8px; padding: 5px 10px;
+      font-size: 11px; font-weight: 600; cursor: pointer; color: var(--primary);
+    }
+    .gloss-btn:hover { background: #dbeafe; }
+
+    /* ── Glossary panel ── */
+    .gloss-panel {
+      display: none;
+      background: #f9fafb; border: 1px solid var(--line);
+      border-radius: 10px; padding: 12px; margin-bottom: 10px;
+    }
+    .gloss-panel.open { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .gloss-item { font-size: 12px; }
+    .gloss-term { font-weight: 700; color: var(--primary); margin-bottom: 2px; }
+
+    /* ── Comparison panel ── */
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      margin: 8px 0; min-width: 0;
+    }
+    .country-card {
+      border: 1px solid var(--line); border-radius: 10px;
+      padding: 10px; background: #fdfdfd;
+      min-width: 0; overflow: hidden;
+    }
+    .c-flag { font-size: 18px; margin-right: 4px; }
+    .c-name { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+
+    .zone {
+      border-radius: 8px; padding: 6px 8px; margin-bottom: 6px;
+    }
+    .zone-econ { background: var(--econ-bg); border: 1px solid var(--econ-border); }
+    .zone-health { background: var(--health-bg); border: 1px solid var(--health-border); }
+    .zone-label { font-size: 10px; font-weight: 700; margin-bottom: 4px; opacity: .7; text-transform: uppercase; letter-spacing: .05em; }
+
+    .ind-row {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 4px 0; border-bottom: 1px dashed rgba(0,0,0,.07); gap: 6px;
+      font-size: 12px;
+    }
+    .ind-row:last-child { border-bottom: none; }
+    .ind-left { display: flex; align-items: flex-start; gap: 4px; flex: 1; min-width: 0; }
+    .ind-name { color: #374151; line-height: 1.3; }
+
+    /* ? button */
+    .q-btn {
+      background: none; border: 1px solid var(--line);
+      border-radius: 50%; width: 16px; height: 16px;
+      font-size: 10px; cursor: pointer; color: var(--primary);
+      flex-shrink: 0; line-height: 1; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .q-btn:hover { background: var(--layer-bg); border-color: var(--primary); }
+    .q-btn.opened { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* definition chip (expandable) */
+    .def-chip {
+      display: none;
+      background: #f0fdf9; border: 1px solid var(--econ-border);
+      border-radius: 8px; padding: 8px 10px; margin: 4px 0 6px;
+      font-size: 12px;
+    }
+    .def-chip.health-chip { background: var(--health-bg); border-color: var(--health-border); }
+    .def-chip.open { display: block; }
+    .def-example {
+      background: #e0f2fe; border-radius: 6px;
+      padding: 5px 8px; margin: 5px 0; font-size: 11px; color: #0369a1;
+    }
+    .def-not {
+      background: var(--warn-bg); border: 1px solid var(--warn-border);
+      border-radius: 6px; padding: 5px 8px; margin-top: 5px;
+      font-size: 11px; color: var(--warn-text); font-weight: 600;
+    }
+
+    .corr-banner {
+      background: var(--warn-bg); border: 1px solid var(--warn-border);
+      border-radius: 8px; padding: 7px 10px; margin-top: 8px;
+      font-size: 11px; color: var(--warn-text); font-weight: 600;
+    }
+
+    /* ── Proto layer separator ── */
+    .layer-sep {
+      display: none;
+      background: var(--layer-bg); border: 1px solid var(--layer-border);
+      border-radius: 10px; padding: 12px; margin-top: 12px;
+    }
+    .layer-sep.visible { display: block; }
+    .layer-title { font-size: 12px; font-weight: 700; color: #1d4ed8; margin-bottom: 8px; }
+
+    /* Interpretation template */
+    .interp-template {
+      background: #f8fafc; border: 1px dashed #94a3b8;
+      border-radius: 8px; padding: 8px 10px;
+      font-size: 12px; color: #475569; font-style: italic;
+      margin-bottom: 6px; line-height: 1.6;
+    }
+    .interp-template strong { font-style: normal; color: #1e40af; }
+    .proto-textarea {
+      width: 100%; border: 1px solid var(--line);
+      border-radius: 8px; padding: 8px;
+      font-size: 12px; min-height: 80px; resize: vertical;
+    }
+    .proto-textarea.error { border-color: #dc2626; }
+
+    /* Boundary check */
+    .boundary-radio label {
+      display: flex; align-items: flex-start; gap: 8px;
+      border: 1px solid var(--line); border-radius: 8px;
+      padding: 8px 10px; margin-bottom: 6px; cursor: pointer;
+      font-size: 12px;
+    }
+    .boundary-radio label:hover { background: var(--layer-bg); }
+    .boundary-radio input[type="radio"] { margin-top: 2px; flex-shrink: 0; }
+    .revision-box { display: none; margin-top: 8px; }
+    .revision-box.visible { display: block; }
+    .revision-hint {
+      background: #fef3c7; border: 1px solid #fde68a;
+      border-radius: 8px; padding: 7px 10px; font-size: 11px;
+      color: #92400e; margin-bottom: 6px;
+    }
+
+    /* Trust gate */
+    .trust-gate {
+      font-size: 12px; margin-bottom: 8px;
+      padding: 7px 10px; border-radius: 8px;
+      background: #fef9c3; border: 1px solid #fde047; color: #713f12;
+    }
+    .source-detail { display: none; }
+    .source-detail.open { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
+    .src-item { background: #f9fafb; border: 1px solid var(--line); border-radius: 8px; padding: 8px; font-size: 11px; }
+    .src-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 3px; }
+    details summary { font-size: 11px; font-weight: 600; color: var(--primary); cursor: pointer; margin-top: 6px; }
+    .formula-box {
+      background: #f3f4f6; border-radius: 8px; padding: 8px;
+      font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+      margin-top: 6px; color: #374151;
+    }
+
+    /* score inputs in proto */
+    .score-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+    .score-label { font-size: 12px; font-weight: 600; min-width: 130px; }
+    .score-btns { display: flex; gap: 4px; }
+    .score-btn {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid var(--line); background: #f9fafb;
+      font-size: 12px; cursor: pointer; font-weight: 600;
+    }
+    .score-btn.selected { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .score-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+    /* Proto submit buttons */
+    .proto-btn {
+      border: none; border-radius: 8px; padding: 8px 14px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .proto-btn-primary { background: var(--primary); color: #fff; }
+    .proto-btn-primary:hover { background: var(--primary-hover); }
+    .proto-btn-sm { padding: 5px 10px; font-size: 11px; }
+    .proto-btn-secondary { background: #e5e7eb; color: #111; }
+
+    .check-icon { color: var(--ok); font-weight: 700; }
+    .step-done-banner {
+      background: #dcfce7; border: 1px solid #86efac;
+      border-radius: 8px; padding: 6px 10px; font-size: 11px;
+      color: #15803d; font-weight: 600; margin-top: 6px;
+    }
+
+    /* ── Form (right column) ── */
+    .form-col .card { margin-bottom: 14px; }
+    .task-label {
+      background: var(--layer-bg); border: 1px solid var(--layer-border);
+      border-radius: 8px; padding: 7px 12px;
+      font-size: 12px; font-weight: 700; color: #1d4ed8; margin-bottom: 10px;
+    }
+    .form-label {
+      display: block; font-weight: 600; font-size: 12px;
+      margin: 10px 0 4px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; border: 1px solid var(--line);
+      border-radius: 8px; padding: 8px 10px;
+      font-size: 12px; background: #fff;
+    }
+    .form-textarea { min-height: 70px; resize: vertical; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .btn {
+      border: none; border-radius: 8px; padding: 9px 16px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-secondary { background: #e5e7eb; color: #111; }
+    .btn-danger { background: #fee2e2; color: #dc2626; }
+    .status-msg { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+    /* researcher */
+    table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+    th, td { border: 1px solid var(--line); padding: 6px; text-align: left; }
+    th { background: #f9fafb; }
+
+    @media (max-width: 1100px) {
+      .workspace { grid-template-columns: 1fr; }
+      .proto-col { position: static; max-height: none; overflow-x: hidden; }
+    }
+    @media (max-width: 700px) {
+      .compare-grid { grid-template-columns: 1fr; }
+      .row2, .source-detail.open, .gloss-panel.open { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Header ── -->
+  <div class="card">
+    <h1>COVID-19 × Economy — Hi-fi Interpretation Study</h1>
+    <p class="muted">DECO7180 · Progressive Guided Dashboard · Hi-fidelity prototype evaluation</p>
+    <div style="margin-top:6px">
+      <span class="tag">~20 min · 4 tasks</span>
+      <span class="tag">Progressive prototype — explore, then reflect</span>
+      <span class="tag">Anonymous</span>
+    </div>
+  </div>
+
+  <!-- ── Consent ── -->
+  <div class="card">
+    <h2>Consent</h2>
+    <p class="muted">Your response will be used for DECO7180 coursework research only. No personal identity is collected. You may stop at any time.</p>
+    <label style="font-size:13px;font-weight:400;display:flex;align-items:flex-start;gap:8px;cursor:pointer">
+      <input type="checkbox" id="consent" style="margin-top:3px" />
+      <span>I agree to participate and understand I can withdraw at any time.</span>
+    </label>
+  </div>
+
+  <!-- ── Background ── -->
+  <div class="card">
+    <h2>Background</h2>
+    <div class="row2">
+      <div>
+        <label class="form-label" for="f_bg">Academic background (degree / major / year)</label>
+        <input class="form-input" id="f_bg" type="text" placeholder="e.g. Economics Year 2, Design postgrad" required />
+      </div>
+      <div>
+        <label class="form-label" for="f_fam">Prior familiarity with COVID-19 economic data</label>
+        <select class="form-select" id="f_fam" required>
+          <option value="">Select one</option>
+          <option>Very low</option><option>Low</option><option>Medium</option>
+          <option>High</option><option>Very high</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main workspace ── -->
+  <div class="workspace">
+
+    <!-- ═══════════════════════════════════════
+         LEFT — Progressive Canvas Prototype
+    ═══════════════════════════════════════ -->
+    <aside class="proto-col">
+      <div class="card">
+
+        <!-- Header bar -->
+        <div class="proto-header">
+          <span class="proto-title">📊 Guided Comparison Dashboard</span>
+          <button class="gloss-btn" onclick="toggleGloss()">📖 Glossary</button>
+        </div>
+
+        <!-- Glossary panel -->
+        <div class="gloss-panel" id="glossPanel">
+          <div class="gloss-item"><div class="gloss-term">pp</div>Percentage points — absolute unit of change (5% → 3% = drop of 2 pp).</div>
+          <div class="gloss-item"><div class="gloss-term">Baseline</div>Reference level for comparison. Here: 2019 GDP level.</div>
+          <div class="gloss-item"><div class="gloss-term">Trough</div>Lowest point in an economic cycle. Here: the deepest GDP contraction in 2020.</div>
+          <div class="gloss-item"><div class="gloss-term">Correlation</div>Two variables moving together — does not prove one caused the other.</div>
+          <div class="gloss-item"><div class="gloss-term">Causation</div>One variable directly produces a change in another, proven through controlled evidence.</div>
+          <div class="gloss-item"><div class="gloss-term">GDP gap</div>How far current economic output is below the 2019 pre-pandemic level, in pp.</div>
+        </div>
+
+        <!-- ── Layer 1: Comparison Panel ── -->
+        <div class="compare-grid" id="comparePanel">
+
+          <!-- UK -->
+          <div class="country-card">
+            <div class="c-name"><span class="c-flag">🇬🇧</span>United Kingdom</div>
+
+            <!-- Economic zone -->
+            <div class="zone zone-econ">
+              <div class="zone-label">ECONOMIC INDICATORS</div>
+
+              <!-- GDP gap row -->
+              <div class="ind-row">
+                <div class="ind-left">
+                  <button class="q-btn" id="qbtn-gdp" onclick="toggleDef('def-gdp','qbtn-gdp')" title="Expand definition">?</button>
+                  <span class="ind-name"><span class="bd-econ">ECONOMIC</span> GDP gap from 2019 baseline</span>
+                </div>
+                <div class="val-grid">
+                  <span class="val-yr">2020</span><span class="val-yr">2023</span>
+                  <span class="ev ev-neg">−12.0 pp</span><span class="ev ev-neg">−1.5 pp</span>
+                </div>
+              </div>
+              <!-- GDP definition chip -->
+              <div class="def-chip" id="def-gdp">
+                <strong>GDP gap from 2019 baseline</strong> — how far a country's total economic output (GDP) is from its pre-pandemic level in 2019, measured in <strong>percentage points (pp)</strong>.
+                <div class="def-example">📊 UK 2020 = −12.0 pp → the UK economy was 12 percentage points below its 2019 size at the worst pandemic point.</div>
+                <div class="def-not">⚠ Does NOT mean: total GDP in dollars, a GDP growth rate percentage, or anything about health outcomes.</div>
+              </div>
+
+              <!-- Recovery row -->
+              <div class="ind-row" style="margin-top:4px">
+                <div class="ind-left">
+                  <button class="q-btn" id="qbtn-rec" onclick="toggleDef('def-rec','qbtn-rec')" title="Expand definition">?</button>
+                  <span class="ind-name"><span class="bd-econ">ECONOMIC</span> Economic recovery from 2020 trough</span>
+                </div>
+                <div class="val-grid">
+                  <span class="val-yr">2020</span><span class="val-yr">2023</span>
+                  <span class="ev ev-neu">0.0 pp</span><span class="ev ev-pos">+8.9 pp</span>
+                </div>
+              </div>
+              <!-- Recovery definition chip -->
+              <div class="def-chip" id="def-rec">
+                <strong>Economic recovery from 2020 trough</strong> — how much the economy has grown back since its lowest point (<em>trough</em>) in 2020. Measured in percentage points. A higher value = more economic ground regained.
+                <div class="def-example">📊 UK 2023 = +8.9 pp → the UK economy has grown back 8.9 pp from its 2020 low point.</div>
+                <div class="def-not">⚠ Does NOT mean: recovery from illness, improvement in case numbers, or that the economy is above its 2019 level.</div>
+              </div>
+            </div>
+
+            <!-- Health zone -->
+            <div class="zone zone-health">
+              <div class="zone-label">HEALTH INDICATORS</div>
+              <div class="ind-row">
+                <div class="ind-left">
+                  <button class="q-btn" id="qbtn-cases" onclick="toggleDef('def-cases','qbtn-cases')">?</button>
+                  <span class="ind-name"><span class="bd-health">HEALTH</span> Confirmed COVID cases</span>
+                </div>
+                <div class="val-grid">
+                  <span class="val-yr">2020</span><span class="val-yr">2023</span>
+                  <span class="ev ev-neu">2.3 M</span><span class="ev ev-neu">24.0 M</span>
+                </div>
+              </div>
+              <div class="def-chip health-chip" id="def-cases">
+                <strong>Confirmed COVID-19 cases</strong> — cumulative confirmed cases as reported to WHO/OWID. Cross-country comparisons are affected by testing capacity and reporting standards.
+                <div class="def-not">⚠ Does NOT directly explain changes in GDP. Correlation in timing does not prove causation.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Australia -->
+          <div class="country-card">
+            <div class="c-name"><span class="c-flag">🇦🇺</span>Australia</div>
+
+            <!-- Economic zone -->
+            <div class="zone zone-econ">
+              <div class="zone-label">ECONOMIC INDICATORS</div>
+              <div class="ind-row">
+                <div class="ind-left">
+                  <button class="q-btn" id="qbtn-gdp-au" onclick="toggleDef('def-gdp','qbtn-gdp-au')" title="Expand definition">?</button>
+                  <span class="ind-name"><span class="bd-econ">ECONOMIC</span> GDP gap from 2019 baseline</span>
+                </div>
+                <div class="val-grid">
+                  <span class="val-yr">2020</span><span class="val-yr">2023</span>
+                  <span class="ev ev-neg">−3.7 pp</span><span class="ev ev-neg">−0.3 pp</span>
+                </div>
+              </div>
+              <div class="ind-row" style="margin-top:4px">
+                <div class="ind-left">
+                  <button class="q-btn" id="qbtn-rec-au" onclick="toggleDef('def-rec','qbtn-rec-au')" title="Expand definition">?</button>
+                  <span class="ind-name"><span class="bd-econ">ECONOMIC</span> Economic recovery from 2020 trough</span>
+                </div>
+                <div class="val-grid">
+                  <span class="val-yr">2020</span><span class="val-yr">2023</span>
+                  <span class="ev ev-neu">0.0 pp</span><span class="ev ev-pos">+3.4 pp</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Health zone -->
+            <div class="zone zone-health">
+              <div class="zone-label">HEALTH INDICATORS</div>
+              <div class="ind-row">
+                <div class="ind-left">
+                  <button class="q-btn" id="qbtn-cases-au" onclick="toggleDef('def-cases','qbtn-cases-au')">?</button>
+                  <span class="ind-name"><span class="bd-health">HEALTH</span> Confirmed COVID cases</span>
+                </div>
+                <div class="val-grid">
+                  <span class="val-yr">2020</span><span class="val-yr">2023</span>
+                  <span class="ev ev-neu">28 K</span><span class="ev ev-neu">11.7 M</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- end compare-grid -->
+
+        <div class="corr-banner">⚠ Aligned trends indicate <strong>correlation only</strong> — not automatic causation between health and economic indicators.</div>
+
+        <!-- chip-encounter tracker (hidden, read by JS) -->
+        <div id="chipStatus" style="font-size:11px;color:var(--muted);margin-top:8px;display:none">
+          Indicator definitions opened: <span id="chipCount">0</span>
+        </div>
+
+        <!-- Interpret button -->
+        <div id="interpretTrigger" style="margin-top:12px">
+          <button class="proto-btn proto-btn-primary" onclick="startInterpret()">
+            I have explored the data — start interpretation →
+          </button>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">Open at least one indicator definition (?) before continuing.</div>
+        </div>
+
+        <!-- ── Layer 3: Interpretation Builder ── -->
+        <div class="layer-sep" id="layer3">
+          <div class="layer-title">Layer 3 — Build Your Interpretation</div>
+          <p class="muted" style="margin-bottom:8px">Complete the sentence template below. You must include at least one specific numerical value (e.g. −12.0 pp).</p>
+          <div class="interp-template">
+            <strong>Template:</strong> "The data shows that <strong>[country]</strong> had a <strong>[value]</strong> <strong>[metric]</strong> in <strong>[year]</strong>, compared to <strong>[value]</strong> for <strong>[country]</strong>. This pattern suggests <strong>[observation]</strong>, but does not prove <strong>[causal claim]</strong> because <strong>[limitation]</strong>."
+          </div>
+          <textarea class="proto-textarea" id="interpText" placeholder="Write your interpretation here, following the template structure above..."></textarea>
+          <div id="interpError" style="color:#dc2626;font-size:11px;display:none;margin-top:4px">⚠ Your interpretation must include at least one specific numerical value (e.g. a pp value from the panel).</div>
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+            <button class="proto-btn proto-btn-primary proto-btn-sm" onclick="submitInterp()">Submit interpretation →</button>
+          </div>
+        </div>
+
+        <!-- ── Layer 4: Boundary Self-Check ── -->
+        <div class="layer-sep" id="layer4">
+          <div class="layer-title">Layer 4 — Boundary Self-Check</div>
+          <p class="muted" style="margin-bottom:6px">Your interpretation:</p>
+          <div id="interpEcho" style="background:#f9fafb;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;font-style:italic;margin-bottom:10px;color:#374151"></div>
+          <p style="font-size:12px;font-weight:600;margin-bottom:6px">Does your interpretation imply that COVID directly <em>caused</em> the economic change?</p>
+          <div class="boundary-radio" id="boundaryRadio">
+            <label><input type="radio" name="boundary_self" value="No" onchange="onBoundaryChange(this)" /> <span><strong>No</strong> — I described what moved together, not what caused what.</span></label>
+            <label><input type="radio" name="boundary_self" value="Unsure" onchange="onBoundaryChange(this)" /> <span><strong>Unsure</strong> — I'm not certain if my wording implies causation.</span></label>
+            <label><input type="radio" name="boundary_self" value="Yes" onchange="onBoundaryChange(this)" /> <span><strong>Yes</strong> — I think my wording does imply causation.</span></label>
+          </div>
+          <!-- Revision box (shows if Unsure or Yes) -->
+          <div class="revision-box" id="revisionBox">
+            <div class="revision-hint">💡 Try revising your interpretation to describe what moved <em>together</em>, rather than what <em>caused</em> what. Replace any causal language with correlation language.</div>
+            <label class="form-label" style="font-size:12px">Revised interpretation (optional but encouraged):</label>
+            <textarea class="proto-textarea" id="revisionText" placeholder="Revised version..." style="min-height:60px"></textarea>
+          </div>
+          <div style="margin-top:10px">
+            <label class="score-label" style="font-size:12px;font-weight:600;display:block;margin-bottom:4px">Confidence score (1 = not confident, 5 = very confident):</label>
+            <div class="score-btns" id="confBtns">
+              <button class="score-btn" onclick="setScore('conf',1,this)">1</button>
+              <button class="score-btn" onclick="setScore('conf',2,this)">2</button>
+              <button class="score-btn" onclick="setScore('conf',3,this)">3</button>
+              <button class="score-btn" onclick="setScore('conf',4,this)">4</button>
+              <button class="score-btn" onclick="setScore('conf',5,this)">5</button>
+            </div>
+          </div>
+          <button class="proto-btn proto-btn-primary proto-btn-sm" style="margin-top:10px" onclick="submitBoundary()">Continue to source panel →</button>
+          <div id="boundaryError" style="color:#dc2626;font-size:11px;display:none;margin-top:4px">⚠ Please select an option above before continuing.</div>
+        </div>
+
+        <!-- ── Layer 5: Source and Trust ── -->
+        <div class="layer-sep" id="layer5">
+          <div class="layer-title">Layer 5 — Source Awareness &amp; Trust</div>
+          <div class="trust-gate" id="trustGate">
+            🔒 Complete the source awareness task below to unlock the trust rating.
+          </div>
+          <label class="form-label" style="font-size:12px">Before rating your trust, name one limitation of this dataset:</label>
+          <textarea class="proto-textarea" id="limitationText" placeholder="One limitation is..." style="min-height:55px" oninput="onLimitationInput()"></textarea>
+          <div id="limitationHint" style="font-size:11px;color:var(--muted);margin-top:3px">Minimum 8 characters required to unlock trust rating.</div>
+
+          <!-- Source details (revealed after micro-task) -->
+          <div class="source-detail" id="sourceDetail">
+            <div class="src-item"><div class="src-label">Data sources</div>World Bank (GDP, annual) · OWID / WHO (COVID cases)</div>
+            <div class="src-item"><div class="src-label">Snapshot date</div>2026-04-27</div>
+            <div class="src-item"><div class="src-label">Data lag</div>Economic data: 12–18 month reporting lag.</div>
+            <div class="src-item"><div class="src-label">Reporting caveat</div>COVID case counts reflect testing capacity differences across countries.</div>
+          </div>
+          <details id="formulaDetails" style="display:none;margin-top:6px">
+            <summary>View GDP gap calculation formula</summary>
+            <div class="formula-box">
+              GDP gap (pp) = ((GDP_t / GDP_2019) − 1) × 100<br/>
+              GDP_t = GDP in current year (constant 2015 USD)<br/>
+              GDP_2019 = GDP in 2019 (constant 2015 USD)<br/>
+              Source: World Bank national accounts data
+            </div>
+          </details>
+          <div class="corr-banner" id="corrBanner2" style="display:none">⚠ Observed alignment does not establish direct causation.</div>
+
+          <!-- Trust score (locked until micro-task done) -->
+          <div style="margin-top:10px">
+            <div class="score-label" style="font-size:12px;font-weight:600;margin-bottom:4px;display:block">Trust score (1–5) <span id="trustLock" style="color:#b45309;font-size:11px">🔒 Complete task above first</span></div>
+            <div class="score-btns" id="trustBtns">
+              <button class="score-btn" disabled onclick="setScore('trust',1,this)">1</button>
+              <button class="score-btn" disabled onclick="setScore('trust',2,this)">2</button>
+              <button class="score-btn" disabled onclick="setScore('trust',3,this)">3</button>
+              <button class="score-btn" disabled onclick="setScore('trust',4,this)">4</button>
+              <button class="score-btn" disabled onclick="setScore('trust',5,this)">5</button>
+            </div>
+          </div>
+          <div style="margin-top:10px">
+            <div class="score-label" style="font-size:12px;font-weight:600;margin-bottom:4px;display:block">Preference / usefulness score (1–5)</div>
+            <div class="score-btns">
+              <button class="score-btn" onclick="setScore('pref',1,this)">1</button>
+              <button class="score-btn" onclick="setScore('pref',2,this)">2</button>
+              <button class="score-btn" onclick="setScore('pref',3,this)">3</button>
+              <button class="score-btn" onclick="setScore('pref',4,this)">4</button>
+              <button class="score-btn" onclick="setScore('pref',5,this)">5</button>
+            </div>
+          </div>
+          <div id="layer5Done" class="step-done-banner" style="display:none">✓ Prototype interaction complete. Please complete the research form on the right.</div>
+        </div>
+
+      </div><!-- end proto card -->
+    </aside>
+
+    <!-- ═══════════════════════════════════════
+         RIGHT — Research Questionnaire
+    ═══════════════════════════════════════ -->
+    <section class="form-col">
+      <div class="card">
+        <h2>Research Tasks</h2>
+        <form id="mainForm">
+
+          <!-- ── Task 1: Metric Understanding ── -->
+          <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--line)">
+            <div class="task-label">Task 1 — Metric Understanding (use the comparison panel on the left)</div>
+
+            <label class="form-label" for="t1_gdp_before">1a) Without expanding any definition chips yet, what does the <strong>ECONOMIC</strong> badge on "GDP gap from 2019 baseline" tell you about what kind of indicator it is?</label>
+            <textarea class="form-textarea" id="t1_gdp_before" required placeholder="Before expanding any chips..."></textarea>
+
+            <label class="form-label" for="t1_gdp_after">1b) Now expand the ? chip for "GDP gap from 2019 baseline". In your own words, explain what this indicator measures and what unit it uses.</label>
+            <textarea class="form-textarea" id="t1_gdp_after" required></textarea>
+
+            <label class="form-label" for="t1_rec">1c) Expand the ? chip for "Economic recovery from 2020 trough". Is this indicator about health or the economy? How do you know?</label>
+            <textarea class="form-textarea" id="t1_rec" required></textarea>
+
+            <label class="form-label" for="t1_diff">1d) What is the key difference between "GDP gap from 2019 baseline" and "Economic recovery from 2020 trough"?</label>
+            <textarea class="form-textarea" id="t1_diff" required></textarea>
+          </div>
+
+          <!-- ── Task 2: Country Comparison ── -->
+          <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--line)">
+            <div class="task-label">Task 2 — Country Comparison (use the comparison panel)</div>
+
+            <label class="form-label" for="t2_shock">2a) Which country had the deeper economic shock in 2020? What specific value from the panel supports your answer?</label>
+            <textarea class="form-textarea" id="t2_shock" required></textarea>
+
+            <label class="form-label" for="t2_2023">2b) By 2023, which country was closer to its 2019 economic level? Cite the evidence value.</label>
+            <textarea class="form-textarea" id="t2_2023" required></textarea>
+
+            <label class="form-label" for="t2_recovery">2c) The UK has a higher recovery value (+8.9 pp) than Australia (+3.4 pp). Does this mean the UK is performing better economically in 2023? Explain using the panel data.</label>
+            <textarea class="form-textarea" id="t2_recovery" required></textarea>
+          </div>
+
+          <!-- ── Task 3: Boundary Follow-up ── -->
+          <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--line)">
+            <div class="task-label">Task 3 — Boundary Follow-up (after completing the Boundary Self-Check in the prototype)</div>
+            <p class="muted" style="margin-bottom:8px">Complete this section after you have finished the boundary self-check step in the prototype panel.</p>
+
+            <label class="form-label" for="t3_open">3a) In your own words — imagine you are presenting your findings to your class. What would you say about <em>why</em> the UK economy was more affected than Australia's?</label>
+            <textarea class="form-textarea" id="t3_open" required placeholder="Tell your class..."></textarea>
+
+            <label class="form-label" for="t3_claim">3b) Write one claim about what this data can support, and one thing it cannot prove.</label>
+            <textarea class="form-textarea" id="t3_claim" required placeholder="It can support: ... / It cannot prove: ..."></textarea>
+          </div>
+
+          <!-- ── Task 4: Source and Trust ── -->
+          <div style="margin-bottom:14px">
+            <div class="task-label">Task 4 — Source Awareness &amp; Trust (after completing the source panel in the prototype)</div>
+            <p class="muted" style="margin-bottom:8px">Complete this section after the trust panel in the prototype is fully unlocked.</p>
+
+            <label class="form-label" for="t4_limitation">4a) What limitation did you name to unlock the trust score? Why does that limitation matter for interpreting the comparison?</label>
+            <textarea class="form-textarea" id="t4_limitation" required></textarea>
+
+            <label class="form-label" for="t4_formula">4b) Did you open the GDP gap formula? What did it tell you, and does it change how much you trust the values?</label>
+            <textarea class="form-textarea" id="t4_formula" required></textarea>
+
+            <label class="form-label" for="t4_cite">4c) Would you cite this tool in a university assignment? What additional information would you need?</label>
+            <textarea class="form-textarea" id="t4_cite" required></textarea>
+
+            <label class="form-label" for="t4_trust_reason">4d) You gave a trust score of <span id="trustDisplay">—</span>. Explain your reasoning.</label>
+            <textarea class="form-textarea" id="t4_trust_reason" required></textarea>
+
+            <label class="form-label" for="t4_improve">4e) If you could change one thing about this interface, what would it be and why?</label>
+            <textarea class="form-textarea" id="t4_improve" required></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">Submit Response</button>
+            <button class="btn btn-secondary" type="button" id="resetBtn">Reset Form</button>
+          </div>
+        </form>
+        <div id="submitStatus" class="status-msg">No response submitted yet.</div>
+      </div>
+    </section>
+
+  </div><!-- end workspace -->
+
+  <!-- ── Researcher Panel ── -->
+  <div class="card">
+    <details>
+      <summary style="font-weight:700;cursor:pointer">Researcher panel — export CSV / clear data</summary>
+      <p class="muted" style="margin-top:8px">Exports all responses stored in this browser session. Includes prototype interaction metadata (chips opened, interp submitted, boundary answer, limitation entered).</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn btn-secondary" id="exportBtn" type="button">Export CSV</button>
+        <button class="btn btn-danger" id="clearBtn" type="button">Clear Local Data</button>
+      </div>
+      <div id="adminStatus" class="status-msg">Stored responses: 0</div>
+      <table id="previewTable">
+        <thead><tr>
+          <th>submittedAt</th><th>background</th><th>chipsOpened</th>
+          <th>interpHasNum</th><th>boundarySelf</th><th>limitationLen</th>
+          <th>trust</th><th>conf</th><th>pref</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </details>
+  </div>
+
+</div><!-- end page -->
+
+<!-- ══════════════════════════════════════
+     JavaScript — Prototype + Form Logic
+══════════════════════════════════════ -->
+<script>
+/* ── State ── */
+const state = {
+  chipsOpened: new Set(),   // which chips have been expanded (H5)
+  interpText: '',
+  interpHasNum: false,      // (H6)
+  boundarySelf: '',         // Yes/No/Unsure (H7)
+  revisionText: '',
+  limitationText: '',       // (H8)
+  confScore: null,
+  trustScore: null,
+  prefScore: null,
+  layer3Active: false,
+  layer4Active: false,
+  layer5Active: false,
+};
+
+/* ── Glossary toggle ── */
+function toggleGloss() {
+  const p = document.getElementById('glossPanel');
+  p.classList.toggle('open');
+}
+
+/* ── Definition chip toggle ── */
+function toggleDef(chipId, btnId) {
+  const chip = document.getElementById(chipId);
+  const btn  = document.getElementById(btnId);
+  const isOpen = chip.classList.contains('open');
+  chip.classList.toggle('open');
+  btn.classList.toggle('opened', !isOpen);
+  // track for H5
+  if (!isOpen) {
+    state.chipsOpened.add(chipId);
+    updateChipStatus();
+  }
+}
+
+function updateChipStatus() {
+  document.getElementById('chipCount').textContent = state.chipsOpened.size;
+  document.getElementById('chipStatus').style.display = 'block';
+}
+
+/* ── Layer 3: Start Interpretation ── */
+function startInterpret() {
+  document.getElementById('interpretTrigger').style.display = 'none';
+  document.getElementById('layer3').classList.add('visible');
+  state.layer3Active = true;
+}
+
+function submitInterp() {
+  const text = document.getElementById('interpText').value.trim();
+  const errEl = document.getElementById('interpError');
+  // Validate: must contain a number (H6 — checks for digit optionally preceded by + or -)
+  const hasNum = /[\d]/.test(text) && (/\d+\.?\d*\s*pp/i.test(text) || /[+\-]?\s*\d+[\.,]\d/.test(text) || /\d{2,}/.test(text));
+  if (!text || !hasNum) {
+    errEl.style.display = 'block';
+    document.getElementById('interpText').classList.add('error');
+    return;
+  }
+  errEl.style.display = 'none';
+  document.getElementById('interpText').classList.remove('error');
+  state.interpText = text;
+  state.interpHasNum = true;
+  // activate layer 4
+  document.getElementById('layer3').classList.remove('visible');
+  document.getElementById('layer4').classList.add('visible');
+  document.getElementById('interpEcho').textContent = '"' + text + '"';
+  state.layer4Active = true;
+}
+
+/* ── Layer 4: Boundary ── */
+function onBoundaryChange(radio) {
+  state.boundarySelf = radio.value;
+  const revBox = document.getElementById('revisionBox');
+  revBox.classList.toggle('visible', radio.value === 'Yes' || radio.value === 'Unsure');
+}
+
+function submitBoundary() {
+  if (!state.boundarySelf) {
+    document.getElementById('boundaryError').style.display = 'block';
+    return;
+  }
+  document.getElementById('boundaryError').style.display = 'none';
+  state.revisionText = document.getElementById('revisionText').value.trim();
+  // activate layer 5
+  document.getElementById('layer4').classList.remove('visible');
+  document.getElementById('layer5').classList.add('visible');
+  state.layer5Active = true;
+}
+
+/* ── Layer 5: Source / Trust ── */
+function onLimitationInput() {
+  const val = document.getElementById('limitationText').value.trim();
+  state.limitationText = val;
+  const ready = val.length >= 8;
+  // unlock trust buttons
+  document.querySelectorAll('#trustBtns .score-btn').forEach(b => b.disabled = !ready);
+  document.getElementById('trustLock').style.display = ready ? 'none' : 'inline';
+  document.getElementById('trustGate').style.display = ready ? 'none' : 'block';
+  if (ready) {
+    // reveal source details
+    document.getElementById('sourceDetail').classList.add('open');
+    document.getElementById('formulaDetails').style.display = 'block';
+    document.getElementById('corrBanner2').style.display = 'block';
+  }
+}
+
+/* ── Score buttons ── */
+const scores = { conf: null, trust: null, pref: null };
+function setScore(key, val, btn) {
+  scores[key] = val;
+  state[key + 'Score'] = val;
+  // highlight
+  btn.closest('.score-btns').querySelectorAll('.score-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  if (key === 'trust') {
+    document.getElementById('trustDisplay').textContent = val;
+    checkLayer5Done();
+  }
+  if (key === 'pref') checkLayer5Done();
+}
+
+function checkLayer5Done() {
+  if (scores.trust && scores.pref) {
+    document.getElementById('layer5Done').style.display = 'block';
+  }
+}
+
+/* ── Storage key ── */
+const KEY = 'deco7180_hifi_responses';
+const byId = id => document.getElementById(id);
+
+function load() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; } }
+function save(rows) { localStorage.setItem(KEY, JSON.stringify(rows)); }
+
+function collect() {
+  const bRadio = document.querySelector('input[name="boundary_self"]:checked');
+  return {
+    submittedAt: new Date().toISOString(),
+    background: byId('f_bg').value.trim(),
+    familiarity: byId('f_fam').value,
+    // H5 metadata
+    chipsOpened: [...state.chipsOpened].join('|'),
+    chipsCount: state.chipsOpened.size,
+    // H6 metadata
+    interpText: state.interpText,
+    interpHasNum: state.interpHasNum,
+    // H7 metadata
+    boundarySelf: bRadio ? bRadio.value : '',
+    revisionText: state.revisionText,
+    // H8 metadata
+    limitationProto: state.limitationText,
+    limitationLen: state.limitationText.length,
+    // scores
+    confScore: scores.conf,
+    trustScore: scores.trust,
+    prefScore: scores.pref,
+    // form responses
+    t1_gdp_before: byId('t1_gdp_before').value.trim(),
+    t1_gdp_after:  byId('t1_gdp_after').value.trim(),
+    t1_rec:        byId('t1_rec').value.trim(),
+    t1_diff:       byId('t1_diff').value.trim(),
+    t2_shock:      byId('t2_shock').value.trim(),
+    t2_2023:       byId('t2_2023').value.trim(),
+    t2_recovery:   byId('t2_recovery').value.trim(),
+    t3_open:       byId('t3_open').value.trim(),
+    t3_claim:      byId('t3_claim').value.trim(),
+    t4_limitation: byId('t4_limitation').value.trim(),
+    t4_formula:    byId('t4_formula').value.trim(),
+    t4_cite:       byId('t4_cite').value.trim(),
+    t4_trust_reason: byId('t4_trust_reason').value.trim(),
+    t4_improve:    byId('t4_improve').value.trim(),
+  };
+}
+
+function toCsv(rows) {
+  const headers = [
+    'submittedAt','background','familiarity',
+    'chipsOpened','chipsCount','interpText','interpHasNum',
+    'boundarySelf','revisionText','limitationProto','limitationLen',
+    'confScore','trustScore','prefScore',
+    't1_gdp_before','t1_gdp_after','t1_rec','t1_diff',
+    't2_shock','t2_2023','t2_recovery',
+    't3_open','t3_claim',
+    't4_limitation','t4_formula','t4_cite','t4_trust_reason','t4_improve'
+  ];
+  const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  return [headers.join(','), ...rows.map(r => headers.map(h => esc(r[h])).join(','))].join('\n');
+}
+
+function refreshAdmin() {
+  const rows = load();
+  byId('adminStatus').textContent = `Stored responses: ${rows.length}`;
+  const tbody = document.querySelector('#previewTable tbody');
+  tbody.innerHTML = '';
+  rows.slice(-6).forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${(r.submittedAt||'').slice(0,16)}</td>
+      <td>${r.background||''}</td>
+      <td>${r.chipsCount||0}</td>
+      <td>${r.interpHasNum ? '✓':'✗'}</td>
+      <td>${r.boundarySelf||''}</td>
+      <td>${r.limitationLen||0}</td>
+      <td>${r.trustScore||'—'}</td>
+      <td>${r.confScore||'—'}</td>
+      <td>${r.prefScore||'—'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+byId('mainForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!byId('consent').checked) { byId('submitStatus').textContent = 'Please provide consent first.'; return; }
+  if (!e.target.reportValidity()) return;
+  const data = collect();
+  const rows = load(); rows.push(data); save(rows);
+  e.target.reset();
+  byId('consent').checked = false;
+  byId('submitStatus').textContent = '✓ Response submitted. Thank you.';
+  refreshAdmin();
+});
+
+byId('resetBtn').addEventListener('click', () => {
+  byId('mainForm').reset();
+  byId('consent').checked = false;
+  byId('submitStatus').textContent = 'Form reset.';
+});
+
+byId('exportBtn').addEventListener('click', () => {
+  const rows = load();
+  if (!rows.length) { byId('adminStatus').textContent = 'No responses to export.'; return; }
+  const blob = new Blob([toCsv(rows)], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `deco7180_hifi_${new Date().toISOString().replace(/[:.]/g,'-')}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  byId('adminStatus').textContent = `Exported ${rows.length} responses.`;
+});
+
+byId('clearBtn').addEventListener('click', () => {
+  if (!confirm('Clear all stored responses?')) return;
+  localStorage.removeItem(KEY);
+  refreshAdmin();
+  byId('adminStatus').textContent = 'Cleared.';
+});
+
+refreshAdmin();
+</script>
+</body>
+</html>

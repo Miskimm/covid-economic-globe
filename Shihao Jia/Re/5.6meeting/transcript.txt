@@ -1,0 +1,378 @@
+说话人1     00:00     
+I can go on so . 
+说话人2     00:02     
+so . 
+说话人1     00:02     
+you know um before we start um but before we got the assignment, one result we have at once and you make some prototypes, you know and for examples, the second we . 
+说话人2     00:22     
+have multiples politics . 
+说话人1     00:24     
+because we want to make the comparisons just for examples on this one is the most on early once because we make this in weekend yeah so i'm in the fifteen weeks, we makes up the dashboard prototype and also the negative prototypes. 
+说话人1     00:47     
+Right so um so in the past two two week we got yourself of our assignment once the team work right is a marginal files because Steve total and remove too quickly to the solutions that realized the relationships between the code nineteen and an economic change. 
+说话人1     01:11     
+But um so in that stage, we did not define our problems um by delays our academic research and we do not define on our target users public. 
+说话人1     01:27     
+So I just wondering, do we needs to get rid of order prototype texting before anna we start the research because we have already read the actively research to to fill the gap to feel the um the gap that the feedback skippers. 
+说话人1     01:51     
+So I just wondering what . 
+说话人2     01:54     
+should we do now? 
+说话人2     01:56     
+So well, now it'll be a good idea to focus on some consumption of what you think can be a final think uh, because you need to present something during week are the key though is not to focus on just preparing something to present IT should reflect the process yes, like you feel in the gaps. 
+说话人2     02:20     
+So these multiple prototypes that you have um hopefully you've use them to find some kind of data to fill some kind of that. 
+说话人2     02:32     
+yes. 
+说话人2     02:32     
+Ah if you find out, let's say, the first product types with the spinning globe, yeah啊，you find out that some things work well, but some things don't work well. 
+说话人2     02:47     
+So you understood why IT is the case. 
+说话人2     02:51     
+And then based on that, you realize that a sudden things work done, things don't work, and that you understand more how your audience to achieve information, let's say. 
+说话人2     03:04     
+And then with this knowledge, you can, okay, so our system then should have that, but in a different way. 
+说话人2     03:11     
+And so this is how you working with all prototypes right now, we in the week ten so we have ten, eleven, twelve weeks yeah three weeks to prepare your exhibit um but it's not what you will be presented as the final prototype IT is how you will build your uh story of how you love that. 
+说话人2     03:40     
+So this final thing doesn't is not important. 
+说话人2     03:44     
+If you don't have a good restaurant, 你也可以if you just present that and tell us how that works。
+说话人2     03:52     
+That's not good OK. 
+说话人2     03:53     
+Uh, if you if something you present to us and if IT doesn't work really well, but IT shows some kind of functionality or experience that you want to create and you have a really good storage that's also like IT, IT will be a really strong work. 
+说话人2     04:15     
+So for your team, uh, you need to definitely think about who is your target tolerance and how are you um well solving their need or goal on so I believe I talk to your team member last week, children prostate practical. 
+说话人2     04:40     
+Uh, he said that ah IT seems like you guys don't have a very concrete target to this because you're trying to do IT like for everyone, for change, for public and this may be a thing for your team . 
+说话人1     04:55     
+to think about. 
+说话人1     04:57     
+Wow, actually on no matters from my personalities, but also also from all my team members have already read the academy research to find out our target user is for the non perfection the public, you know? 
+说话人1     05:13     
+So we we all already search some academic articles to support this ticket . 
+说话人2     05:20     
+users yeah but so if it's a nonprofessional, a general public, uh, what are their characteristics beyond that? 
+说话人2     05:31     
+Because just general public is very broad still IT doesn't mean that if you focus on nara on more specific group that you prevent others to use. 
+说话人2     05:43     
+But you need to take into account let's say, ah i'm not not professional, right yeah and but I have a sudden background in IT in design. 
+说话人2     05:55     
+And if you design a system for me and you probably need to think about how I perceive information, how I can break IT down. 
+说话人2     06:08     
+And so maybe some of the graphs will work Better for me than for the person who is a professional news. 
+说话人2     06:19     
+So we are both like general public. 
+说话人2     06:21     
+We don't have a professional knowledge into the field and we are not doing that for uh our vote uh but uh they needs why we check in this information and also there our background of how we may percent this information will add IT. 
+说话人2     06:41     
+So but if you let say focus on me on in yours, uh IT will be tailed whether for them IT will create Better experience for them for their particular IT will not prevent me from using that. 
+说话人2     06:54     
+I may have more chAllenges because I don't have that background, but i'm still I still can use IT. 
+说话人2     07:02     
+And so I think for your team is what is important is to figure out who is the the primary target experience within this general public and what's their goals. 
+说话人1     07:17     
+So we need to narrow down the row from barges users. 
+说话人2     07:23     
+yeah, yeah. 
+说话人2     07:23     
+And IT will potentially also help you to let down of what do you do overall because what is your problem space, what is that you are . 
+说话人1     07:35     
+trying to achieve to this project is because we did some academic research that the the public the general public also concerns about the economics consequence about the after the copy nineteen period. 
+说话人1     07:52     
+So I think um because I think these articles and all these experimental ARM can can show a demands that the public uses in this half and needs to to to figure out the relationship between the competitors and economic change。
+说话人1     08:15     
+So we devise this as our target users. 
+说话人2     08:19     
+Yeah and but then let's see you say like people here and like the coat nineteen definitely was a global thing effect the homework uh but people in australia would have experiences differently to the people, let's say in russia, in china, in any of your countries. 
+说话人2     08:43     
+So um you can throw the like chain n of advance and how I affected them. 
+说话人2     08:50     
+But you will say if we data gender public and make IT a bit more specific too well, because we bralia would say to to australian population . 
+说话人1     09:04     
+may be for for for UQ students uh for your cum but with . 
+说话人2     09:09     
+your q students see is also a bit more change because you q students, uh, usually much more diverse then australian population. 
+说话人2     09:24     
+But still maybe maybe it's a good idea, but you need to really understand why you making IT more specific and how you making IT more specific. 
+说话人2     09:37     
+So it's not that just you need to narrow down because I told you, but you should narrow down because IT will fulfill someone's needs and goals Better. 
+说话人2     09:50     
+And then IT will also help you to understand how do you leave this information tion for them. 
+说话人2     09:57     
+So maybe you are stable general le general public, but you will say, well, these are the people love this kind of uh technological and demographic is not usually the best way to uh choose the target toldt, but maybe the people within a certain age range doing particular work, something like that. 
+说话人2     10:24     
+It's or may be just people who enjoy your history and this helps them to learn history from a different perspective like taking the code nineteen and its effect on the economics and in politics potential as well from like it's just for those kind of people. 
+说话人2     10:52     
+So you've done your secondary research like academy, you talk to people so go through go back through your findings and try to understand um how like what are you doing, what the prototypes are you presented all the things that the knowledge gaps, if you test him, what is that you're trying to find out? 
+说话人2     11:19     
+Did you find that out? 
+说话人2     11:20     
+And if not, is fine. 
+说话人2     11:22     
+And if you did, it's also fine. 
+说话人2     11:24     
+Uh, that is that you need to now focus the remaining a three weeks of your semester of figured out what is the you actually doing and why and for what particular route. 
+说话人2     11:38     
+Currently IT seems very abroad and IT seems like it's really chAllenging for for you. 
+说话人2     11:46     
+停would be uh to focus on that big problem uh，especially within like three weeks. 
+说话人2     11:54     
+So next I know with right on the testing session next week as well, but just think about one particular knowledge gap that you still need to feel. 
+说话人2     12:08     
+Go through everything you found out, try to analyze IT and sympathy that, and go be a yond what just people said, and and then synthesize all of that. 
+说话人2     12:20     
+Think, okay, so we know all that. 
+说话人2     12:24     
+We know that this is useful. 
+说话人2     12:26     
+We know this is not useful, uh, we know why this is not useful. 
+说话人2     12:30     
+And it's not that if there was a bad idea is potentially we just implemented in a way that IT doesn't work for these people that we were testing with. 
+说话人2     12:40     
+So how can we change that? 
+说话人2     12:42     
+And and then yeah scope IT down and presented so IT works for your proposed target democrat, for your target audience and and that IT solves a purpose for them and that you can talk us through the whole process of how you started road, how you have got first prototype. 
+说话人2     13:08     
+What you found out that IT was uh, something so were good, some are bad. 
+说话人2     13:13     
+And basically you will have in week for teen ten minutes to walk us through the process, say that this is what we currently believe is a version of representation of what we think main work。
+说话人2     13:31     
+Uh, but we also understand that IT has these kinds limitations and that IT may not really work in the end of the day. 
+说话人2     13:40     
+So you don't need to tell us that he is a good idea. 
+说话人2     13:43     
+And the idea that your persius doesn't have to be good to start with IT is how you tell us why IT is like that. 
+说话人2     13:52     
+Prove the process through the trying things through doing first prototype, second prototype, uh reading the early return um talking to people and trying to figure out, okay, so what do we need to do why we're doing like that? 
+说话人2     14:07     
+And so if that then the thing is that for you not to focus what to build, but first of to understand why you build that, what is that you are doing, who is important for? 
+说话人2     14:22     
+What are the characteristics that you need to take into the complaint you design for those people and then try your best to reflect those project, those on to your final prototype? 
+说话人2     14:37     
+Um yeah that's that's what you need to focus. 
+说话人1     14:41     
+So just confirmed that. 
+说话人1     14:43     
+So we do not need to get rid of order periods of process. 
+说话人2     14:50     
+No absolute no, no. 
+说话人2     14:52     
+If you if you throw away your previous process, you're doing the wrong. 
+说话人2     14:59     
+Yes, previous process was about something else and you tried that and you find out IT doesn't work. 
+说话人2     15:06     
+Uh and then you uh changed your that direction and try something else. 
+说话人2     15:10     
+If IT was very curious and massive but IT helped you to make decisions, uh, you should keep IT and you should talk about that definitely. 
+说话人2     15:21     
+If you just tell us that this is idea. 
+说话人2     15:24     
+And like we didn't having a chAllenges, we've learnt that that than that. 
+说话人2     15:29     
+And IT works perfectly, will know that it's not the whole story. 
+说话人2     15:33     
+And this is not what we want you to do. 
+说话人2     15:36     
+We if you struggle along the way, if you try think some of them walk, some of them didn't walk, and you analyze all of that. 
+说话人2     15:45     
+And based on this analysis and more information and more knowledge, you made another decision that also could worked or could not work. 
+说话人2     15:54     
+IT doesn't matter of for us whether that worked or not. 
+说话人2     15:58     
+It's what you tried, why you tried IT, what you belonged that and what next decision you've made. 
+说话人1     16:04     
+So IT is just a process, is a process we why we makes the difference decision exactly. 
+说话人2     16:11     
+And let's open the brief quickly because because I saw diagrams before that . 
+说话人1     16:19     
+we can um we have different stage and if we stuck in summer stage, we can roll back yeah so we just need to show the clear time lives of what we done in in . 
+说话人2     16:34     
+different stage. 
+说话人2     16:36     
+It's not even the time line. 
+说话人2     16:38     
+It's so I will thank you. 
+说话人2     16:40     
+Yeah yeah, yeah this one, this one so this one is also a simplified representation of that because like you can go back and and then go forward again. 
+说话人2     16:52     
+But sometimes you can go back from here. 
+说话人2     16:55     
+You can when you go forward, you can also keep, keep some. 
+说话人2     16:59     
+So basically it's not that it's like you go from here, here, here and then you go back. 
+说话人2     17:05     
+You can be from here, here, back, forward, back, back forward. 
+说话人2     17:10     
+So it's it's vertical mass away like that. 
+说话人2     17:14     
+And so yeah, if you can basically tell your story of what you've been doing in this kind of messing way, but still tell us how you proceed for that, that will be good OK. 
+说话人2     17:28     
+Let's open the police. 
+说话人2     17:41     
+So the man think quite, if we this is, how will be a great in you exhibit and you have team collaboration. 
+说话人2     17:48     
+The final presentation demonstrates exceptional collaboration with seamlessly integrated contributions that reflects sophisticated trade, think king and strategic division of labor. 
+说话人2     17:59     
+So through this exhibit, you will need to show how you worked as a team, uh, by the show that you need to ever, the team member should be able to tell us not only what they individual is done, but what each team member was working on and how you worked that as a team. 
+说话人2     18:21     
+This is a strategic division of the labor. 
+说话人2     18:24     
+And strategic division of the labor doesn't mean that. 
+说话人2     18:27     
+Well, we told this guy to do all the coaching and he doesn't done. 
+说话人2     18:32     
+And if thing else, and he doesn't know any of thing about else, it's more about how you were allocated resources of your team. 
+说话人2     18:42     
+And so everyone should be aware of what the final prototype is and what the process behind IT and why. 
+说话人2     18:52     
+So be able to retell this total of the massive a process and making decisions. 
+说话人2     19:00     
+So excessive CoOperation, integrating contribution so everyone should contribute um and also everyone should be aware of what uh people contributed, why and overall big picture explanation of design rational the teams argument is compelling and clearly constructed. 
+说话人2     19:19     
+The connection between design decisions using needs and the prototype is evidence. 
+说话人2     19:24     
+So uh this is we're talking about design decisions, uh, use the needs. 
+说话人2     19:29     
+So I take a specific target towards, but specific needs of these targets orient and and the some decisions. 
+说话人2     19:38     
+And if during your demonstration, you say that some design decisions didn't walk well and that you thought this was the case based on information you had, you tested IT out and didn't work out, that's that's perfect for us. 
+说话人2     19:56     
+It's a no IT says that design decisions are right. 
+说话人2     20:01     
+The idea was good. 
+说话人2     20:02     
+We're not looking at this IT is just that you made design decisions. 
+说话人2     20:07     
+You connect them to your using needs and to the prototype. 
+说话人2     20:12     
+And if something didn't want didn't go as plant, that's fine. 
+说话人2     20:17     
+The motion act was supports in the reforming argument. 
+说话人2     20:21     
+So we've done something and didn't work will make a different decision. 
+说话人2     20:25     
+And if we go to. 
+说话人2     20:37     
+Slides from what least two. 
+说话人2     20:50     
+So there is some example is that uh user express difficult t to achieve why and the conditions that which shows ex because IT reduces the freak while preserve an a though IT may introduce risk be. 
+说话人2     21:03     
+So basically you talk about observations, you talk about the interpretation of the observation, you talk about, uh, what you've decided to do and your knowledge, what kind of risk, uh IT created. 
+说话人2     21:17     
+So if you can talk about a decisions that you ve made in such a way we observed. 
+说话人2     21:26     
+So we are read the paper. 
+说话人2     21:28     
+We found out from the paper we talk to, the people are when they interacted well, product type, we found out that they were struck with that. 
+说话人2     21:36     
+So uh, because of all of that or one of those things, uh, we believe that we need to do that. 
+说话人2     21:43     
+Uh, so we decided to do IT in a such a way to achieve this kind of thing. 
+说话人2     21:49     
+And we uh at the same time, if maybe these two additional ways actually that we need to do, but this wasn't applicable because of that. 
+说话人2     22:04     
+This wasn't because because of that. 
+说话人2     22:07     
+So we decided to do that. 
+说话人2     22:09     
+And we well, yeah, you don't need to talk about that. 
+说话人2     22:14     
+You will test this somehow. 
+说话人2     22:17     
+But ideally, you've tested some decisions, but you don't have to test all of your decisions. 
+说话人2     22:22     
+You don't have time. 
+说话人2     22:24     
+okay? 
+说话人2     22:24     
+So and you should have access to this lives by this link are. 
+说话人2     22:28     
+So if you want to article le back to that. 
+说话人1     22:33     
+please can I take a pictures from this? 
+说话人1     22:38     
+Okay, but I think I should. 
+说话人1     22:43     
+I should take some photos in the pretty well. 
+说话人2     22:48     
+yeah. 
+说话人2     22:48     
+So just go for the slight because IT gives us an example of so basically more concrete example. 
+说话人2     23:02     
+Participants avoided the filter menu. 
+说话人2     23:04     
+So this is our observation. 
+说话人2     23:06     
+Because labels were unclear, I went interpretation. 
+说话人2     23:10     
+So where replace technical categories with tasks labels is, uh, what we decided to do, do reduced a cheerful. 
+说话人2     23:19     
+So just so just one . 
+说话人1     23:20     
+more questions. 
+说话人1     23:22     
+So can you give me some recommendations that how we never down our our our focus to . 
+说话人2     23:30     
+target uses, that's really the task for your team. 
+说话人2     23:35     
+But, 如proof research had have been doing so you already decided that IT is not full professional，thrive in top front. 
+说话人2     23:47     
+So from this the general public think about of what kind of proposes or goals people may have to interact with. 
+说话人2     24:01     
+So what is why they're trying to learn about that, what they trying to learn about that and how different groups of people may perceive that. 
+说话人2     24:12     
+So think about either what is that you're trying to achieve and how you can achieve a more particular group or think about a group that may help that specific needs. 
+说话人2     24:24     
+And then think about, okay, so we have these very specific needs or with a specific ways of interacting data or so maybe IT is people I know who learn economies or it's a people who learn history or well, it's really your task. 
+说话人2     24:51     
+The phone covert, like why too? 
+说话人2     24:54     
+Like that will be useful for someone, how these people. 
+说话人1     24:59     
+if this assumption, then we need to assume somebodies . 
+说话人2     25:04     
+will need this one IT IT is fine with the assumption earlier on, but at this stage you don't really have time, but you need to based on some kinda a information and then tested out. 
+说话人2     25:20     
+And then by design out, you can see whether people knew that or know. 
+说话人2     25:26     
+But ideally, IT comes from the research that you are early on. 
+说话人2     25:32     
+But if but this time you couldn't define those things, then starting to the assumption is fine. 
+说话人2     25:40     
+But acknowledging that this is an assumption OK, uh, is also okay. 
+说话人2     25:45     
+And it's probably will be good if you can tell us if you made an assumption, also knowing why you making this assumption, what is based on OK and then if you didn't have an time to test IT through secondary research, primary research than a go IT. 
+说话人2     26:07     
+But let us know, uh, you have still three weeks and you so is potentially free. 
+说话人2     26:16     
+No two more tests that you can do um in our classes or type of the classes to verify some of the assumptions. 
+说话人2     26:26     
+But yeah now run down. 
+说话人2     26:32     
+Yes, I would focus for your team, go through what you already done, what works and what doesn't work, what second research, epidemic papers and what your prototypes and what your service introduce. 
+说话人2     26:49     
+Tell you going for that and not reading IT one by one, but trying to understand them a as a cohesive peace, how IT all works together holistically. 
+说话人2     26:59     
+Uh, we will help you all down. 
+说话人1     27:01     
+Okay, so this week we will have team discussions. 
+说话人1     27:05     
+And maybe after this team discussions, we have some further questions and will . 
+说话人2     27:13     
+ask you next week yeah in teams yeah yes in the cussion or like just ask them here if you want to private message me private message me um if you need to remind that what my name is again. 
+说话人2     27:35     
+Yeah. 
+说话人1     27:35     
+just OK. 
+说话人1     27:36     
+Yes, I know you just . 
+说话人2     27:38     
+g private message. 
+说话人2     27:39     
+T, O, K, thank you . 
+说话人1     27:42     
+very much. 
+说话人1     27:43     
+Thank you. 
