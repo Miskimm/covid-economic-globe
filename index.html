@@ -176,6 +176,40 @@
 
     <div id="tooltip" role="status" aria-live="polite"></div>
 
+    <section class="ai-guide" id="aiGuide" aria-label="AI explanation tool">
+        <button class="ai-guide-toggle" id="aiGuideToggle" type="button" aria-expanded="false" aria-controls="aiGuidePanel">
+            <span class="ai-guide-toggle-mark">AI</span>
+            <span>Explain</span>
+        </button>
+
+        <div class="ai-guide-panel" id="aiGuidePanel" hidden>
+            <div class="ai-guide-head">
+                <div>
+                    <div class="ai-guide-k">Guided Support</div>
+                    <div class="ai-guide-title">Ask about the selected data</div>
+                </div>
+                <button class="ai-guide-close" id="aiGuideClose" type="button" aria-label="Close AI explanation tool">x</button>
+            </div>
+
+            <div class="ai-guide-note">
+                This assistant explains visible COVID and GDP patterns. It should not be used as proof of direct causation.
+            </div>
+
+            <div class="ai-guide-messages" id="aiGuideMessages" aria-live="polite"></div>
+
+            <div class="ai-guide-prompts" aria-label="Suggested questions">
+                <button type="button" data-ai-prompt="Explain the selected country and time point.">Explain this view</button>
+                <button type="button" data-ai-prompt="What does GDP shock mean here?">GDP shock?</button>
+                <button type="button" data-ai-prompt="Can I say COVID caused this GDP change?">Causation?</button>
+            </div>
+
+            <form class="ai-guide-form" id="aiGuideForm">
+                <input id="aiGuideInput" type="text" autocomplete="off" placeholder="Ask what this change means...">
+                <button type="submit">Ask</button>
+            </form>
+        </div>
+    </section>
+
     <script type="module" src="./src/app.js"></script>
 </body>
 </html>

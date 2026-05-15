@@ -3,6 +3,7 @@ import { formatCompact, formatSigned } from "./format.js";
 import { createGlobe } from "./globe.js";
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
 import { initResearchTool } from "./research-tool.js";
+import { initAiAssistant } from "./ai-assistant.js";
 
 const config = {
     minPopulation: 250000,
@@ -392,6 +393,17 @@ function bindEvents() {
     });
 
     window.addEventListener("keydown", (event) => {
+        const target = event.target;
+        const isTypingTarget = target instanceof HTMLElement && (
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.tagName === "SELECT" ||
+            target.isContentEditable
+        );
+        if (isTypingTarget) {
+            return;
+        }
+
         if (event.code === "Space") {
             event.preventDefault();
             if (state.isPlaying) {
@@ -407,6 +419,36 @@ function bindEvents() {
             applyTimeIndex(state.selectedTimeIndex - 1);
         }
     });
+}
+
+function getAssistantContext() {
+    const country = state.selectedCountry || getLeadCountry();
+    const point = country ? getTimePoint(country, state.selectedTimeIndex) : null;
+    return {
+        selectedLabel: getSelectedLabel(state.selectedTimeIndex),
+        sourceSummary: state.sourceSummary,
+        country: country ? {
+            name: country.name,
+            iso3: country.iso3,
+            cases: country.cases,
+            deaths: country.deaths,
+            shock: country.shock,
+            recovery: country.recovery,
+            gdp2019: country.gdp2019,
+            gdp2020: country.gdp2020,
+            gdp2021: country.gdp2021,
+            gdp2022: country.gdp2022,
+            gdp2023: country.gdp2023
+        } : null,
+        point: point ? {
+            cases: point.cases,
+            deaths: point.deaths,
+            gdp: point.gdp,
+            shock: point.shock,
+            recovery: point.recovery,
+            phaseLabel: point.phaseLabel
+        } : null
+    };
 }
 
 async function hydrateHistoriesInBackground() {
@@ -500,3 +542,4 @@ init().catch((error) => {
 });
 
 initResearchTool();
+initAiAssistant({ getContext: getAssistantContext });
