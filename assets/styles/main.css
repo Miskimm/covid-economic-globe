@@ -54,7 +54,7 @@ body::before {
 
 .mode-toggle {
     position: fixed;
-    top: 20px;
+    top: 72px;
     right: 20px;
     z-index: 60;
     min-height: 40px;
@@ -1424,7 +1424,7 @@ h1 {
 
 @media (max-width: 820px) {
     .mode-toggle {
-        top: 12px;
+        top: 56px;
         right: 12px;
         min-height: 36px;
         padding: 0 11px;
