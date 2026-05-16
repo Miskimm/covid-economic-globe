@@ -27,6 +27,8 @@ Then open `http://127.0.0.1:8000`.
 - Daily timeline from `2019-12-01` to `2023-12-31`
 - Drag or play the timeline to inspect change over time
 - Clear world borders with hover and click-based country highlighting
+- Country search for jumping directly to a market by name or ISO code
+- Toggleable 2D static dashboard prototype using the same country and timeline data
 - Country detail panel linked to cases, deaths, GDP shock, and recovery
 - Right-side economic panel showing GDP growth path and recovery pattern
 - Automatic fallback to local sample data if live APIs fail
@@ -39,6 +41,5 @@ Then open `http://127.0.0.1:8000`.
 
 ## Next Steps
 
-1. Add country search for faster navigation during demos.
-2. Expand detailed historical coverage to more countries.
-3. Introduce a build toolchain such as Vite and linting for long-term maintenance.
+1. Expand detailed historical coverage to more countries.
+2. Introduce a build toolchain such as Vite and linting for long-term maintenance.

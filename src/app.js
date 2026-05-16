@@ -12,6 +12,25 @@ const config = {
 
 const dom = {
     stage: document.getElementById("stage"),
+    modeToggle: document.getElementById("modeToggle"),
+    dashboardView: document.getElementById("dashboardView"),
+    dashboardSubtitle: document.getElementById("dashboardSubtitle"),
+    dashboardDate: document.getElementById("dashboardDate"),
+    dashboardAvgShock: document.getElementById("dashboardAvgShock"),
+    dashboardAvgRecovery: document.getElementById("dashboardAvgRecovery"),
+    dashboardFocusMarket: document.getElementById("dashboardFocusMarket"),
+    dashboardFocusPhase: document.getElementById("dashboardFocusPhase"),
+    dashboardCountry: document.getElementById("dashboardCountry"),
+    dashboardImpactPill: document.getElementById("dashboardImpactPill"),
+    dashboardCases: document.getElementById("dashboardCases"),
+    dashboardDeaths: document.getElementById("dashboardDeaths"),
+    dashboardShock: document.getElementById("dashboardShock"),
+    dashboardRecovery: document.getElementById("dashboardRecovery"),
+    dashboardFocusNote: document.getElementById("dashboardFocusNote"),
+    dashboardChartTitle: document.getElementById("dashboardChartTitle"),
+    dashboardBars: document.getElementById("dashboardBars"),
+    dashboardRanking: document.getElementById("dashboardRanking"),
+    dashboardSource: document.getElementById("dashboardSource"),
     tooltip: document.getElementById("tooltip"),
     loading: document.getElementById("loading"),
     loadingText: document.getElementById("loadingText"),
@@ -58,6 +77,7 @@ const state = {
     selectedCountry: null,
     lockedCountryIso: null,
     selectedTimeIndex: getInitialTimeIndex(window.location.search),
+    viewMode: "globe",
     isPlaying: false,
     playTimer: null,
     sourceSummary: "live data sources"
@@ -177,6 +197,137 @@ function getLeadCountry() {
 
 function formatGrowth(value) {
     return `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`;
+}
+
+function getAverageMetrics() {
+    const count = Math.max(1, state.countries.length);
+    return {
+        shock: state.countries.reduce((sum, item) => sum + item.shock, 0) / count,
+        recovery: state.countries.reduce((sum, item) => sum + item.recovery, 0) / count
+    };
+}
+
+function getRankedCountries() {
+    return [...state.countries]
+        .filter((item) => getTimePoint(item, state.selectedTimeIndex).cases > 0)
+        .sort((a, b) => getTimePoint(b, state.selectedTimeIndex).exposure - getTimePoint(a, state.selectedTimeIndex).exposure);
+}
+
+function setViewMode(mode) {
+    state.viewMode = mode === "dashboard" ? "dashboard" : "globe";
+    const isDashboard = state.viewMode === "dashboard";
+    document.body.classList.toggle("dashboard-mode", isDashboard);
+    dom.dashboardView.hidden = !isDashboard;
+    dom.modeToggle.textContent = isDashboard ? "Back to 3D Globe" : "Switch to 2D Dashboard";
+    dom.modeToggle.setAttribute("aria-pressed", String(isDashboard));
+    hideTooltip();
+    updateDashboard();
+}
+
+function renderDashboardBars(country) {
+    dom.dashboardBars.innerHTML = "";
+    if (!country) {
+        return;
+    }
+
+    const values = [
+        { year: "2019", value: country.gdp2019, color: "#6ee6ff" },
+        { year: "2020", value: country.gdp2020, color: "#ff6b84" },
+        { year: "2021", value: country.gdp2021, color: "#ffaa70" },
+        { year: "2022", value: country.gdp2022, color: "#8fd4ff" },
+        { year: "2023", value: country.gdp2023, color: "#ffd27f" }
+    ];
+    const scaleMax = Math.max(8, ...values.map((entry) => Math.abs(entry.value)));
+
+    values.forEach((entry) => {
+        const item = document.createElement("div");
+        const track = document.createElement("div");
+        const fill = document.createElement("div");
+        const label = document.createElement("span");
+        const value = document.createElement("strong");
+
+        item.className = "dashboard-bar-item";
+        track.className = "dashboard-bar-track";
+        fill.className = "dashboard-bar-fill";
+        label.textContent = entry.year;
+        value.textContent = formatGrowth(entry.value);
+        value.style.color = entry.value < 0 ? "#ff829a" : "#dff8ff";
+        fill.style.height = `${Math.max(10, (Math.abs(entry.value) / scaleMax) * 100)}%`;
+        fill.style.background = entry.color;
+        track.appendChild(fill);
+        item.append(track, label, value);
+        dom.dashboardBars.appendChild(item);
+    });
+}
+
+function renderDashboardRanking() {
+    dom.dashboardRanking.innerHTML = "";
+    const ranked = getRankedCountries().slice(0, 8);
+
+    if (!ranked.length) {
+        const empty = document.createElement("div");
+        empty.className = "dashboard-empty";
+        empty.textContent = "No ranked country activity for this date yet.";
+        dom.dashboardRanking.appendChild(empty);
+        return;
+    }
+
+    const maxExposure = Math.max(1, ...ranked.map((country) => getTimePoint(country, state.selectedTimeIndex).exposure));
+    ranked.forEach((country, index) => {
+        const point = getTimePoint(country, state.selectedTimeIndex);
+        const row = document.createElement("button");
+        const rank = document.createElement("span");
+        const name = document.createElement("strong");
+        const meta = document.createElement("small");
+        const bar = document.createElement("i");
+
+        row.className = "dashboard-rank-row";
+        row.type = "button";
+        row.dataset.iso3 = country.iso3;
+        rank.textContent = String(index + 1).padStart(2, "0");
+        name.textContent = country.name;
+        meta.textContent = `${formatCompact(point.cases)} cases / shock ${formatSigned(country.shock)}`;
+        bar.style.width = `${Math.max(8, (point.exposure / maxExposure) * 100)}%`;
+        row.append(rank, name, meta, bar);
+        dom.dashboardRanking.appendChild(row);
+    });
+}
+
+function updateDashboard() {
+    if (!dom.dashboardView || !state.countries.length) {
+        return;
+    }
+
+    const country = state.selectedCountry || getLeadCountry();
+    if (!country) {
+        return;
+    }
+
+    const point = getTimePoint(country, state.selectedTimeIndex);
+    const level = severity(country);
+    const averages = getAverageMetrics();
+
+    dom.dashboardDate.textContent = getSelectedLabel(state.selectedTimeIndex);
+    dom.dashboardSubtitle.textContent = `${country.name} is shown as the current static dashboard focus.`;
+    dom.dashboardAvgShock.textContent = formatSigned(averages.shock);
+    dom.dashboardAvgRecovery.textContent = formatSigned(averages.recovery);
+    dom.dashboardFocusMarket.textContent = country.name;
+    dom.dashboardFocusPhase.textContent = point.phaseLabel;
+    dom.dashboardCountry.textContent = country.name;
+    dom.dashboardImpactPill.textContent = level.text;
+    dom.dashboardImpactPill.style.color = level.color;
+    dom.dashboardCases.textContent = formatCompact(point.cases);
+    dom.dashboardDeaths.textContent = formatCompact(point.deaths);
+    dom.dashboardShock.textContent = formatSigned(country.shock);
+    dom.dashboardRecovery.textContent = formatSigned(country.recovery);
+    dom.dashboardChartTitle.textContent = `${country.name} annual GDP growth path`;
+    dom.dashboardFocusNote.textContent =
+        `${getSelectedLabel(state.selectedTimeIndex)} is in the "${point.phaseLabel}" phase, with ${formatCompact(point.cases)} cumulative cases, ` +
+        `${formatCompact(point.deaths)} deaths, ${point.gdp.toFixed(1)}% mapped GDP growth, and a 2019 to 2020 shock of ${formatSigned(country.shock)}.`;
+    dom.dashboardSource.textContent = `Sources: ${state.sourceSummary}. Dashboard mode is a static 2D prototype view using the same loaded dataset.`;
+
+    renderDashboardBars(country);
+    renderDashboardRanking();
 }
 
 function normalizeSearch(value) {
@@ -320,13 +471,11 @@ function updateSummary() {
         dom.focusMarket.textContent = "Wuhan, China";
         dom.focusMarketNote.textContent = "Earliest documented cluster / 27 cases";
         dom.tickerText.textContent = `${label} is used as the opening day of the timeline, anchored to the earliest documented cluster in Wuhan before wider global diffusion begins.`;
+        updateDashboard();
         return;
     }
-    const avgShock = state.countries.reduce((sum, item) => sum + item.shock, 0) / Math.max(1, state.countries.length);
-    const avgRecovery = state.countries.reduce((sum, item) => sum + item.recovery, 0) / Math.max(1, state.countries.length);
-    const ranked = [...state.countries]
-        .filter((item) => getTimePoint(item, state.selectedTimeIndex).cases > 0)
-        .sort((a, b) => getTimePoint(b, state.selectedTimeIndex).exposure - getTimePoint(a, state.selectedTimeIndex).exposure);
+    const { shock: avgShock, recovery: avgRecovery } = getAverageMetrics();
+    const ranked = getRankedCountries();
 
     dom.avgShock.textContent = formatSigned(avgShock);
     dom.avgRecovery.textContent = formatSigned(avgRecovery);
@@ -335,6 +484,7 @@ function updateSummary() {
         dom.focusMarket.textContent = "--";
         dom.focusMarketNote.textContent = `${label} is still in the early pandemic phase`;
         dom.tickerText.textContent = `${label} remains an early stage snapshot, with limited spread and mostly baseline geographic activity on the globe.`;
+        updateDashboard();
         return;
     }
 
@@ -346,6 +496,7 @@ function updateSummary() {
         const point = getTimePoint(item, state.selectedTimeIndex);
         return `${item.name} ${label} cases ${formatCompact(point.cases)} shock ${formatSigned(item.shock)} recovery ${formatSigned(item.recovery)}`;
     }).join("  •  ");
+    updateDashboard();
 }
 
 function selectCountry(country) {
@@ -367,11 +518,13 @@ function selectCountry(country) {
         dom.detailNote.textContent =
             `${getSelectedLabel(state.selectedTimeIndex)} is treated as the opening stage of the earliest documented cluster in Wuhan, China. ` +
             `The globe starts from that origin signal and only later expands into broad global spread and visible economic shock.`;
+        updateDashboard();
         return;
     }
     dom.detailNote.textContent =
         `${getSelectedLabel(state.selectedTimeIndex)} sits in the "${point.phaseLabel}" phase. The market shows about ${formatCompact(point.cases)} cumulative cases, ` +
         `${point.gdp.toFixed(1)}% GDP growth on the mapped annual path, a 2019 to 2020 shock of ${formatSigned(country.shock)}, and a 2020 to 2023 recovery gap of ${formatSigned(country.recovery)}.`;
+    updateDashboard();
 }
 
 function hideTooltip() {
@@ -379,6 +532,9 @@ function hideTooltip() {
 }
 
 function showTooltip(country, sx, sy) {
+    if (state.viewMode === "dashboard") {
+        return;
+    }
     const point = getTimePoint(country, state.selectedTimeIndex);
     dom.tooltip.style.display = "block";
     const tooltipLeft = Math.max(348, Math.min(window.innerWidth * 0.28, 430));
@@ -482,6 +638,10 @@ function startPlayback() {
 }
 
 function bindEvents() {
+    dom.modeToggle.addEventListener("click", () => {
+        setViewMode(state.viewMode === "dashboard" ? "globe" : "dashboard");
+    });
+
     dom.countrySearch.addEventListener("submit", (event) => {
         event.preventDefault();
         submitCountrySearch();
@@ -509,6 +669,22 @@ function bindEvents() {
         }
         const country = state.countries.find((item) => item.iso3 === option.dataset.iso3);
         selectCountryFromSearch(country);
+    });
+
+    dom.dashboardRanking.addEventListener("click", (event) => {
+        const option = event.target.closest(".dashboard-rank-row");
+        if (!option) {
+            return;
+        }
+        const country = state.countries.find((item) => item.iso3 === option.dataset.iso3);
+        if (!country) {
+            return;
+        }
+        state.lockedCountryIso = country.iso3;
+        state.selectedCountry = country;
+        globe.setLockedCountry(country.iso3);
+        selectCountry(country);
+        setStatus(`Dashboard focus changed to ${country.name} at ${getSelectedLabel(state.selectedTimeIndex)}.`);
     });
 
     document.addEventListener("pointerdown", (event) => {
