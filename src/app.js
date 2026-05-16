@@ -550,6 +550,9 @@ function showTooltip(country, sx, sy) {
 }
 
 function handleCountryHover(country, sx, sy) {
+    if (state.viewMode === "dashboard") {
+        return;
+    }
     if (state.lockedCountryIso) {
         return;
     }
@@ -562,6 +565,9 @@ function handleCountryHover(country, sx, sy) {
 }
 
 function handleCountryClick(country, sx, sy) {
+    if (state.viewMode === "dashboard") {
+        return;
+    }
     if (!country) {
         state.lockedCountryIso = null;
         globe.setLockedCountry(null);
