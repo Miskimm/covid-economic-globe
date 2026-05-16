@@ -35,6 +35,24 @@
             <div class="status" id="status">Booting system...</div>
         </header>
 
+        <section class="search-panel" aria-label="Country search">
+            <form class="country-search" id="countrySearch" role="search" autocomplete="off">
+                <label class="search-label" for="countrySearchInput">Search country data</label>
+                <div class="search-row">
+                    <input
+                        id="countrySearchInput"
+                        type="search"
+                        placeholder="Search country or ISO code..."
+                        aria-label="Search country data"
+                        aria-controls="countrySearchResults"
+                        aria-expanded="false"
+                    >
+                    <button type="submit">Search</button>
+                </div>
+                <div class="search-results" id="countrySearchResults" role="listbox" hidden></div>
+            </form>
+        </section>
+
         <section class="summary">
             <article class="chip">
                 <div class="chip-k">Average GDP Shock</div>

@@ -47,7 +47,10 @@ const dom = {
     bar2020Value: document.getElementById("bar2020Value"),
     bar2021Value: document.getElementById("bar2021Value"),
     bar2022Value: document.getElementById("bar2022Value"),
-    bar2023Value: document.getElementById("bar2023Value")
+    bar2023Value: document.getElementById("bar2023Value"),
+    countrySearch: document.getElementById("countrySearch"),
+    countrySearchInput: document.getElementById("countrySearchInput"),
+    countrySearchResults: document.getElementById("countrySearchResults")
 };
 
 const state = {
@@ -174,6 +177,110 @@ function getLeadCountry() {
 
 function formatGrowth(value) {
     return `${value >= 0 ? "+" : ""}${value.toFixed(1)}%`;
+}
+
+function normalizeSearch(value) {
+    return String(value || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
+}
+
+function getCountrySearchMatches(query) {
+    const normalizedQuery = normalizeSearch(query);
+    if (!normalizedQuery) {
+        return [];
+    }
+
+    return state.countries
+        .map((country) => {
+            const name = normalizeSearch(country.name);
+            const iso = String(country.iso3 || "").toLowerCase();
+            let score = 0;
+
+            if (iso === normalizedQuery) score = 100;
+            else if (name === normalizedQuery) score = 96;
+            else if (name.startsWith(normalizedQuery)) score = 82;
+            else if (iso.startsWith(normalizedQuery)) score = 76;
+            else if (name.includes(normalizedQuery)) score = 56;
+
+            return { country, score };
+        })
+        .filter((entry) => entry.score > 0)
+        .sort((a, b) => b.score - a.score || a.country.name.localeCompare(b.country.name))
+        .slice(0, 8)
+        .map((entry) => entry.country);
+}
+
+function setSearchResultsVisible(isVisible) {
+    dom.countrySearchResults.hidden = !isVisible;
+    dom.countrySearchInput.setAttribute("aria-expanded", String(isVisible));
+}
+
+function renderSearchResults(matches, query) {
+    dom.countrySearchResults.innerHTML = "";
+
+    if (!query.trim()) {
+        setSearchResultsVisible(false);
+        return;
+    }
+
+    if (!matches.length) {
+        const empty = document.createElement("div");
+        empty.className = "search-empty";
+        empty.textContent = "No country found in the current dataset.";
+        dom.countrySearchResults.appendChild(empty);
+        setSearchResultsVisible(true);
+        return;
+    }
+
+    matches.forEach((country) => {
+        const point = getTimePoint(country, state.selectedTimeIndex);
+        const option = document.createElement("button");
+        const label = document.createElement("span");
+        const name = document.createElement("strong");
+        const meta = document.createElement("small");
+        const shock = document.createElement("em");
+
+        option.className = "search-option";
+        option.type = "button";
+        option.setAttribute("role", "option");
+        option.dataset.iso3 = country.iso3;
+        name.textContent = country.name;
+        meta.textContent = `${country.iso3} / ${formatCompact(point.cases)} cases / ${formatCompact(point.deaths)} deaths`;
+        shock.textContent = formatSigned(country.shock);
+        label.append(name, meta);
+        option.append(label, shock);
+        dom.countrySearchResults.appendChild(option);
+    });
+
+    setSearchResultsVisible(true);
+}
+
+function selectCountryFromSearch(country) {
+    if (!country) {
+        return;
+    }
+
+    stopPlayback();
+    state.lockedCountryIso = country.iso3;
+    state.selectedCountry = country;
+    globe.setLockedCountry(country.iso3);
+    selectCountry(country);
+    showTooltip(country, 0, window.innerHeight * 0.48);
+    dom.countrySearchInput.value = country.name;
+    setSearchResultsVisible(false);
+    setStatus(`Showing detailed COVID and GDP data for ${country.name} at ${getSelectedLabel(state.selectedTimeIndex)}.`);
+}
+
+function submitCountrySearch() {
+    const matches = getCountrySearchMatches(dom.countrySearchInput.value);
+    if (!matches.length) {
+        renderSearchResults(matches, dom.countrySearchInput.value);
+        setStatus("No matching country found. Try a country name or ISO code such as AUS, CHN, or USA.");
+        return;
+    }
+    selectCountryFromSearch(matches[0]);
 }
 
 function updateEconomicPanel(country) {
@@ -375,6 +482,41 @@ function startPlayback() {
 }
 
 function bindEvents() {
+    dom.countrySearch.addEventListener("submit", (event) => {
+        event.preventDefault();
+        submitCountrySearch();
+    });
+
+    dom.countrySearchInput.addEventListener("input", () => {
+        renderSearchResults(getCountrySearchMatches(dom.countrySearchInput.value), dom.countrySearchInput.value);
+    });
+
+    dom.countrySearchInput.addEventListener("focus", () => {
+        renderSearchResults(getCountrySearchMatches(dom.countrySearchInput.value), dom.countrySearchInput.value);
+    });
+
+    dom.countrySearchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            dom.countrySearchInput.blur();
+            setSearchResultsVisible(false);
+        }
+    });
+
+    dom.countrySearchResults.addEventListener("click", (event) => {
+        const option = event.target.closest(".search-option");
+        if (!option) {
+            return;
+        }
+        const country = state.countries.find((item) => item.iso3 === option.dataset.iso3);
+        selectCountryFromSearch(country);
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+        if (!dom.countrySearch.contains(event.target)) {
+            setSearchResultsVisible(false);
+        }
+    });
+
     dom.timelineSlider.addEventListener("input", () => {
         applyTimeIndex(Number(dom.timelineSlider.value) || 0);
     });
