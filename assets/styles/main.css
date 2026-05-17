@@ -155,7 +155,8 @@ body.dashboard-mode #tooltip {
 .methodology,
 .chip,
 .dock,
-.timeline-panel {
+.timeline-panel,
+.compare-panel {
     border: 1px solid var(--line);
     background: var(--panel);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
@@ -408,6 +409,7 @@ h1 {
     width: min(330px, calc(100vw - 40px));
     padding: 16px 18px;
     border-radius: 20px;
+    pointer-events: auto;
 }
 
 .focus-name {
@@ -465,6 +467,7 @@ h1 {
     width: min(320px, calc(100vw - 40px));
     padding: 16px 18px;
     border-radius: 20px;
+    pointer-events: auto;
 }
 
 .card-title {
@@ -1507,5 +1510,295 @@ h1 {
     .ai-guide-panel {
         width: 100%;
         max-height: min(520px, calc(100vh - 118px));
+    }
+}
+
+/* ─── Source Panel ──────────────────────────────────────────────────── */
+
+.source-panel {
+    margin-top: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+}
+
+.source-panel-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.62);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+}
+
+.source-panel-toggle::-webkit-details-marker { display: none; }
+
+.source-panel-toggle::after {
+    content: "▸";
+    margin-left: auto;
+    font-size: 10px;
+    transition: transform 0.18s ease;
+}
+
+.source-panel[open] .source-panel-toggle::after {
+    transform: rotate(90deg);
+}
+
+.source-badge {
+    padding: 2px 7px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.source-badge.live {
+    background: rgba(143, 246, 204, 0.18);
+    color: var(--mint);
+}
+
+.source-badge.fallback {
+    background: rgba(255, 203, 116, 0.18);
+    color: var(--amber);
+}
+
+.source-panel-body {
+    padding: 2px 12px 12px;
+}
+
+.source-section-k {
+    margin-top: 10px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+}
+
+.source-list {
+    margin: 6px 0 0;
+    padding-left: 14px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.source-list strong {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.source-formula {
+    margin-top: 5px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: "SF Mono", "Fira Mono", "Consolas", monospace;
+    font-size: 11px;
+    color: var(--cyan);
+}
+
+/* ─── Compare Panel ─────────────────────────────────────────────────── */
+
+.compare-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 13px;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.68);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.compare-toggle:hover,
+.compare-toggle.active {
+    background: rgba(104, 228, 255, 0.12);
+    color: var(--cyan);
+    border-color: rgba(104, 228, 255, 0.3);
+}
+
+.compare-panel {
+    position: absolute;
+    left: 20px;
+    bottom: 214px;
+    width: min(680px, calc(100vw - 40px));
+    padding: 14px 16px;
+    border-radius: 20px;
+    pointer-events: auto;
+}
+
+.compare-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.compare-k {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.52);
+}
+
+.compare-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.compare-clear {
+    padding: 3px 10px;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.compare-clear:hover {
+    background: rgba(255, 102, 127, 0.14);
+    color: var(--red);
+    border-color: rgba(255, 102, 127, 0.3);
+}
+
+.compare-close {
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.compare-close:hover {
+    background: rgba(255, 102, 127, 0.14);
+    color: var(--red);
+    border-color: rgba(255, 102, 127, 0.3);
+}
+
+.compare-slots {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+    gap: 10px;
+}
+
+.compare-divider {
+    padding-top: 22px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+.compare-slot {
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.03);
+    min-height: 64px;
+}
+
+.compare-slot-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.36);
+}
+
+.compare-slot-name {
+    margin-top: 4px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.compare-slot-name.empty {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.compare-metrics {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.compare-metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.compare-metric-val {
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.compare-mini-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 32px;
+    margin-top: 8px;
+}
+
+.compare-mini-bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    min-height: 4px;
+    transition: height 0.2s;
+}
+
+.compare-hint {
+    margin-top: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .compare-panel {
+        left: 16px;
+        bottom: 186px;
+        width: calc(100vw - 32px);
+    }
+
+    .compare-slots {
+        grid-template-columns: 1fr;
+    }
+
+    .compare-divider {
+        padding-top: 0;
+        text-align: center;
     }
 }

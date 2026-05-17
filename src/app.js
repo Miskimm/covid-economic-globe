@@ -53,7 +53,6 @@ const dom = {
     timelinePoints: document.getElementById("timelinePoints"),
     playToggle: document.getElementById("playToggle"),
     jumpStart: document.getElementById("jumpStart"),
-    sourceNote: document.getElementById("sourceNote"),
     chartCountry: document.getElementById("chartCountry"),
     shockChip: document.getElementById("shockChip"),
     impactFill: document.getElementById("impactFill"),
@@ -69,7 +68,18 @@ const dom = {
     bar2023Value: document.getElementById("bar2023Value"),
     countrySearch: document.getElementById("countrySearch"),
     countrySearchInput: document.getElementById("countrySearchInput"),
-    countrySearchResults: document.getElementById("countrySearchResults")
+    countrySearchResults: document.getElementById("countrySearchResults"),
+    sourcePanel: document.getElementById("sourcePanel"),
+    sourceStatusBadge: document.getElementById("sourceStatusBadge"),
+    compareToggle: document.getElementById("compareToggle"),
+    comparePanel: document.getElementById("comparePanel"),
+    compareClear: document.getElementById("compareClear"),
+    compareClose: document.getElementById("compareClose"),
+    compareNameA: document.getElementById("compareNameA"),
+    compareNameB: document.getElementById("compareNameB"),
+    compareMetricsA: document.getElementById("compareMetricsA"),
+    compareMetricsB: document.getElementById("compareMetricsB"),
+    compareHint: document.getElementById("compareHint")
 };
 
 const state = {
@@ -80,7 +90,11 @@ const state = {
     viewMode: "globe",
     isPlaying: false,
     playTimer: null,
-    sourceSummary: "live data sources"
+    sourceSummary: "live data sources",
+    compareMode: false,
+    compareA: null,
+    compareB: null,
+    compareSlotNext: "A"
 };
 
 const globe = createGlobe({
@@ -434,6 +448,62 @@ function submitCountrySearch() {
     selectCountryFromSearch(matches[0]);
 }
 
+function renderCompareSlot(country, nameEl, metricsEl) {
+    if (!country) {
+        nameEl.textContent = nameEl.id === "compareNameA" ? "Click a country on the globe" : "Click a second country";
+        nameEl.className = "compare-slot-name empty";
+        metricsEl.innerHTML = "";
+        return;
+    }
+
+    nameEl.textContent = country.name;
+    nameEl.className = "compare-slot-name";
+
+    const point = getTimePoint(country, state.selectedTimeIndex);
+
+    const values = [
+        { year: "2019", v: country.gdp2019, color: "#6ee6ff" },
+        { year: "2020", v: country.gdp2020, color: "#ff6b84" },
+        { year: "2021", v: country.gdp2021, color: "#ffaa70" },
+        { year: "2022", v: country.gdp2022, color: "#8fd4ff" },
+        { year: "2023", v: country.gdp2023, color: "#ffd27f" }
+    ];
+    const scaleMax = Math.max(4, ...values.map((e) => Math.abs(e.v)));
+
+    metricsEl.innerHTML = `
+        <div class="compare-metric-row">
+            <span>GDP Shock</span>
+            <span class="compare-metric-val" style="color:${country.shock <= -4 ? "var(--red)" : "var(--mint)"}">${formatSigned(country.shock)}</span>
+        </div>
+        <div class="compare-metric-row">
+            <span>Recovery</span>
+            <span class="compare-metric-val" style="color:var(--amber)">${formatSigned(country.recovery)}</span>
+        </div>
+        <div class="compare-metric-row">
+            <span>Cases</span>
+            <span class="compare-metric-val" style="color:var(--cyan)">${formatCompact(point.cases)}</span>
+        </div>
+        <div class="compare-mini-bars">
+            ${values.map((e) => {
+                const h = Math.max(4, (Math.abs(e.v) / scaleMax) * 32);
+                return `<div class="compare-mini-bar" style="height:${h}px;background:${e.color}" title="${e.year}: ${formatSigned(e.v)}"></div>`;
+            }).join("")}
+        </div>
+    `;
+}
+
+function renderComparePanel() {
+    renderCompareSlot(state.compareA, dom.compareNameA, dom.compareMetricsA);
+    renderCompareSlot(state.compareB, dom.compareNameB, dom.compareMetricsB);
+
+    const hint = state.compareA && state.compareB
+        ? "Both regions loaded — scroll up to read the comparison"
+        : state.compareA
+            ? "Region A set — click another country to fill Region B"
+            : "Compare mode active — click countries on the globe to fill slots";
+    dom.compareHint.textContent = hint;
+}
+
 function updateEconomicPanel(country) {
     if (!country) {
         return;
@@ -568,6 +638,24 @@ function handleCountryClick(country, sx, sy) {
     if (state.viewMode === "dashboard") {
         return;
     }
+
+    if (state.compareMode) {
+        if (!country) {
+            return;
+        }
+        if (state.compareSlotNext === "A") {
+            state.compareA = country;
+            state.compareSlotNext = "B";
+        } else {
+            state.compareB = country;
+            state.compareSlotNext = "A";
+        }
+        renderComparePanel();
+        selectCountry(country);
+        showTooltip(country, sx, sy);
+        return;
+    }
+
     if (!country) {
         state.lockedCountryIso = null;
         globe.setLockedCountry(null);
@@ -618,6 +706,9 @@ function applyTimeIndex(timeIndex) {
             globe.setLockedCountry(locked.iso3);
         }
     }
+    if (state.compareMode) {
+        renderComparePanel();
+    }
     setStatus(`Timeline moved to ${getSelectedLabel(state.selectedTimeIndex)}. Inspect pandemic spread and economic conditions day by day.`);
 }
 
@@ -646,6 +737,31 @@ function startPlayback() {
 function bindEvents() {
     dom.modeToggle.addEventListener("click", () => {
         setViewMode(state.viewMode === "dashboard" ? "globe" : "dashboard");
+    });
+
+    dom.compareToggle.addEventListener("click", () => {
+        state.compareMode = !state.compareMode;
+        dom.comparePanel.hidden = !state.compareMode;
+        dom.compareToggle.classList.toggle("active", state.compareMode);
+        if (state.compareMode) {
+            renderComparePanel();
+        }
+    });
+
+    dom.compareClear.addEventListener("click", () => {
+        state.compareA = null;
+        state.compareB = null;
+        state.compareSlotNext = "A";
+        renderComparePanel();
+    });
+
+    dom.compareClose.addEventListener("click", () => {
+        state.compareMode = false;
+        state.compareA = null;
+        state.compareB = null;
+        state.compareSlotNext = "A";
+        dom.comparePanel.hidden = true;
+        dom.compareToggle.classList.remove("active");
     });
 
     dom.countrySearch.addEventListener("submit", (event) => {
@@ -839,7 +955,10 @@ async function init() {
         state.sourceSummary = "local fallback dataset";
     }
 
-    dom.sourceNote.textContent = `Sources: ${state.sourceSummary}. This site can run locally and automatically falls back if live APIs fail.`;
+    const isLive = state.sourceSummary !== "local fallback dataset";
+    dom.sourceStatusBadge.textContent = isLive ? "Live" : "Fallback";
+    dom.sourceStatusBadge.className = `source-badge ${isLive ? "live" : "fallback"}`;
+    // source detail is static in HTML; badge above reflects live/fallback state
 
     if (features) {
         globe.setFeatures(features);
@@ -861,7 +980,8 @@ init().catch((error) => {
     console.error(error);
     stopPlayback();
     setStatus("Initialization failed. Automatic flow stopped.");
-    dom.sourceNote.textContent = "Initialization failed. Check network access or retry with fallback data.";
+    dom.sourceStatusBadge.textContent = "Fallback";
+    dom.sourceStatusBadge.className = "source-badge fallback";
     setLoading(false);
 });
 
