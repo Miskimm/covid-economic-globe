@@ -1,6 +1,7 @@
 import { fallbackCovid, fallbackGdp, loadCountryHistory, loadCovidRows, loadGdpMap, loadWorldFeatures } from "./data.js";
 import { formatCompact, formatSigned } from "./format.js";
 import { createGlobe } from "./globe.js";
+import { createMap2d } from "./map2d.js";
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
 import { initResearchTool } from "./research-tool.js";
 import { initAiAssistant } from "./ai-assistant.js";
@@ -12,6 +13,8 @@ const config = {
 
 const dom = {
     stage: document.getElementById("stage"),
+    map2dView: document.getElementById("map2dView"),
+    mapCanvas: document.getElementById("mapCanvas"),
     modeToggle: document.getElementById("modeToggle"),
     dashboardView: document.getElementById("dashboardView"),
     dashboardSubtitle: document.getElementById("dashboardSubtitle"),
@@ -102,6 +105,11 @@ const globe = createGlobe({
     initialTimeIndex: state.selectedTimeIndex,
     onCountryHover: handleCountryHover,
     onCountryClick: handleCountryClick
+});
+
+const map2d = createMap2d(dom.mapCanvas, {
+    onSelect: handleCountryClick,
+    onHover: handleCountryHover
 });
 
 function setStatus(text) {
@@ -221,6 +229,12 @@ function getAverageMetrics() {
     };
 }
 
+function syncMapView() {
+    map2d.setCountries(state.countries);
+    map2d.setTimeIndex(state.selectedTimeIndex);
+    map2d.setSelected(state.lockedCountryIso || state.selectedCountry?.iso3 || null);
+}
+
 function getRankedCountries() {
     return [...state.countries]
         .filter((item) => getTimePoint(item, state.selectedTimeIndex).cases > 0)
@@ -228,14 +242,24 @@ function getRankedCountries() {
 }
 
 function setViewMode(mode) {
-    state.viewMode = mode === "dashboard" ? "dashboard" : "globe";
-    const isDashboard = state.viewMode === "dashboard";
-    document.body.classList.toggle("dashboard-mode", isDashboard);
-    dom.dashboardView.hidden = !isDashboard;
-    dom.modeToggle.textContent = isDashboard ? "Back to 3D Globe" : "Switch to 2D Dashboard";
-    dom.modeToggle.setAttribute("aria-pressed", String(isDashboard));
+    state.viewMode = mode === "map2d" ? "map2d" : "globe";
+    const isMap2d = state.viewMode === "map2d";
+    document.body.classList.toggle("map-mode", isMap2d);
+    document.body.classList.remove("dashboard-mode");
+    dom.map2dView.hidden = !isMap2d;
+    dom.dashboardView.hidden = true;
+    dom.modeToggle.textContent = isMap2d ? "Back to 3D Globe" : "Switch to 2D Map";
+    dom.modeToggle.setAttribute("aria-pressed", String(isMap2d));
+    if (dom.compareHint) {
+        dom.compareHint.textContent = isMap2d
+            ? "Compare mode active — click countries on the map to fill slots"
+            : "Compare mode active — click countries on the globe to fill slots";
+    }
     hideTooltip();
-    updateDashboard();
+    syncMapView();
+    if (isMap2d) {
+        requestAnimationFrame(() => map2d.resize());
+    }
 }
 
 function renderDashboardBars(country) {
@@ -431,6 +455,7 @@ function selectCountryFromSearch(country) {
     state.lockedCountryIso = country.iso3;
     state.selectedCountry = country;
     globe.setLockedCountry(country.iso3);
+    map2d.setSelected(country.iso3);
     selectCountry(country);
     showTooltip(country, 0, window.innerHeight * 0.48);
     dom.countrySearchInput.value = country.name;
@@ -500,7 +525,9 @@ function renderComparePanel() {
         ? "Both regions loaded — scroll up to read the comparison"
         : state.compareA
             ? "Region A set — click another country to fill Region B"
-            : "Compare mode active — click countries on the globe to fill slots";
+            : state.viewMode === "map2d"
+                ? "Compare mode active — click countries on the map to fill slots"
+                : "Compare mode active — click countries on the globe to fill slots";
     dom.compareHint.textContent = hint;
 }
 
@@ -602,14 +629,20 @@ function hideTooltip() {
 }
 
 function showTooltip(country, sx, sy) {
-    if (state.viewMode === "dashboard") {
+    if (!country) {
         return;
     }
     const point = getTimePoint(country, state.selectedTimeIndex);
     dom.tooltip.style.display = "block";
-    const tooltipLeft = Math.max(348, Math.min(window.innerWidth * 0.28, 430));
+    const tooltipWidth = 230;
+    const stageRect = dom.stage.getBoundingClientRect();
+    const mapRect = dom.map2dView.getBoundingClientRect();
+    const viewRect = state.viewMode === "map2d" && !dom.map2dView.hidden ? mapRect : stageRect;
+    const tooltipLeft = state.viewMode === "map2d"
+        ? Math.max(viewRect.left + 14, Math.min(viewRect.right - tooltipWidth - 14, sx + 16))
+        : viewRect.left + 18;
     dom.tooltip.style.left = `${tooltipLeft}px`;
-    dom.tooltip.style.top = `${Math.max(168, Math.min(window.innerHeight - 200, sy - 72))}px`;
+    dom.tooltip.style.top = `${Math.max(viewRect.top + 18, Math.min(viewRect.bottom - 178, sy - 72))}px`;
     dom.tooltip.innerHTML = `
         <div style="font-weight:700;color:#68e4ff;margin-bottom:6px;">${country.name}</div>
         <div>Time: <span style="color:#ffd27f">${getSelectedLabel(state.selectedTimeIndex)}</span></div>
@@ -620,9 +653,6 @@ function showTooltip(country, sx, sy) {
 }
 
 function handleCountryHover(country, sx, sy) {
-    if (state.viewMode === "dashboard") {
-        return;
-    }
     if (state.lockedCountryIso) {
         return;
     }
@@ -635,10 +665,6 @@ function handleCountryHover(country, sx, sy) {
 }
 
 function handleCountryClick(country, sx, sy) {
-    if (state.viewMode === "dashboard") {
-        return;
-    }
-
     if (state.compareMode) {
         if (!country) {
             return;
@@ -659,6 +685,7 @@ function handleCountryClick(country, sx, sy) {
     if (!country) {
         state.lockedCountryIso = null;
         globe.setLockedCountry(null);
+        map2d.setSelected(null);
         hideTooltip();
         selectCountry(getLeadCountry());
         return;
@@ -666,6 +693,7 @@ function handleCountryClick(country, sx, sy) {
 
     state.lockedCountryIso = country.iso3;
     globe.setLockedCountry(country.iso3);
+    map2d.setSelected(country.iso3);
     selectCountry(country);
     showTooltip(country, sx, sy);
 }
@@ -673,14 +701,20 @@ function handleCountryClick(country, sx, sy) {
 function updateTimelineUI() {
     dom.timelineSlider.max = String(TIMELINE_DAYS.length - 1);
     dom.timelineSlider.value = String(state.selectedTimeIndex);
-    dom.timelineValue.textContent = getSelectedLabel(state.selectedTimeIndex);
+    const selectedLabel = getSelectedLabel(state.selectedTimeIndex);
+    const progress = (state.selectedTimeIndex / Math.max(1, TIMELINE_DAYS.length - 1)) * 100;
+    dom.timelineValue.textContent = selectedLabel;
+    dom.timelineSlider.setAttribute("aria-valuetext", selectedLabel);
+    dom.timelineSlider.style.setProperty("--progress", `${progress}%`);
     const selected = getSelectedDayMeta(state.selectedTimeIndex);
     dom.timelineOrigin.textContent = state.selectedTimeIndex === 0
         ? "Origin signal: Wuhan, China"
         : "Origin signal anchored at Dec 2019";
-    [...dom.timelinePoints.children].forEach((node, index) => {
-        node.classList.toggle("active", TIMELINE_YEARS[index] === selected.year);
-    });
+    if (dom.timelinePoints?.children?.length) {
+        [...dom.timelinePoints.children].forEach((node, index) => {
+            node.classList.toggle("active", TIMELINE_YEARS[index] === selected.year);
+        });
+    }
 }
 
 function syncUrl() {
@@ -697,6 +731,7 @@ function applyTimeIndex(timeIndex) {
     syncUrl();
     updateTimelineUI();
     globe.setTimeIndex(state.selectedTimeIndex);
+    map2d.setTimeIndex(state.selectedTimeIndex);
     updateSummary();
     selectCountry(getLeadCountry());
     if (state.lockedCountryIso) {
@@ -704,6 +739,7 @@ function applyTimeIndex(timeIndex) {
         if (locked) {
             showTooltip(locked, 0, window.innerHeight * 0.48);
             globe.setLockedCountry(locked.iso3);
+            map2d.setSelected(locked.iso3);
         }
     }
     if (state.compareMode) {
@@ -736,7 +772,7 @@ function startPlayback() {
 
 function bindEvents() {
     dom.modeToggle.addEventListener("click", () => {
-        setViewMode(state.viewMode === "dashboard" ? "globe" : "dashboard");
+        setViewMode(state.viewMode === "map2d" ? "globe" : "map2d");
     });
 
     dom.compareToggle.addEventListener("click", () => {
@@ -805,6 +841,7 @@ function bindEvents() {
         state.lockedCountryIso = country.iso3;
         state.selectedCountry = country;
         globe.setLockedCountry(country.iso3);
+        map2d.setSelected(country.iso3);
         selectCountry(country);
         setStatus(`Dashboard focus changed to ${country.name} at ${getSelectedLabel(state.selectedTimeIndex)}.`);
     });
@@ -924,12 +961,15 @@ async function hydrateHistoriesInBackground() {
     }));
 
     globe.setCountries(state.countries);
+    map2d.setCountries(state.countries);
     updateSummary();
     selectCountry(getLeadCountry());
     if (state.lockedCountryIso) {
         globe.setLockedCountry(state.lockedCountryIso);
+        map2d.setSelected(state.lockedCountryIso);
     }
     globe.setTimeIndex(state.selectedTimeIndex);
+    map2d.setTimeIndex(state.selectedTimeIndex);
     setStatus("Site ready. Drag or play the daily timeline to inspect country-level pandemic and economic change.");
 }
 
@@ -962,12 +1002,14 @@ async function init() {
 
     if (features) {
         globe.setFeatures(features);
+        map2d.setFeatures(features);
     }
 
     setStatus("Building the first view...");
     state.countries = normalizeCountries(covidRows, gdpMap);
 
     globe.setCountries(state.countries);
+    map2d.setCountries(state.countries);
     updateSummary();
     applyTimeIndex(state.selectedTimeIndex);
     selectCountry(getLeadCountry());

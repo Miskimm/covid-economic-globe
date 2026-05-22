@@ -31,9 +31,18 @@ function drawPolygonPath(context, rings, width, height) {
 }
 
 export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountryClick }) {
+    function getStageSize() {
+        const rect = stage.getBoundingClientRect();
+        return {
+            width: Math.max(320, rect.width || window.innerWidth),
+            height: Math.max(240, rect.height || window.innerHeight)
+        };
+    }
+
+    const initialSize = getStageSize();
     const state = {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: initialSize.width,
+        height: initialSize.height,
         isDragging: false,
         pointerX: 0,
         pointerY: 0,
@@ -57,7 +66,8 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     scene.fog = new THREE.Fog(0x02050c, 7, 12);
 
     const camera = new THREE.PerspectiveCamera(36, state.width / state.height, 0.1, 100);
-    camera.position.set(0, 0.18, 8.4);
+    camera.position.set(0, 0.02, 7.15);
+    camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35));
@@ -450,8 +460,14 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     }
 
     function getHoveredBoundary() {
-        pointerNdc.x = (state.pointerX / state.width) * 2 - 1;
-        pointerNdc.y = -(state.pointerY / state.height) * 2 + 1;
+        const rect = renderer.domElement.getBoundingClientRect();
+        const localX = state.pointerX - rect.left;
+        const localY = state.pointerY - rect.top;
+        if (localX < 0 || localY < 0 || localX > rect.width || localY > rect.height) {
+            return null;
+        }
+        pointerNdc.x = (localX / rect.width) * 2 - 1;
+        pointerNdc.y = -(localY / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointerNdc, camera);
         const hits = raycaster.intersectObject(ocean, false);
         if (!hits.length) {
@@ -602,10 +618,12 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     });
 
     function resize() {
-        state.width = window.innerWidth;
-        state.height = window.innerHeight;
+        const size = getStageSize();
+        state.width = size.width;
+        state.height = size.height;
         camera.aspect = state.width / state.height;
         camera.updateProjectionMatrix();
+        camera.lookAt(0, 0, 0);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35));
         renderer.setSize(state.width, state.height);
     }
