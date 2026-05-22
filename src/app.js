@@ -1,6 +1,6 @@
 import { fallbackCovid, fallbackGdp, loadCountryHistory, loadCovidRows, loadGdpMap, loadWorldFeatures } from "./data.js";
 import { formatCompact, formatSigned } from "./format.js";
-import { createGlobe } from "./globe.js";
+import { createGlobe } from "./globe.js?v=soft-case-layer-2";
 import { createMap2d } from "./map2d.js";
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
 import { initResearchTool } from "./research-tool.js";
@@ -208,7 +208,7 @@ function getLeadCountry() {
         return state.countries.find((item) => item.iso3 === state.lockedCountryIso) || state.selectedCountry || state.countries[0] || null;
     }
     if (state.selectedTimeIndex === 0) {
-        return state.countries.find((item) => item.iso3 === "CHN") || state.countries[0] || null;
+        return state.selectedCountry || state.countries[0] || null;
     }
     const ranked = [...state.countries]
         .filter((item) => getTimePoint(item, state.selectedTimeIndex).cases > 0)
@@ -565,9 +565,9 @@ function updateSummary() {
     if (state.selectedTimeIndex === 0) {
         dom.avgShock.textContent = "0.0pp";
         dom.avgRecovery.textContent = "0.0pp";
-        dom.focusMarket.textContent = "Wuhan, China";
-        dom.focusMarketNote.textContent = "Earliest documented cluster / 27 cases";
-        dom.tickerText.textContent = `${label} is used as the opening day of the timeline, anchored to the earliest documented cluster in Wuhan before wider global diffusion begins.`;
+        dom.focusMarket.textContent = "Timeline start";
+        dom.focusMarketNote.textContent = "Low case-intensity baseline";
+        dom.tickerText.textContent = `${label} is used as the opening day of the timeline, with a low-intensity baseline before wider global diffusion begins.`;
         updateDashboard();
         return;
     }
@@ -611,13 +611,6 @@ function selectCountry(country) {
     dom.shockValue.textContent = formatSigned(country.shock);
     dom.recoveryValue.textContent = formatSigned(country.recovery);
     updateEconomicPanel(country);
-    if (state.selectedTimeIndex === 0 && country.iso3 === "CHN") {
-        dom.detailNote.textContent =
-            `${getSelectedLabel(state.selectedTimeIndex)} is treated as the opening stage of the earliest documented cluster in Wuhan, China. ` +
-            `The globe starts from that origin signal and only later expands into broad global spread and visible economic shock.`;
-        updateDashboard();
-        return;
-    }
     dom.detailNote.textContent =
         `${getSelectedLabel(state.selectedTimeIndex)} sits in the "${point.phaseLabel}" phase. The market shows about ${formatCompact(point.cases)} cumulative cases, ` +
         `${point.gdp.toFixed(1)}% GDP growth on the mapped annual path, a 2019 to 2020 shock of ${formatSigned(country.shock)}, and a 2020 to 2023 recovery gap of ${formatSigned(country.recovery)}.`;
@@ -708,8 +701,8 @@ function updateTimelineUI() {
     dom.timelineSlider.style.setProperty("--progress", `${progress}%`);
     const selected = getSelectedDayMeta(state.selectedTimeIndex);
     dom.timelineOrigin.textContent = state.selectedTimeIndex === 0
-        ? "Origin signal: Wuhan, China"
-        : "Origin signal anchored at Dec 2019";
+        ? "Low-intensity baseline"
+        : "Timeline anchored at Dec 2019";
     if (dom.timelinePoints?.children?.length) {
         [...dom.timelinePoints.children].forEach((node, index) => {
             node.classList.toggle("active", TIMELINE_YEARS[index] === selected.year);

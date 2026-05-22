@@ -1,10 +1,16 @@
 import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
 import { getTimePoint } from "./timeline.js";
+import {
+    casesChoroplethValue
+} from "./choropleth.js";
 
 const config = {
     globeRadius: 1.88,
     landPointCount: 12000,
-    landClusterCount: 3200
+    landClusterCount: 3200,
+    showCaseClusters: false,
+    choroplethTextureWidth: 2048,
+    choroplethTextureHeight: 1024
 };
 
 function latLngToVector(lat, lng, radius) {
@@ -117,6 +123,29 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     );
     globeGroup.add(ocean);
 
+    const choroplethCanvas = document.createElement("canvas");
+    choroplethCanvas.width = config.choroplethTextureWidth;
+    choroplethCanvas.height = config.choroplethTextureHeight;
+    const choroplethContext = choroplethCanvas.getContext("2d");
+    const choroplethTexture = new THREE.CanvasTexture(choroplethCanvas);
+    choroplethTexture.colorSpace = THREE.SRGBColorSpace;
+    choroplethTexture.minFilter = THREE.LinearFilter;
+    choroplethTexture.magFilter = THREE.LinearFilter;
+    choroplethTexture.generateMipmaps = false;
+
+    const choroplethMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(config.globeRadius * 1.004, 96, 96),
+        new THREE.MeshBasicMaterial({
+            map: choroplethTexture,
+            transparent: true,
+            opacity: 0.86,
+            depthWrite: false
+        })
+    );
+    choroplethMesh.renderOrder = 1;
+    boundaryGroup.renderOrder = 2;
+    globeGroup.add(choroplethMesh);
+
     const atmosphere = new THREE.Mesh(
         new THREE.SphereGeometry(config.globeRadius * 1.05, 72, 72),
         new THREE.MeshBasicMaterial({
@@ -168,6 +197,9 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
 
     let sphereMesh;
     function createMeshes() {
+        if (!config.showCaseClusters || config.landClusterCount <= 0) {
+            return;
+        }
         const sphereGeometry = new THREE.IcosahedronGeometry(0.028, 1);
         sphereMesh = new THREE.InstancedMesh(
             sphereGeometry,
@@ -186,7 +218,9 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         landClusterGroup.add(sphereMesh);
     }
 
-    createMeshes();
+    if (config.showCaseClusters) {
+        createMeshes();
+    }
 
     function addStars() {
         const geometry = new THREE.BufferGeometry();
@@ -227,6 +261,13 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, " ")
             .trim();
+    }
+
+    function normalizeLng(lng) {
+        let value = Number(lng);
+        while (value > 180) value -= 360;
+        while (value < -180) value += 360;
+        return value;
     }
 
     function buildCountryLookup() {
@@ -325,6 +366,7 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
                 country,
                 featureRef: feature
             };
+            line.renderOrder = 2;
             boundaryGroup.add(line);
             state.boundaryEntries.push({
                 line,
@@ -332,6 +374,168 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
                 country
             });
         }
+    }
+
+    function projectTexturePoint(lng, lat) {
+        return {
+            x: ((normalizeLng(lng) + 180) / 360) * choroplethCanvas.width,
+            y: ((90 - Number(lat)) / 180) * choroplethCanvas.height
+        };
+    }
+
+    function getTextureDatelineCrossing(prev, next) {
+        const delta = next.lng - prev.lng;
+        if (Math.abs(delta) <= 180) {
+            return null;
+        }
+
+        const crossesEast = prev.lng > 0 && next.lng < 0;
+        const edgeLng = crossesEast ? 180 : -180;
+        const wrappedNextLng = next.lng + (crossesEast ? 360 : -360);
+        const t = (edgeLng - prev.lng) / (wrappedNextLng - prev.lng);
+        const lat = prev.lat + (next.lat - prev.lat) * Math.max(0, Math.min(1, t));
+
+        return {
+            edgeLng,
+            oppositeLng: crossesEast ? -180 : 180,
+            lat
+        };
+    }
+
+    function traceTextureRing(context, ring) {
+        if (!Array.isArray(ring) || ring.length < 2) {
+            return;
+        }
+
+        let prev = null;
+        let hasDatelineSplit = false;
+        for (const coordinate of ring) {
+            if (!Array.isArray(coordinate) || coordinate.length < 2) {
+                continue;
+            }
+
+            const current = {
+                lng: normalizeLng(coordinate[0]),
+                lat: Number(coordinate[1])
+            };
+
+            if (!Number.isFinite(current.lng) || !Number.isFinite(current.lat)) {
+                continue;
+            }
+
+            if (!prev) {
+                const point = projectTexturePoint(current.lng, current.lat);
+                context.moveTo(point.x, point.y);
+                prev = current;
+                continue;
+            }
+
+            const crossing = getTextureDatelineCrossing(prev, current);
+            if (crossing) {
+                hasDatelineSplit = true;
+                let point = projectTexturePoint(crossing.edgeLng, crossing.lat);
+                context.lineTo(point.x, point.y);
+                context.closePath();
+                point = projectTexturePoint(crossing.oppositeLng, crossing.lat);
+                context.moveTo(point.x, point.y);
+            }
+
+            const point = projectTexturePoint(current.lng, current.lat);
+            context.lineTo(point.x, point.y);
+            prev = current;
+        }
+
+        if (!hasDatelineSplit) {
+            context.closePath();
+        }
+    }
+
+    function traceTextureFeature(context, feature) {
+        const geom = feature.geometry;
+        if (!geom) {
+            return;
+        }
+
+        const polygons = geom.type === "Polygon"
+            ? [geom.coordinates]
+            : geom.type === "MultiPolygon"
+                ? geom.coordinates
+                : [];
+
+        for (const polygon of polygons) {
+            for (const ring of polygon) {
+                traceTextureRing(context, ring);
+            }
+        }
+    }
+
+    function pandemicTextureFill(t, hasData, hasCountry) {
+        if (!hasCountry) {
+            return "rgba(55, 132, 176, 0.04)";
+        }
+        if (!hasData || t <= 0) {
+            return "rgba(58, 142, 186, 0.05)";
+        }
+
+        const clamped = Math.max(0, Math.min(1, t));
+        const low = { r: 68, g: 151, b: 202 };
+        const mid = { r: 91, g: 213, b: 211 };
+        const warm = { r: 255, g: 190, b: 118 };
+        const high = { r: 255, g: 102, b: 127 };
+        const source = clamped < 0.55 ? low : clamped < 0.82 ? mid : warm;
+        const target = clamped < 0.55 ? mid : clamped < 0.82 ? warm : high;
+        const mix = clamped < 0.55
+            ? clamped / 0.55
+            : clamped < 0.82
+                ? (clamped - 0.55) / 0.27
+                : (clamped - 0.82) / 0.18;
+        const r = Math.round(source.r + (target.r - source.r) * mix);
+        const g = Math.round(source.g + (target.g - source.g) * mix);
+        const b = Math.round(source.b + (target.b - source.b) * mix);
+        const alpha = 0.08 + clamped * 0.36;
+
+        return `rgba(${r}, ${g}, ${b}, ${alpha.toFixed(3)})`;
+    }
+
+    function fixedCaseColorT(value) {
+        if (!value || value <= 0) {
+            return 0;
+        }
+
+        const normalized = Math.max(0, Math.min(1, value / Math.log10(120000000 + 1)));
+        return normalized * normalized * (3 - 2 * normalized);
+    }
+
+    function updateChoroplethTexture() {
+        choroplethContext.clearRect(0, 0, choroplethCanvas.width, choroplethCanvas.height);
+        if (!state.features.length) {
+            choroplethTexture.needsUpdate = true;
+            return;
+        }
+
+        const countryLookup = buildCountryLookup();
+        choroplethContext.save();
+        choroplethContext.globalCompositeOperation = "source-over";
+        choroplethContext.lineJoin = "round";
+        choroplethContext.lineCap = "round";
+
+        for (const feature of state.features) {
+            const featureName = feature.properties?.name || "";
+            const country = countryLookup.get(normalizeName(featureName)) || null;
+            const value = country ? casesChoroplethValue(country, state.selectedTimeIndex) : 0;
+            const hasData = value > 0;
+            choroplethContext.beginPath();
+            traceTextureFeature(choroplethContext, feature);
+            choroplethContext.fillStyle = pandemicTextureFill(
+                fixedCaseColorT(value),
+                hasData,
+                Boolean(country)
+            );
+            choroplethContext.fill("evenodd");
+        }
+
+        choroplethContext.restore();
+        choroplethTexture.needsUpdate = true;
     }
 
     function pickBiomeColor(cluster, activityFactor, growthFactor) {
@@ -356,8 +560,14 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     function buildLandPoints(features) {
         state.landClusters = [];
         clearObjectChildren(landClusterGroup);
-        createMeshes();
         buildBoundaryLines(features);
+        updateChoroplethTexture();
+
+        if (!config.showCaseClusters) {
+            return;
+        }
+
+        createMeshes();
 
         const mask = document.createElement("canvas");
         mask.width = 1600;
@@ -496,7 +706,7 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
     }
 
     function updateLandClustersForTime() {
-        if (!state.landClusters.length) {
+        if (!config.showCaseClusters || !sphereMesh || !state.landClusters.length) {
             return;
         }
 
@@ -639,6 +849,7 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
                 buildLandPoints(features);
                 assignLandClustersToCountries(state.countries);
                 updateLandClustersForTime();
+                updateChoroplethTexture();
             }
         },
         setCountries(countries) {
@@ -649,12 +860,14 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             }
             assignLandClustersToCountries(countries);
             updateLandClustersForTime();
+            updateChoroplethTexture();
             const lockedEntry = state.lockedIso3 ? state.boundaryEntries.find((entry) => entry.country?.iso3 === state.lockedIso3) || null : null;
             updateBoundaryHighlight(lockedEntry);
         },
         setTimeIndex(timeIndex) {
             state.selectedTimeIndex = timeIndex;
             updateLandClustersForTime();
+            updateChoroplethTexture();
         },
         setLockedCountry(iso3) {
             state.lockedIso3 = iso3 || null;
