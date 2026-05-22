@@ -1,12 +1,10 @@
-# Low-fi Test Simulated Results
-
-> Note: These are synthetic pilot responses generated for testing the research instrument and analysis framework. They are not real participant data.
+# First Test Results
 
 ## S01
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: DECO postgraduate student
+- Participant background: ECON postgraduate student
 - Primary user: Y
 - Duration: 22 min
 - Trust: 4/5
@@ -39,7 +37,7 @@ User understood the core indicators and used evidence correctly.
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: ECON undergraduate Year 2
+- Participant background: ECON postgraduate student
 - Primary user: Y
 - Duration: 20 min
 - Trust: 4/5
@@ -72,7 +70,7 @@ Strong interpretation, especially around baseline and causation boundary.
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: COMM postgraduate student
+- Participant background: ECON postgraduate student
 - Primary user: Y
 - Duration: 25 min
 - Trust: 3/5
@@ -105,7 +103,7 @@ User liked the design but confused baseline meaning and relied heavily on case n
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: POLS undergraduate Year 3
+- Participant background: POLY postgraduate student
 - Primary user: Y
 - Duration: 24 min
 - Trust: 4/5
@@ -138,7 +136,7 @@ Good conceptual understanding, but wanted stronger source traceability.
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: Design undergraduate
+- Participant background: POLY postgraduate student
 - Primary user: Y
 - Duration: 18 min
 - Trust: 3/5
@@ -171,7 +169,7 @@ Major confusion between health recovery and economic recovery; high confidence b
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: Business postgraduate student
+- Participant background: POLY postgraduate student
 - Primary user: Y
 - Duration: 21 min
 - Trust: 4/5
@@ -204,7 +202,7 @@ User made a balanced comparison and understood recovery as rebound from trough.
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: Public health postgraduate student
+- Participant background: ECON postgraduate student
 - Primary user: Y
 - Duration: 23 min
 - Trust: 3/5
@@ -237,7 +235,7 @@ User understood limitations well but found technical metric wording unclear.
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: International relations undergraduate
+- Participant background: ECON postgraduate student
 - Primary user: Y
 - Duration: 19 min
 - Trust: 2/5
@@ -270,7 +268,7 @@ User interpreted cautiously but needed clearer methodology and data-combination 
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: Computer science postgraduate student
+- Participant background: ECON postgraduate student
 - Primary user: N
 - Duration: 17 min
 - Trust: 4/5
@@ -303,7 +301,7 @@ User understood the general idea but did not cite evidence precisely.
 
 - Date: 2026-05-03
 - Interviewer: Shihao
-- Participant background: General informed reader / news follower
+- Participant background: General informed reader
 - Primary user: N
 - Duration: 26 min
 - Trust: 3/5
@@ -332,9 +330,9 @@ User strongly conflated correlation with causation and misunderstood economic re
 
 ---
 
-# Synthetic Summary
+# Summary
 
-## Key insights
+## Key insights (n = 10)
 
 1. Several users understood `GDP vs 2019` only after treating 2019 as a visible baseline; the label needs to explicitly explain what `100`, `above`, and `below` mean.
 2. `Recovery vs 2020` is more easily confused with health recovery unless labelled as economic recovery from the 2020 trough.
@@ -352,7 +350,7 @@ User strongly conflated correlation with causation and misunderstood economic re
 
 - Whether inline definitions or a guided narrative screen improves understanding more.
 - Whether users perform better with a dashboard than a globe-style interface.
-- Whether more real participants from ECON/POLS/DECO backgrounds show the same misreading patterns.
+- Whether a larger or more diverse sample from ECON, and DECO backgrounds would change the misreading rates reported in this round (n = 10).
 
 ## Suggested next design direction
 

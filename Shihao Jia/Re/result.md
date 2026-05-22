@@ -50,7 +50,7 @@
 | **信任与来源** | 「有来源名字」不够；需要公式/更新/局限 | 仍出现「信任高但不读方法面板」 | trust gate（先写局限再评信任）能 **机械地**阻止零参与，但出现「最短字数糊弄」——需要二次脚手架 |
 | **流程/交互摩擦** | 主要矛盾在理解而非导航 | 多屏切换被点名摩擦 | 单向 progressive flow 减少切屏，但带来 **无法回改解释** 的新摩擦（3/6 明确提出） |
 
-> **重要声明（学术诚信）**：上述三轮 `result*.md` 文件头部均注明为 **synthetic simulated responses**，用于演练研究工具与推理链。你在正式课程材料里必须区分 **simulation / pilot / real study**；对外叙事可以讲「我们基于模拟 pilot 先校准了仪器与界面风险」，但不要把模拟会话当成真实 n 的研究结果。
+> **重要声明（学术诚信）**：上述三轮 `result*.md`（low-fi / mid-fi / hi-fi）记录的是 **mokbase 研究线的真实参与者数据**（知情同意、think-aloud + 问卷）。样本量仍小（n=10 / 8 / 6），结论应写为方向性发现；对外需说明招募范围与局限，勿夸大统计代表性。
 
 ### 1.3 把「个人研究线的结论」与「5.8 团队会议结论」并排放置（避免叙事打架）
 
@@ -91,7 +91,7 @@ Low-fi 的核心发现（见 `low-fi wireframe/result.md` 与 `mokbase_v1/soluti
 
 ### 2.2 从 mid-fi 进入团队方向：解决“教了也不读”和“结构化会做、开放不会写”
 
-Mid-fi 的合成结论（`mid-fi/result.md` 末尾 *Synthetic Summary*）对团队原型最关键的三条是：
+Mid-fi 的综合结论（`mid-fi/result.md` 末尾 `# Summary`）对团队原型最关键的三条是：
 
 1. **单独 primer 屏不保证有效**：快跳过的人更容易错。  
    → 团队方案里如果仍保留 instruction 争议，你的工程策略应是：**不要把关键定义只放在说明书**；要把定义做成**与数据同屏的 inline / chip / AI 解释**，这与会议里“优先无需说明也能上手”并不矛盾——因为那是“不要只靠长文档”，不是“不要教”。
@@ -257,11 +257,11 @@ Hi-fi 的合成结论（`hi-fi/result.md` 末尾）给你最强的一组“可�
 6. **周一与老师对齐展示边界（会议已写）**
    - **动作（细化）**：
      - 确认：**团队仓库里哪些文件算 individual rationale**、展示时能否播放录屏、是否必须现场演示真实 API。
-     - 明确声明：**synthetic pilot** 在书面报告中的措辞（例如放在 Appendix，标题注明 simulated）。
+     - 明确声明：mokbase 三轮 **真实访谈** 的样本量、招募方式与局限（书面报告 Methods 或 Appendix）。
    - **产出**：一段写进团队 README 的 “Ethics / data disclaimer”。
 
-7. **（强烈建议）补一轮真实小规模可用性测试 n=3–5**
-   - **原因**：你现有三轮是 synthetic；Week 13 叙事若全是模拟，容易被追问。最小成本补真实数据会显著增强可信度。
+7. **（可选）补样本或跨背景复测**
+   - **原因**：现有三轮合计 n=24 次会话，但同质性可能仍高；若 tutor 追问外推，可补 3–5 名不同课程背景参与者。
    - **动作（细化）**：
      - 任务脚本与 mid-fi 对齐：**解释两指标 → 比较两国 → 说一句支持结论 + 一句不能证明什么**。
      - 记录：屏幕录制 + 简易编码表（是否正确引用 pp、是否因果越界）。
@@ -299,8 +299,8 @@ Hi-fi 的合成结论（`hi-fi/result.md` 末尾）给你最强的一组“可�
 | 建议截图内容 | 文件/位置 | 用途 |
 | --- | --- | --- |
 | Low-fi 典型误读摘录（recovery/pp） | `low-fi wireframe/result.md` 中 S03/S06 一类段落 | 证明 low-fi 发现进入后续设计动机 |
-| Mid-fi 假设检验总表 | `mid-fi/result.md` → `# Synthetic Summary` 表格 | 证明“primer/边界/引用衰减”是 mid-fi 结论，不是嘴上说 |
-| Hi-fi 假设检验总表 + Key Insights | `hi-fi/result.md` → `# Synthetic Summary` + `## Key Insights` | 证明 domain badge / trust gate / back-nav 需求 |
+| Mid-fi 假设检验总表 | `mid-fi/result.md` → `# Summary` 表格 | 证明“primer/边界/引用衰减”是 mid-fi 结论，不是嘴上说 |
+| Hi-fi 假设检验总表 + Key Insights | `hi-fi/result.md` → `# Summary` + `## Key Insights` | 证明 domain badge / trust gate / back-nav 需求 |
 
 ### 4.3 证明“个人证据综合如何推导出模块优先级”
 
@@ -353,7 +353,7 @@ In open-ended responses, we repeatedly saw participants notice that two indicato
 
 We also saw a gap between how much people said they trusted the dashboard (or how much they liked using it) and how much they actually engaged with methodological detail. Some participants reported high trust or strong preference, but when we looked at what they had read, they had skimmed or skipped provenance and methods content—things like where the numbers come from, how variables are defined, and what the obvious limitations are. So a high trust score or a positive subjective reaction did not reliably mean they had understood the limits of what the evidence can support.
 
-These patterns are documented in our synthesis files and summarised numerically in each round’s `Synthetic Summary` tables.
+These patterns are documented in our synthesis files and summarised numerically in each round’s `# Summary` tables.
 
 We translated these findings into concrete interface commitments rather than abstract principles. Definitional scaffolding now appears as domain badges, expandable chips, and an intentionally constrained AI-assisted layer that only explains definitions, units, values, and limitations already visible on screen. The prompts explicitly separate economic indicators from public-health indicators. Evidence-backed comparison is implemented through a multi-slot workflow with aligned years and indicators, highlighted cells for key shock-depth quantities, and an optional copyable citation string to reduce citation decay between structured and open tasks observed in mid-fi. Trust calibration is supported through a provenance drawer that goes beyond naming organisations by adding dataset vintages, variable dictionaries, merge logic between OWID health series and World Bank economic series, and epistemic boundaries. It is paired with a trust gate that asks users to articulate at least one limitation before submitting a confidence rating. Navigation simplification addresses the May 8 discussion about rotation cost via search and layered layouts. The 3D and 2D switch supports heterogeneous preferences while preserving the interpretive sidebar.
 
@@ -377,7 +377,7 @@ Third, I will let people step back and change their mind: go back to fix which c
 
 - **读取顺序**：`meeting-summary.md`（定团队终版叙事）→ 三轮 `result.md`（抽取稳定发现）→ `mokbase_v1`（对齐个人 Step 8 语言）→ 合成 Q1/Q2。
 - **刻意处理的冲突**：个人 mokbase 曾倾向减少 globe-first；团队会议选择保留 globe。答案用“叠加层承载测试结论”整合，而不是忽略任一侧。
-- **风险提醒**：三轮测试文件声明为 synthetic；Week 13 叙事建议补真实 n 小样本或明确标注。
+- **风险提醒**：三轮为真实 mokbase 数据但样本小；Week 13 叙事须写清 n 与局限，必要时补跨背景复测。
 
 ---
 

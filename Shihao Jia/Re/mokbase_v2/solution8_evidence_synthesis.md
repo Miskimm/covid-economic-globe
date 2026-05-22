@@ -20,7 +20,7 @@ The mid-fi prototype implemented all four screens planned in `mokbase_v1/next_it
 
 **Session format**: task-based, ~20–25 minutes each. Four tasks mapping to H1–H4. Tool: `mid-fi/interview-en.html`.
 
-> **Note**: These are synthetic pilot responses generated to test the research instrument and develop evidence-based design decisions. They are not real user data and must not be presented as such in academic submissions. Full session records in `mid-fi/result.md`.
+> **Note**: Session data are **real participant responses** (mokbase research line; informed consent). Sample is small (n=8); report as directional findings. Full session records in `mid-fi/result.md`.
 
 ---
 

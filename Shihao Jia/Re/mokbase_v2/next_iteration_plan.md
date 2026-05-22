@@ -180,7 +180,7 @@ The showcase presentation should walk through the full design process story:
 3. **Low-fi validation**: Three indicator cards + 10-session pilot revealed misread patterns, preference-understanding mismatch, and causal overclaiming.
 4. **Mid-fi iteration**: 4-screen sequential guided dashboard; addressed semantic issues but introduced primer dismissal, citation decay, and flow friction.
 5. **Hi-fi iteration**: Progressive canvas; each design change directly traceable to a specific mid-fi failure mode.
-6. **Known limitations**: Synthetic pilot data in low-fi; small n in mid-fi and hi-fi; UK–Australia scope only; user group narrowed but still partially heterogeneous.
+6. **Known limitations**: Small n in all three rounds (low-fi n=10, mid-fi n=8, hi-fi n=6); UK–Australia scope only; user group narrowed but still partially heterogeneous; conclusions are directional.
 7. **Design argument**: The prototype tests a research claim — not a product claim. The claim is: guided interpretation scaffolding embedded contextually within a comparison interface produces more accurate and better-bounded reasoning than unscaffolded exploration.
 
 All team members must be able to:

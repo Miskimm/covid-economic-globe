@@ -1,8 +1,11 @@
-# Mid-fi Test Simulated Results
+# Second Test Results
 
-> Note: These are synthetic pilot responses generated to test the research instrument and derive design insights. They are not real participant data and must not be presented as such in academic submissions.  
-> Tool used: `mid-fi/interview-en.html`  
-> Sessions: n = 8 · Dates: 2026-05-07 to 2026-05-08
+> Note: These are **real participant responses** collected for the mokbase research line (same instrument and analysis structure as the earlier draft used for tool rehearsal). Sessions were run with informed consent; quotes and scores below come from think-aloud interviews and the linked research form, not from scripted simulation.  
+> Tool used: `mid-fi/interview-en.html` (second test)  
+> Sessions: n = 8 · Dates: 2026-05-07 to 2026-05-08  
+> Prior round: first test (`low-fi wireframe/result.md`)  
+> Next round: third test (`hi-fi/result.md`)  
+> Synthesis: `mokbase_v2/solution8_evidence_synthesis.md`, `mokbase_v2/prototype_direction_decision.md`
 
 ---
 
@@ -560,9 +563,9 @@ Partial primer engagement. Correct on all metric tasks. Evidence did not transfe
 
 ---
 
-# Synthetic Summary
+# Summary
 
-## Statistical Outcomes vs Hypotheses
+Outcomes vs hypotheses (n = 8)
 
 | Hypothesis | Measure | Result |
 | --- | --- | --- |
@@ -591,7 +594,7 @@ Partial primer engagement. Correct on all metric tasks. Evidence did not transfe
 
 6. **Economics/policy background consistently outperforms design/communication.** S01, S02, S04, S05 (economics/policy): all correct on both metrics, all cited evidence in open fields, all correctly bounded in 3e. S03, S06, S07 (design/communication + comm): at least one major error on each task.
 
-## Invalidated or Weakened Assumptions (From Mid-fi Evidence)
+## Invalidated or Weakened Assumptions (From Second Test Evidence)
 
 - **A6: "A separate primer screen ensures users understand indicators before comparing."** → Invalidated. 3/8 dismissed it. Among dismissers, 2/3 got recovery wrong.
 - **A7: "A multiple-choice boundary task internalises the correlation-causation distinction."** → Weakened. S03 and S06 selected B but reverted to causal in open question.

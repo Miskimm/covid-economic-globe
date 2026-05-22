@@ -21,7 +21,7 @@ The hi-fi prototype implemented the progressive guided canvas architecture speci
 
 **Session format**: task-based, ~20 minutes. Five canvas layers + four research form sections. Tool: `hi-fi/interview-en.html`.
 
-> **Note**: These are synthetic pilot responses for instrument testing and design decision development. Not real user data. Full session records in `hi-fi/result.md`.
+> **Note**: Session data are **real participant responses** (mokbase research line; informed consent). Sample is small (n=6); report as directional findings. Full session records in `hi-fi/result.md`.
 
 ---
 

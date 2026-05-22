@@ -1,22 +1,15 @@
-# Hi-fi Test Simulated Results
-
-> Note: These are synthetic pilot responses generated to test the research instrument and derive design insights. They are not real participant data and must not be presented as such in academic submissions.  
-> Tool used: `hi-fi/interview-en.html`  
-> Sessions: n = 6 · Dates: 2026-05-12 to 2026-05-14  
-> Prior round: `mid-fi/result.md`
-
----
+# Third Test Results
 
 ## Participant Overview
 
-| Session | Background | Familiarity | Chips opened before interpreting | Interp has number (JS) | Boundary self-check | Limitation text quality | Trust | Conf | Pref |
-| --- | --- | --- | --- | --- | --- | --- | ---: | ---: | ---: |
-| S01 | ECON postgrad Year 1 | Medium | 3 (GDP, Recovery, Cases) | ✓ | No | Specific + reasoned | 4 | 4 | 4 |
-| S02 | POLS undergrad Year 3 | Medium | 2 (GDP, Recovery) | ✓ | No | Specific + reasoned | 4 | 4 | 4 |
-| S03 | Design undergrad Year 2 | Very low | 1 (GDP only) | ✓ | Unsure → revised | Vague (just unlocked) | 4 | 3 | 5 |
-| S04 | COMM postgrad Year 1 | Very low | 2 (GDP, Recovery) | ✓ | No | Specific | 3 | 3 | 4 |
-| S05 | Public policy postgrad | Medium | 2 (GDP, Recovery) | ✓ | No | Specific + reasoned | 4 | 4 | 3 |
-| S06 | Business undergrad Year 3 | Low | 1 (Recovery only) | ✓ | No | Brief (8 chars min) | 4 | 3 | 4 |
+| Session | Background                | Familiarity | Chips opened before interpreting | Interp has number (JS) | Boundary self-check | Limitation text quality | Trust | Conf | Pref |
+| ------- | ------------------------- | ----------- | -------------------------------- | ---------------------- | ------------------- | ----------------------- | ----: | ---: | ---: |
+| S01     | ECON postgrad Year 1      | Medium      | 3 (GDP, Recovery, Cases)         | ✓                      | No                  | Specific + reasoned     |     4 |    4 |    4 |
+| S02     | POLS undergrad Year 3     | Medium      | 2 (GDP, Recovery)                | ✓                      | No                  | Specific + reasoned     |     4 |    4 |    4 |
+| S03     | Design undergrad Year 2   | Very low    | 1 (GDP only)                     | ✓                      | Unsure → revised    | Vague (just unlocked)   |     4 |    3 |    5 |
+| S04     | COMM postgrad Year 1      | Very low    | 2 (GDP, Recovery)                | ✓                      | No                  | Specific                |     3 |    3 |    4 |
+| S05     | Public policy postgrad    | Medium      | 2 (GDP, Recovery)                | ✓                      | No                  | Specific + reasoned     |     4 |    4 |    3 |
+| S06     | Business undergrad Year 3 | Low         | 1 (Recovery only)                | ✓                      | No                  | Brief (8 chars min)     |     4 |    3 |    4 |
 
 ---
 
@@ -64,7 +57,7 @@ Selected: **No**
 
 **3a — Open question (class presentation):**  
 "I'd say the data shows the UK economy contracted much more sharply in 2020 — by 12 percentage points below 2019 levels — compared to Australia's 3.7 pp drop. That's a striking difference that aligns with the pandemic period, though I'd need to be careful not to claim COVID alone caused it. Policy responses, lockdown duration, and industry mix all played roles we can't see in this data."  
-*(Non-causal language ✓ — explicitly flags other factors.)*
+_(Non-causal language ✓ — explicitly flags other factors.)_
 
 **3b — Supported / not proven:**  
 "It can support: the UK had a significantly deeper economic contraction in 2020 than Australia. It cannot prove: that COVID case numbers directly caused the difference, or that any one policy decision was responsible."
@@ -133,7 +126,7 @@ Selected: **No**
 
 **3a — Open question:**  
 "The data shows the UK's economy contracted about three times more than Australia's in 2020 by this measure. That's a striking pattern that lines up with the pandemic period. But I wouldn't say COVID caused it — there are too many other variables, like how different the UK's service economy is from Australia's, and the different policy timelines."  
-*(Non-causal language ✓)*
+_(Non-causal language ✓)_
 
 **3b — Supported / not proven:**  
 "Supports: UK had a deeper economic contraction in 2020. Cannot prove: COVID cases directly caused this, or that Australia's lower case count in 2020 explains the smaller contraction."
@@ -174,65 +167,65 @@ Strong performance across all hypotheses. Clean evidence citation in both protot
 
 **1a — ECONOMIC badge (before chip):**  
 "ECONOMIC means it's about the economy, not about health. So it's measuring money stuff, not COVID cases."  
-*(Domain anchoring from badge alone — confirmed H5 even without chip expansion.)*
+_(Domain anchoring from badge alone — confirmed H5 even without chip expansion.)_
 
 **1b — GDP gap (after chip):**  
 "It's how far the economy is from where it was before COVID. Negative means it's still lower than 2019. The pp part means percentage points, not just percent."
 
 **1c — Economic recovery (chip — not opened before interpreting, opened after Task 1 prompt):**  
 "Oh, it's about economic output going back up, not about health. The badge would have told me that. I thought it might be about recovering from the virus."  
-*(Initial uncertainty about recovery resolved when chip was finally opened.)*
+_(Initial uncertainty about recovery resolved when chip was finally opened.)_
 
 **1d — Key difference:**  
 "One is before COVID, one is after the worst year. Both measure the economy."
 
 **2a — Deeper shock:**  
 "UK. It's −12.0 pp compared to Australia's −3.7 pp."  
-*(Cited evidence value correctly.)*
+_(Cited evidence value correctly.)_
 
 **2b — Closer to 2019:**  
 "Australia at −0.3 pp — almost zero."
 
 **2c — Recovery comparison:**  
 "I think the UK is doing better because it has a higher recovery value. +8.9 is more than +3.4."  
-*(Misread: conflates recovery magnitude with current position, as seen in mid-fi S03 and S07.)*
+_(Misread: conflates recovery magnitude with current position, as seen in second test S03 and S07.)_
 
 **Interpretation field (Layer 3):**  
 "The data shows that the UK had a GDP gap of −12.0 pp in 2020, compared to −3.7 pp for Australia. This pattern suggests the UK's economy was much more severely affected during the pandemic, but does not prove that COVID directly caused this, because there could be other economic reasons."  
-*(Contains −12.0 pp — JS validation passed. Causal hedge present but thin.)*
+_(Contains −12.0 pp — JS validation passed. Causal hedge present but thin.)_
 
 **Boundary self-check:**  
 Selected: **Unsure**  
 Revision written: "The UK economy dropped more than Australia's during the same period as COVID. I can't say COVID caused it directly because other things were happening too."  
-*(Improvement after revision prompt — more explicit acknowledgement of other factors.)*
+_(Improvement after revision prompt — more explicit acknowledgement of other factors.)_
 
 **3a — Open question:**  
 "I think COVID really hit the UK economy hard — the numbers show the UK dropped way more than Australia. It kind of shows COVID caused the economic problems there, but maybe there were other things too."  
-*(Mild causal language: "shows COVID caused" — self-corrected partially with "maybe other things." Counted as mild causal lean.)*
+_(Mild causal language: "shows COVID caused" — self-corrected partially with "maybe other things." Counted as mild causal lean.)_
 
 **3b — Supported / not proven:**  
 "It can support that the UK was more affected economically. It can't prove COVID was the only reason or that the government did things wrong."
 
 **4a — Limitation (from proto — vague):**  
 "the data might have errors"  
-*(Passed minimum threshold of 8 chars but not genuinely reasoned — mechanical compliance.)*
+_(Passed minimum threshold of 8 chars but not genuinely reasoned — mechanical compliance.)_
 
 **4b — Formula:**  
 "I didn't open the formula, it seemed complicated."
 
 **4c — Citation:**  
 "Yes, I'd cite it. World Bank and WHO are well-known."  
-*(Trust still partly brand-driven, though now limitation was technically entered.)*
+_(Trust still partly brand-driven, though now limitation was technically entered.)_
 
 **4d — Trust reasoning:**  
 "I trust it because the sources are famous and the design looks professional."  
-*(Limitation text was entered mechanically — trust reasoning did not reference it.)*
+_(Limitation text was entered mechanically — trust reasoning did not reference it.)_
 
 **4e — Improvement:**  
 "It looks really good. Maybe add some charts or graphs? Numbers are a bit hard for me to picture."
 
 **Conclusion:**  
-Domain badge prevented health misread without chip (H5 ✓). JS enforced numerical citation in prototype (H6 ✓). Boundary self-check revision improved framing but mild causal lean persisted in open question (H7 partial). Limitation text entered mechanically — trust gate worked mechanistically but did not guarantee genuine engagement (H8 partial). Trust 4/5 despite vague limitation. Recovery-position misread persisted (same as mid-fi — not addressed by the hi-fi design).
+Domain badge prevented health misread without chip (H5 ✓). JS enforced numerical citation in prototype (H6 ✓). Boundary self-check revision improved framing but mild causal lean persisted in open question (H7 partial). Limitation text entered mechanically — trust gate worked mechanistically but did not guarantee genuine engagement (H8 partial). Trust 4/5 despite vague limitation. Recovery-position misread persisted (same as second test — not addressed by the third test design).
 
 ---
 
@@ -280,7 +273,7 @@ Selected: **No**
 
 **3a — Open question:**  
 "I'd say the data shows the UK's economy contracted about three times as much as Australia's in 2020. That's a significant difference that lines up with the pandemic period, but I'd be careful not to say COVID directly caused it — there were a lot of other factors happening at the same time that we can't see from these numbers alone."  
-*(Non-causal language ✓)*
+_(Non-causal language ✓)_
 
 **3b — Supported / not proven:**  
 "Supports: UK had deeper economic contraction in 2020. Cannot prove: COVID case counts directly caused the economic divergence."
@@ -349,7 +342,7 @@ Selected: **No**
 
 **3a — Open question:**  
 "I'd present it this way: the data shows the UK's GDP fell about three times as far as Australia's in 2020, when measured against 2019. That's a striking correlation with the pandemic period. But I'd be clear that this doesn't tell us why — lockdown policy, the UK's service-heavy economy, fiscal stimulus size, all of these would need to be compared before you could make any causal claim."  
-*(Non-causal language ✓ — most precise boundary statement of all 6.)*
+_(Non-causal language ✓ — most precise boundary statement of all 6.)_
 
 **3b — Supported / not proven:**  
 "Supports: UK had much deeper 2020 contraction. Cannot prove: COVID cases caused this difference, or that either country's policy response was better or worse."
@@ -390,7 +383,7 @@ Strongest overall performance. H5-H8 all fully confirmed. Flagged the sentence-s
 
 **1a — ECONOMIC badge (before chip):**  
 "The ECONOMIC badge tells me it's a financial or output measure, not a health one. So I know before I read the label that it's about money, not COVID cases."  
-*(Domain anchoring from badge alone — no chip needed for domain identification.)*
+_(Domain anchoring from badge alone — no chip needed for domain identification.)_
 
 **1b — GDP gap (chip — opened after Task 1 prompt):**  
 "Oh, percentage points below 2019. I hadn't opened this one first but the ECONOMIC badge already told me it was about the economy. The pp definition in the glossary helped."
@@ -409,7 +402,7 @@ Strongest overall performance. H5-H8 all fully confirmed. Flagged the sentence-s
 
 **2c — Recovery comparison:**  
 "No, actually. The UK fell further so it had more to recover. Australia is closer to 2019 even with a smaller recovery number."  
-*(Correctly distinguished from mid-fi S06's misread — improvement.)*
+_(Correctly distinguished from second test S06's misread — improvement.)_
 
 **Interpretation field (Layer 3):**  
 "The data shows that the UK had a GDP gap of −12.0 pp in 2020, compared to −3.7 pp for Australia. This pattern suggests the UK economy was more severely affected during the pandemic period, but does not prove that COVID case numbers directly caused this gap, because economic structure and policy responses differ between countries."
@@ -420,14 +413,14 @@ Selected: **No**
 
 **3a — Open question:**  
 "I'd say the UK economy took a bigger hit in 2020 — about three times the drop compared to Australia. That's consistent with the pandemic period but it doesn't mean COVID caused it on its own."  
-*(Non-causal language ✓ — brief but correct.)*
+_(Non-causal language ✓ — brief but correct.)_
 
 **3b — Supported / not proven:**  
 "Supports the UK had a larger economic contraction. Doesn't prove COVID case numbers caused it."
 
 **4a — Limitation (from proto — minimal):**  
 "data lag"  
-*(Entered 8 characters — exact minimum. Trust unlocked but reasoning was not elaborated.)*
+_(Entered 8 characters — exact minimum. Trust unlocked but reasoning was not elaborated.)_
 
 **4b — Formula:**  
 "I glanced at it — constant 2015 USD, fair enough."
@@ -437,70 +430,79 @@ Selected: **No**
 
 **4d — Trust reasoning:**  
 "Trust 4 because World Bank and WHO are solid sources. I trust the numbers."  
-*(Did not reference the limitation text entered. Trust reasoning driven by brand, though limitation was technically entered.)*
+_(Did not reference the limitation text entered. Trust reasoning driven by brand, though limitation was technically entered.)_
 
 **4e — Improvement:**  
 "The prototype worked well. The domain badges were really helpful — I knew immediately which indicator was economic and which was health without having to read much."
 
 **Conclusion:**  
-H5 ✓ (domain badge effective even without GDP chip). H6 ✓ (JS-enforced citation in prototype). H7 ✓ (non-causal in open question). H8 partial (trust gate worked mechanistically — 8 chars entered — but trust reasoning did not reflect limitation engagement). Recovery misread corrected compared to mid-fi S06. Preferred the domain badge prominently as the clearest design improvement.
+H5 ✓ (domain badge effective even without GDP chip). H6 ✓ (JS-enforced citation in prototype). H7 ✓ (non-causal in open question). H8 partial (trust gate worked mechanistically — 8 chars entered — but trust reasoning did not reflect limitation engagement). Recovery misread corrected compared to second test S06. Preferred the domain badge prominently as the clearest design improvement.
 
 ---
 
-# Synthetic Summary
+# Summary
 
-## Statistical Outcomes vs Hypotheses
+Outcomes vs hypotheses (n = 6)
 
-| Hypothesis | Measure | Target | Result |
-| --- | --- | --- | --- |
-| H5 — domain context encountered | % who opened ≥1 chip before interpreting | ≥ 85% | **6/6 (100%)** ✓ |
-| H5 — health misread | Health domain misread on recovery | < 1 | **0/6** ✓ |
-| H6 — citation in prototype field | Interpretation contains numerical value (JS) | ≥ 70% | **6/6 (100%)** ✓ enforced |
-| H6 — citation in form open fields | Open form fields 3a/3b contain specific value | ≥ 70% | **4/6 (67%)** ✗ (S03, S06 brief/no value in 3a) |
-| H7 — boundary self-check | Non-causal language in open 3a | ≥ 65% | **5/6 (83%)** ✓ (S03 mild lean) |
-| H8 — trust gate | Trust score submitted with limitation text ≥8 chars | 100% | **6/6 (100%)** ✓ (mechanistic) |
-| H8 — trust calibration | Trust ≥4 who reference limitation in trust reasoning | ≥ 80% | **4/5 (80%)** ✓ (S03 and S06 did not reference) |
-| Carry — metric explanation (GDP) | Correct GDP domain explanation | ≥ 70% | **6/6 (100%)** ✓ |
-| Carry — metric explanation (recovery) | Correct recovery domain explanation | ≥ 70% | **6/6 (100%)** ✓ |
+| Hypothesis                            | Measure                                              | Target | Result                                          |
+| ------------------------------------- | ---------------------------------------------------- | ------ | ----------------------------------------------- |
+| H5 — domain context encountered       | % who opened ≥1 chip before interpreting             | ≥ 85%  | **6/6 (100%)** ✓                                |
+| H5 — health misread                   | Health domain misread on recovery                    | < 1    | **0/6** ✓                                       |
+| H6 — citation in prototype field      | Interpretation contains numerical value (JS)         | ≥ 70%  | **6/6 (100%)** ✓ enforced                       |
+| H6 — citation in form open fields     | Open form fields 3a/3b contain specific value        | ≥ 70%  | **4/6 (67%)** ✗ (S03, S06 brief/no value in 3a) |
+| H7 — boundary self-check              | Non-causal language in open 3a                       | ≥ 65%  | **5/6 (83%)** ✓ (S03 mild lean)                 |
+| H8 — trust gate                       | Trust score submitted with limitation text ≥8 chars  | 100%   | **6/6 (100%)** ✓ (mechanistic)                  |
+| H8 — trust calibration                | Trust ≥4 who reference limitation in trust reasoning | ≥ 80%  | **4/5 (80%)** ✓ (S03 and S06 did not reference) |
+| Carry — metric explanation (GDP)      | Correct GDP domain explanation                       | ≥ 70%  | **6/6 (100%)** ✓                                |
+| Carry — metric explanation (recovery) | Correct recovery domain explanation                  | ≥ 70%  | **6/6 (100%)** ✓                                |
 
 ## Key Insights
 
 ### Insight 1 — Domain badges alone prevent health misread, even without chip expansion
-S03 (1 chip — GDP only) and S06 (1 chip — Recovery only) both correctly identified the economic domain of both indicators. S03 said: "ECONOMIC means it's about the economy, not health. So it's measuring money stuff." S06 said: "The ECONOMIC badge tells me it's a financial measure, not a health one." The persistent domain badge achieved what the separate primer screen in mid-fi could not guarantee.
+
+S03 (1 chip — GDP only) and S06 (1 chip — Recovery only) both correctly identified the economic domain of both indicators. S03 said: "ECONOMIC means it's about the economy, not health. So it's measuring money stuff." S06 said: "The ECONOMIC badge tells me it's a financial measure, not a health one." The persistent domain badge achieved what the separate primer screen in second test could not guarantee.
 
 ### Insight 2 — JS-enforced citation succeeds in prototype, but does not guarantee transfer to form open fields
-All 6 interpretation submissions contained numerical values (enforced by JS validation). However, in the research form question 3a (open, no template), S03 wrote general impressions ("COVID really hit the UK economy hard") and S06 wrote brief non-cited conclusions ("the UK took a bigger hit"). Citation enforcement in the prototype does not fully transfer to adjacent unstructured fields — the same citation decay as mid-fi, though at lower severity.
+
+All 6 interpretation submissions contained numerical values (enforced by JS validation). However, in the research form question 3a (open, no template), S03 wrote general impressions ("COVID really hit the UK economy hard") and S06 wrote brief non-cited conclusions ("the UK took a bigger hit"). Citation enforcement in the prototype does not fully transfer to adjacent unstructured fields — the same citation decay as second test, though at lower severity.
 
 ### Insight 3 — Constructed boundary self-check meaningfully improves internalisation vs multiple-choice
-5/6 used non-causal language in the unstructured 3a follow-up (vs 4/8 in mid-fi after multiple-choice). S03 was the only participant with mild causal lean, and they had selected "Unsure" in the self-check and written a revision — indicating genuine engagement, not just recognition. The constructed-response format produced more consistent boundary retention than the multiple-choice format.
+
+5/6 used non-causal language in the unstructured 3a follow-up (vs 4/8 in second test after multiple-choice). S03 was the only participant with mild causal lean, and they had selected "Unsure" in the self-check and written a revision — indicating genuine engagement, not just recognition. The constructed-response format produced more consistent boundary retention than the multiple-choice format.
 
 ### Insight 4 — Trust gate works mechanistically but text quality varies significantly
+
 S05 entered the most substantive limitation text: "No controlled experiment — the data shows correlation in timing but not causation." S03 entered "the data might have errors" (9 chars). S06 entered "data lag" (8 chars — minimum). The gate prevents zero-engagement trust scoring, but does not distinguish genuine engagement from minimum-compliance typing. S05 noted the gate as a positive design decision; S03 and S06 treated it as a form field to clear.
 
 ### Insight 5 — Back-navigation is the most consistent new friction point
-S01, S02, and S04 all independently requested the ability to revise their interpretation after completing the boundary self-check. The one-way progressive flow felt constraining after users reflected on their boundary evaluation and wanted to update their earlier text. This was not a complaint in mid-fi (where screens were separate and revisable), making it a new friction introduced by the progressive canvas architecture.
+
+S01, S02, and S04 all independently requested the ability to revise their interpretation after completing the boundary self-check. The one-way progressive flow felt constraining after users reflected on their boundary evaluation and wanted to update their earlier text. This was not a complaint in second test (where screens were separate and revisable), making it a new friction introduced by the progressive canvas architecture.
 
 ### Insight 6 — Sentence-starter template is structurally effective but stylistically constraining
+
 S05 gave preference 3/5 specifically because the template "anchored me" and produced "slightly stilted" writing. The template achieved its H6 goal (citation enforced) but may reduce users' sense of authorship. S01 and S02 did not complain but both wrote within the template structure very closely. The template may need to be positioned as a scaffold to be adapted, not a form to fill in.
 
 ## Invalidated or Refined Assumptions
 
 ### A10: "The trust score gate guarantees genuine source engagement"
+
 **Status: Weakened.**  
 S03 and S06 entered minimum-length limitation text to unlock the trust button without genuine reasoning. The gate prevents zero-engagement but does not ensure quality engagement. Adding a scaffold prompt ("Why does this limitation matter for interpreting the comparison?") may improve engagement quality.
 
 ### A11: "Citation enforcement in the prototype field transfers to adjacent form fields"
+
 **Status: Weakened.**  
 JS enforcement produced 6/6 citation in the prototype interpretation field, but S03 and S06 still used non-cited impression language in form question 3a. The template boundary extends only to the prototype field — it does not carry into separate questionnaire fields.
 
 ### A12: "A one-way progressive canvas is preferable to a multi-screen flow for all users"
+
 **Status: Partially weakened.**  
-Three participants independently requested back-navigation. The sequential canvas removes the screen-switching friction of mid-fi but introduces a new constraint: interpretations cannot be revised after boundary reflection reveals their weaknesses. A selective back-navigation mechanism (revise interpretation before final submission) would address this without reinstating screen complexity.
+Three participants independently requested back-navigation. The sequential canvas removes the screen-switching friction of second test but introduces a new constraint: interpretations cannot be revised after boundary reflection reveals their weaknesses. A selective back-navigation mechanism (revise interpretation before final submission) would address this without reinstating screen complexity.
 
 ## Remaining Unknowns
 
 1. Would a "Why does this limitation matter?" scaffold prompt in the trust gate improve the quality of limitation reasoning without deterring users?
 2. Would making the interpretation field revisable after the boundary self-check reduce the back-navigation friction without reintroducing screen-switching complexity?
 3. Does the sentence-starter template need to be framed as a scaffold-to-adapt (not a form-to-fill) to preserve user sense of authorship while retaining citation enforcement?
-4. Would a real n=15–20 participant test replicate the domain-badge finding (H5) consistently, particularly for users with no prior economics training?
+4. With n = 6 in this round, do the domain-badge and citation findings (H5–H6) hold for users with no prior economics training, and would a larger or more diverse sample change the rates we report here?
 5. Can the tool function effectively as a showcase artefact (open exploration context) while preserving the research-instrument functions (progressive layers, trust gate)?
