@@ -74,6 +74,9 @@ const dom = {
     countrySearchResults: document.getElementById("countrySearchResults"),
     sourcePanel: document.getElementById("sourcePanel"),
     sourceStatusBadge: document.getElementById("sourceStatusBadge"),
+    sourceAccessDate: document.getElementById("sourceAccessDate"),
+    sourceList: document.getElementById("sourceList"),
+    sourceLimitations: document.getElementById("sourceLimitations"),
     compareToggle: document.getElementById("compareToggle"),
     comparePanel: document.getElementById("comparePanel"),
     compareClear: document.getElementById("compareClear"),
@@ -966,6 +969,30 @@ async function hydrateHistoriesInBackground() {
     setStatus("Site ready. Drag or play the daily timeline to inspect country-level pandemic and economic change.");
 }
 
+const LIVE_SOURCE_LIST_HTML = `
+                            <li><strong>world-atlas v2</strong> — country boundaries (<a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener noreferrer">TopoJSON</a>, CDN)</li>
+                            <li><strong>disease.sh</strong> — COVID-19 cases &amp; deaths by country (<a href="https://disease.sh/docs/" target="_blank" rel="noopener noreferrer">API docs</a>, live when available)</li>
+                            <li><strong>World Bank</strong> <code>NY.GDP.MKTP.KD.ZG</code> — annual GDP growth %, 2019–2023 (<a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG" target="_blank" rel="noopener noreferrer">indicator page</a>)</li>`;
+
+const FALLBACK_SOURCE_LIST_HTML = `
+                            <li><strong>world-atlas v2</strong> — country boundaries (CDN)</li>
+                            <li><strong>Local fallback sample</strong> — 8 countries with bundled COVID and GDP growth values (live APIs unavailable)</li>`;
+
+function updateSourcePanelMetadata(isLive) {
+    if (dom.sourceAccessDate) {
+        dom.sourceAccessDate.textContent = new Date().toISOString().slice(0, 10);
+    }
+    if (dom.sourceList) {
+        dom.sourceList.innerHTML = isLive ? LIVE_SOURCE_LIST_HTML : FALLBACK_SOURCE_LIST_HTML;
+    }
+    if (dom.sourceLimitations) {
+        const fallbackNote = dom.sourceLimitations.querySelector("[data-fallback-only]");
+        if (fallbackNote) {
+            fallbackNote.hidden = isLive;
+        }
+    }
+}
+
 async function init() {
     bindEvents();
     updateTimelineUI();
@@ -991,7 +1018,7 @@ async function init() {
     const isLive = state.sourceSummary !== "local fallback dataset";
     dom.sourceStatusBadge.textContent = isLive ? "Live" : "Fallback";
     dom.sourceStatusBadge.className = `source-badge ${isLive ? "live" : "fallback"}`;
-    // source detail is static in HTML; badge above reflects live/fallback state
+    updateSourcePanelMetadata(isLive);
 
     if (features) {
         globe.setFeatures(features);
@@ -1017,6 +1044,7 @@ init().catch((error) => {
     setStatus("Initialization failed. Automatic flow stopped.");
     dom.sourceStatusBadge.textContent = "Fallback";
     dom.sourceStatusBadge.className = "source-badge fallback";
+    updateSourcePanelMetadata(false);
     setLoading(false);
 });
 

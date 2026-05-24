@@ -45,9 +45,9 @@
                 <div class="chip-note">Contraction from 2019 to 2020</div>
             </article>
             <article class="chip">
-                <div class="chip-k">Average Recovery</div>
+                <div class="chip-k">Average Economic Recovery</div>
                 <div class="chip-v value-amber" id="avgRecovery">--</div>
-                <div class="chip-note">Rebound from 2020 to 2023</div>
+                <div class="chip-note">Rebound from 2020 trough to 2023 (not health recovery)</div>
             </article>
             <article class="chip">
                 <div class="chip-k">Focus Market</div>
@@ -81,11 +81,17 @@
                 <div class="badge" id="impactBadge">Macro impact tracking</div>
                 <div class="grid">
                     <div class="metric">
-                        <div class="metric-k">Cases</div>
+                        <div class="metric-k-row">
+                            <span class="metric-domain health" title="Public health indicator">Health</span>
+                            <span class="metric-k">Cases</span>
+                        </div>
                         <div class="metric-v value-cyan" id="casesValue">--</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-k">GDP Shock</div>
+                        <div class="metric-k-row">
+                            <span class="metric-domain economic" title="Economic indicator">Economic</span>
+                            <span class="metric-k">GDP Shock (vs 2019)</span>
+                        </div>
                         <div class="metric-v value-red" id="shockValue">--</div>
                     </div>
                     <div class="metric">
@@ -93,7 +99,10 @@
                         <div class="metric-v" id="deathsValue">--</div>
                     </div>
                     <div class="metric">
-                        <div class="metric-k">Recovery</div>
+                        <div class="metric-k-row">
+                            <span class="metric-domain economic" title="Economic indicator, not public health">Economic</span>
+                            <span class="metric-k">Recovery (from 2020 trough)</span>
+                        </div>
                         <div class="metric-v value-amber" id="recoveryValue">--</div>
                     </div>
                 </div>
@@ -177,23 +186,55 @@
                     <span class="method-dot red"></span>
                     The right-side chart makes GDP shock and recovery visible instead of hiding them in text only.
                 </div>
-                <details class="source-panel" id="sourcePanel">
+                <details class="source-panel" id="sourcePanel" open>
                     <summary class="source-panel-toggle">
                         <span id="sourceStatusBadge" class="source-badge live">Live</span>
                         Data Sources &amp; Method
                     </summary>
                     <div class="source-panel-body">
-                        <div class="source-section-k">Sources</div>
+                        <p class="source-citation-line">
+                            Retrieved: <span id="sourceAccessDate">—</span>
+                            <span class="source-citation-sep">·</span>
+                            For coursework interpretation only, not medical or policy decisions.
+                        </p>
+
+                        <div class="source-section-k">1. Citation</div>
                         <ul class="source-list" id="sourceList">
-                            <li><strong>world-atlas v2</strong> — country boundaries (CDN, static)</li>
-                            <li><strong>disease.sh</strong> — COVID-19 cumulative cases &amp; deaths (live, no-store)</li>
-                            <li><strong>World Bank</strong> NY.GDP.MKTP.KD.ZG — annual GDP growth 2019–2023 (live, no-store)</li>
+                            <li><strong>world-atlas v2</strong> — country boundaries (<a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener noreferrer">TopoJSON</a>, CDN)</li>
+                            <li><strong>disease.sh</strong> — COVID-19 cases &amp; deaths by country (<a href="https://disease.sh/docs/" target="_blank" rel="noopener noreferrer">API docs</a>, live when available)</li>
+                            <li><strong>World Bank</strong> <code>NY.GDP.MKTP.KD.ZG</code> — annual GDP growth %, 2019–2023 (<a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG" target="_blank" rel="noopener noreferrer">indicator page</a>)</li>
                         </ul>
-                        <div class="source-section-k">Formulas</div>
-                        <div class="source-formula">GDP Shock = y2020 − y2019 (pp)</div>
-                        <div class="source-formula">Recovery = y2023 − y2020 (pp)</div>
-                        <div class="source-section-k">Limitations</div>
-                        <ul class="source-list">
+
+                        <div class="source-section-k">2. Variable dictionary</div>
+                        <dl class="source-dict">
+                            <dt>pp</dt>
+                            <dd>Percentage points — difference between two growth rates, not a percent-of-percent.</dd>
+                            <dt>GDP shock</dt>
+                            <dd>Gap vs the <strong>2019 baseline</strong>: y2020 − y2019 (pp). Measures how deep the 2020 contraction was relative to pre-pandemic growth.</dd>
+                            <dt>Economic recovery</dt>
+                            <dd>Rebound from the <strong>2020 trough</strong>: y2023 − y2020 (pp). <strong>Not</strong> COVID infection or health recovery. High recovery can still leave GDP below 2019.</dd>
+                            <dt>Cases / deaths</dt>
+                            <dd>Country-reported cumulative totals from disease.sh — health domain, not economic output.</dd>
+                        </dl>
+
+                        <div class="source-section-k">3. How data is combined</div>
+                        <ul class="source-list source-merge">
+                            <li>Countries align on <strong>ISO3</strong> codes between the map, disease.sh, and World Bank tables.</li>
+                            <li><strong>Health</strong> series update on the <strong>daily</strong> timeline (cases/deaths can change as you drag dates).</li>
+                            <li><strong>GDP growth</strong> is <strong>annual</strong> — bar chart and shock/recovery use 2019–2023 yearly values; they do not change day-to-day on the slider.</li>
+                            <li>If live APIs fail, a <strong>local fallback</strong> sample (8 countries) is used — see badge above.</li>
+                        </ul>
+
+                        <div class="source-section-k">4. What this tool cannot prove</div>
+                        <ul class="source-list source-boundary-list">
+                            <li>Co-movement of cases and GDP on screen does <strong>not</strong> prove that infections <em>caused</em> economic change — policy, sector mix, and reporting matter.</li>
+                            <li>Cross-country case totals are <strong>not directly comparable</strong> because testing capacity and definitions differ.</li>
+                            <li>National GDP aggregates can <strong>hide inequality</strong> across workers, industries, and regions; figures may be <strong>revised</strong> after publication.</li>
+                        </ul>
+
+                        <div class="source-section-k">Data limitations</div>
+                        <ul class="source-list" id="sourceLimitations">
+                            <li data-fallback-only hidden>Displaying <strong>local fallback</strong> only — live disease.sh and World Bank feeds did not load.</li>
                             <li>Missing GDP values use local fallback dataset (8 countries).</li>
                             <li>Case counts reflect country-reported figures; reporting standards vary.</li>
                         </ul>

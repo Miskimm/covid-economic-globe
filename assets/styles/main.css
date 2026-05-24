@@ -1633,6 +1633,107 @@ h1 {
     color: var(--cyan);
 }
 
+.source-citation-line {
+    margin: 4px 0 0;
+    font-size: 11px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.source-citation-line #sourceAccessDate {
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 600;
+}
+
+.source-citation-sep {
+    margin: 0 0.35em;
+    opacity: 0.45;
+}
+
+.source-list a {
+    color: var(--cyan);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.source-list a:hover {
+    color: #fff;
+}
+
+.source-list code {
+    font-family: "SF Mono", "Fira Mono", "Consolas", monospace;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.source-dict {
+    margin: 6px 0 0;
+    font-size: 11px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.source-dict dt {
+    margin-top: 8px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+}
+
+.source-dict dt:first-child {
+    margin-top: 0;
+}
+
+.source-dict dd {
+    margin: 3px 0 0;
+}
+
+.source-dict dd strong {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.source-boundary-list li {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.source-boundary-list li strong {
+    color: #ffb4c4;
+}
+
+.source-merge li {
+    list-style: disc;
+}
+
+.metric-k-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.metric-domain {
+    flex-shrink: 0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.metric-domain.economic {
+    background: rgba(255, 203, 116, 0.2);
+    color: var(--amber);
+    border: 1px solid rgba(255, 203, 116, 0.35);
+}
+
+.metric-domain.health {
+    background: rgba(104, 228, 255, 0.15);
+    color: var(--cyan);
+    border: 1px solid rgba(104, 228, 255, 0.3);
+}
+
 /* ─── Compare Panel ─────────────────────────────────────────────────── */
 
 .compare-toggle {
