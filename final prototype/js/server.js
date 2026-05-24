@@ -1,4 +1,4 @@
-// DECO7180 Research Tool — Local server
+// COVID Economic Globe — local dev server
 // Run: node js/server.js from the final prototype folder
 // Then open: http://localhost:3000
 
@@ -9,8 +9,6 @@ const { spawn } = require('child_process');
 
 const PORT      = 3000;
 const ROOT_DIR  = path.resolve(__dirname, '..');
-const DATA_DIR  = path.join(ROOT_DIR, 'data');
-const DATA_FILE = path.join(DATA_DIR, 'responses.json');
 const CODEX_BIN = process.env.CODEX_BIN || 'codex';
 const USE_CODEX_AI = process.env.USE_CODEX_AI !== '0';
 const CODEX_TIMEOUT_MS = Number(process.env.CODEX_TIMEOUT_MS || 25000);
@@ -152,10 +150,6 @@ function askCodex(question, context) {
   });
 }
 
-// Ensure data/responses.json exists
-if (!fs.existsSync(DATA_DIR))  fs.mkdirSync(DATA_DIR);
-if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, '[]', 'utf8');
-
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.js':   'application/javascript',
@@ -173,27 +167,6 @@ http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') { res.writeHead(200); res.end(); return; }
-
-  // ── POST /api/response — save one response ──────────────────────────────
-  if (req.method === 'POST' && req.url === '/api/response') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
-      try {
-        const entry    = JSON.parse(body);
-        const all      = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-        all.push(entry);
-        fs.writeFileSync(DATA_FILE, JSON.stringify(all, null, 2), 'utf8');
-        console.log(`[${new Date().toLocaleTimeString()}] Response saved — total: ${all.length}`);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: true, total: all.length }));
-      } catch (e) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: e.message }));
-      }
-    });
-    return;
-  }
 
   // ── POST /api/explain — local guided explanation for the AI panel ───────
   if (req.method === 'POST' && req.url === '/api/explain') {
@@ -224,31 +197,13 @@ http.createServer((req, res) => {
     return;
   }
 
-  // ── GET /api/responses — return all responses ───────────────────────────
-  if (req.method === 'GET' && req.url === '/api/responses') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(fs.readFileSync(DATA_FILE, 'utf8'));
-    return;
-  }
-
-  // ── POST /api/clear — wipe all responses ────────────────────────────────
-  if (req.method === 'POST' && req.url === '/api/clear') {
-    fs.writeFileSync(DATA_FILE, '[]', 'utf8');
-    console.log(`[${new Date().toLocaleTimeString()}] All responses cleared.`);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ ok: true }));
-    return;
-  }
-
   // ── Serve static files ───────────────────────────────────────────────────
   const urlPath  = req.url.split('?')[0];
   const staticRoutes = {
     '/': 'html/index.html',
-    '/index.html': 'html/index.html',
-    '/results.html': 'html/results.html',
-    '/survey_questions.html': 'html/survey_questions.html'
+    '/index.html': 'html/index.html'
   };
-  const filePath = path.join(ROOT_DIR, staticRoutes[urlPath] || urlPath);
+  const filePath = path.join(ROOT_DIR, staticRoutes[urlPath] || urlPath.slice(1));
 
   fs.readFile(filePath, (err, content) => {
     if (err) { res.writeHead(404); res.end('Not found'); return; }
@@ -258,10 +213,8 @@ http.createServer((req, res) => {
   });
 
 }).listen(PORT, () => {
-  console.log('\n  DECO7180 Research Tool');
+  console.log('\n  COVID Economic Globe');
   console.log('  ──────────────────────────────────────');
-  console.log(`  Prototype:  http://localhost:${PORT}/`);
-  console.log(`  Results:    http://localhost:${PORT}/html/results.html`);
-  console.log(`  Data file:  ${DATA_FILE}`);
+  console.log(`  Open:  http://localhost:${PORT}/`);
   console.log('  ──────────────────────────────────────\n');
 });

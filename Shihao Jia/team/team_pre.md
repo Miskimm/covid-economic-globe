@@ -1,0 +1,279 @@
+# 小组展示备课：来源框（Data Sources & Method）
+
+你是谁：Shihao Jia
+
+在整场中的位置：组长 script_team.md 讲完时间线与问题空间后，进入「各成员介绍功能」——你讲来源框（建议 2–2.5 分钟口播 + 1.5 分钟现场演示）。
+
+团队口径：我们不再只做「酷可视化」，而是帮学生负责任地理解数据——来源框直接对应 Week 10–11 的测试与文献。
+
+个人面试材料：更细的逐周证据见 ../interview/ 文件夹；本文件只服务 Wonder Four 小组展示。
+
+---
+
+为什么第一版几乎只写第一轮测试？
+
+第一版把 1st test（n=10）当主证据，是因为：
+
+1. 组长 script_team.md 的 Week 10 故事（recovery 误读、因果混淆）直接来自第一轮卡片+访谈，和来源框的 Variable dictionary / 边界最贴脸。
+2. 小组展示时间紧（你只有约 4 分钟），容易写成「一个最强故事 + 演示」，第二轮、第三轮被压成一句「高信任却没读来源」。
+3. 团队终版是 globe + 侧栏来源框，不是个人 hi-fi 四屏流，当时怕讲太多 mid/hi-fi 细节会让老师以为「展示的不是这个网页」。
+
+这样写不够完整。来源框其实是三轮迭代的结果：每一轮都回答了「来源/信任/边界」的不同问题。下文「三轮测试对照表」说清；第四节口播已改成三轮各一句 + 终版对应。
+
+---
+
+一、你在整段展示里的任务（一句话）
+
+我负责数据来源与方法论透明（provenance）：让用户知道数从哪来、指标什么意思、数据怎么拼在一起、以及不能从图上证明什么——这是我们在三轮测试里发现的信任与误读问题，在终版里落成右侧 Data Sources & Method 四层结构。
+
+不要说的：「我做了个折叠菜单。」
+
+要说的：「我们根据 RQ3 和三轮测试 n=10 → 8 → 6，把来源从『写个 World Bank』升级成可追溯的四层说明。」
+
+---
+
+一点五、三轮测试分别证明了什么（来源框专用）
+
+| 轮次 | 工具 | n | 和「来源框」直接相关的发现 | 终版里落在哪一层 |
+| --- | --- | --- | --- | --- |
+| 1st low-fi | 三张卡片 + 问卷/访谈 | 10 | 6/10 要公式、链接、缺失值；3/10 recovery=健康；S08：只有 source 名字不够、要合并逻辑 | 四层整体；2 Variables；3 Merge |
+| 2nd mid-fi | 四屏流（含独立 Primer + Source 屏） | 8 | 独立 Primer 3/8 秒关仍误读；2/8 trust=5 却没打开公式/来源（S03、S06）；边界选择题对了、开放题又写因果 | 不用可跳过 Primer；边界写进 4 Cannot prove；词典嵌入侧栏 |
+| 3rd hi-fi | 单页渐进 + 域标签 + trust gate | 6 | 0/6 健康误读（ECONOMIC badge）；6/6 先写局限才能打分（机制有效、文字质量参差）；要公式/vintage | Health/Economic 标签 + 来源框 1 Citation 链接与日期；团队版未做滑条 trust gate |
+
+小组展示时一句话串三轮：
+
+第一轮告诉我们「要四层而不只是机构名」；第二轮告诉我们「单独一页 Primer 会被跳过、高信任不等于读了来源」；第三轮告诉我们「域标签能纠正 recovery、局限要先写出来」——团队网页把前三轮收成默认展开的四层来源框 + 侧栏域标签。
+
+个人 hi-fi 的 trust gate 未进团队代码时，用 Re/base_v3/design_brief_after_hifi.md 或 mokbase_v3 作「下一步」，不要声称终版里已有滑条。
+
+---
+
+二、与组长开场如何衔接（接话模板）
+
+组长最后一句大概是：「接下来由各位成员介绍具体功能。」
+
+你的接话（约 15 秒）：
+
+大家好，我是 Shihao。组长刚才提到 Week 10 的 recovery 和因果问题——那来自我们第一轮测试。我负责来源与方法论透明：后面第二、三轮又验证了「独立说明页会被跳过」「光看机构名不够、信任分可以乱给」。终版里是 Data Sources & Method 四层结构，加上 Health / Economic 标签。下面按三轮测试说明设计依据，并现场演示。
+
+若前一位同事已讲 AI，可加一句：「AI 解释只能复述页面上已有的定义和局限，真正的口径以来源框为准。」
+
+---
+
+三、展示前准备清单（按顺序做）
+
+Step 0 · 技术（展示当天早上）
+
+- [ ] 本机运行：python3 -m http.server 8000 → 打开 http://127.0.0.1:8000
+- [ ] 确认 Live 徽章为绿色（若教室 Wi‑Fi 差可能 Fallback，提前讲清 Fallback 也是设计的一部分）
+- [ ] 浏览器 125% 缩放或投屏时放大侧栏，保证后排能看见来源框文字
+- [ ] 预操作：Search United Kingdom → 侧栏出现 UK → 右侧 Methodology 区域 Data Sources & Method 已展开（默认 open）
+- [ ] 关闭无关标签页；勿开个人 hi-fi 测试页，避免和团队原型混淆
+
+Step 1 · 打印材料（建议装订一个小册子，约 8–12 页）
+
+A. 必带 · 测试证据（三轮各至少一页）— 建议 7 页
+
+| 序号 | 轮次 | 打印什么 | 路径 | 展示时怎么用 |
+| --- | --- | --- | --- | --- |
+| A1 | 1st | Summary 表（7/10、3/10、6/10） | ../Re/1st_test/result_interview.md 末 Pattern counts | 「第一轮 n=10：比较可行，但 recovery 与来源是主风险」 |
+| A2 | 1st | S08（trust=2，合并逻辑） | 同上 S08 段 | 支撑 Layer 3 Merge |
+| A3 | 1st | S10（recovery 健康/经济混淆） | 同上 S10 段 | 与组长 Week 10 呼应 → Layer 2 |
+| A4 | 2nd | Summary 表 H1c/H4/A9 | ../Re/2nd_test/result.md 末 SUMMARY + Key Insights 1、5 | 「第二轮 n=8：3/8 秒关 Primer；2/8 trust=5 没读来源」→ 为何不用独立 Primer 页 |
+| A5 | 2nd | S03 或 S06 段 | 同上 S03 或 S06 | 支撑 Layer 4 + 诚实讲团队版无 trust 滑条 |
+| A6 | 3rd | 假设结果表 H5、H8 + Insight 1、4 | ../Re/3rd_test/result.md 末 SUMMARY | 「第三轮 n=6：0/6 健康误读；trust gate 6/6 先写局限」→ 域标签 + 局限三条 |
+| A7 | 3rd | S03 一句（ECONOMIC badge） | 同上 S03 结论或 1b 引语 | 可选金句：「measuring money stuff, not health」 |
+
+册子建议顺序：A1 → A4 → A6（三轮总览）夹中间 A2、A3、A5、A7 作附录。姓名可打码。
+
+B. 必带 · 文献（3–4 页）
+
+不必打印全部 16 篇。来源框只需 4 篇 + 每篇 5 行笔记。
+
+| 序号 | 文献 | 路径 | 展示里对应哪一点 |
+| --- | --- | --- | --- |
+| B1 | Interpreting Time-Series COVID Data… (Scientific Reports, 2021) | ../Re/research/literature/literature_list.md #4 | 受教育者也会误读疫情时序 → 需要清晰指标定义 |
+| B2 | Understanding of Numerical Information during COVID-19 (Europe PMC, 2021) | 同上 #6 | 非专家需要脚手架，不能只堆数字 |
+| B3 | Vistrust: Trust in Data Visualizations (IEEE TVCG, 2023) | 同上 #8 | 信任是多维的，不能只写机构名 |
+| B4 | Framework of Improving Economic Data for General Public (FHP, 2022) | 同上 #12 | Interpretation gap → 工具要帮理解而非只展示 |
+
+每篇打印时页眉手写一行（方便瞄一眼）：
+
+- #4 → 误读时序 · 支撑「Recovery 要写清是 economic」
+- #6 → 数字误解 · 支撑「pp / baseline 要写进词典」
+- #8 → 信任多维 · 支撑「四层来源，不只 World Bank」
+- #12 → 解读缺口 · 支撑「来源框 + 解释，不是更多图表」
+
+可选第五篇（若老师问疫情—经济关系是否值得看）：Chetty et al. 2024（literature_list.md #1）— 1 段摘要即可，不是来源框核心，备在册子最后一页。
+
+C. 建议带 · 团队功能一页纸（自制）— 1 页
+
+自己用 Word/Pages 做「来源框四层」截图 + 四行说明（投屏失败时也能讲）：
+
+- Layer 1 Citation — disease.sh + World Bank + 访问日期
+- Layer 2 Variables — pp, shock, economic recovery ≠ health
+- Layer 3 Merge — ISO3；日频病例 vs 年频 GDP
+- Layer 4 Cannot prove — 非因果；跨国病例不可直接比；GDP 隐藏不平等
+
+截图位置：右侧 Methodology 卡片最底部 Data Sources & Method（index.html 已实现）。
+
+C2. 建议带 · 三轮测试一页总览（自制）— 1 页
+
+自己画表（或复印「一点五」节表格），答辩时指：第一轮定问题 → 第二轮否定 Primer 页 → 第三轮验证标签与 trust gate → 团队四层来源框。
+
+D. 本阶段不必为小组展示打印
+
+- 完整 weekly_activity.md（太长；个人 interview 用）
+- 全文 literature_list.md（16 篇）
+- 对比功能详细稿（若本场只轮到你讲来源框；对比可另册或口头一句）
+
+---
+
+四、讲解结构：Research Question → 测试 → 设计 → 演示
+
+团队方法论（../Re/5.8meeting/meeting-summary.md）要求每人走这条链。建议总时长 4–4.5 分钟（口播略增，因含三轮；演示仍 90 秒）。
+
+第 1 段 · 问题与 RQ（30 秒）— 可手持文献 B3、B4
+
+口播稿：
+
+我们的目标用户是学过商科/社科、要在作业里论证疫情与经济关系的学生。文献说明：非专家看经济可视化存在 interpretation gap（文献 12），而信任也不是看一眼机构名就够（文献 8）。
+
+我个人的研究问题是 RQ3：什么样的来源与方法透明，能帮助用户校准信任——不是界面好看就给 5 分，而是知道数据能证明什么、不能证明什么。
+
+第 2 段 · 三轮测试（约 75 秒）— 按 A1 → A4 → A6 翻册子
+
+口播稿：
+
+第一轮，n=10，卡片+访谈。Summary 在这里：7 人能看出英国冲击更深，但 3 人把 recovery 理解成疫情或健康恢复；6 人要公式、原始链接和缺失值。S08 只给信任 2 分，说只有 source 名字不够、不知道数据怎么合并——所以终版要有 Citation、词典、Merge、边界四层，不能只有一个 World Bank。
+
+第二轮，n=8，四屏引导原型。我们加了独立 Metric Primer 和 Source 屏，结果发现 3 人不到 15 秒就关掉，其中 2 人 recovery 仍错；更关键的是 2 人打了满分信任，却没打开公式或来源（S03、S06）。说明：可跳过的说明页不管用；信任分数也校准不了理解。所以团队版不再做独立 Primer，把定义写进侧栏标签和来源框词典；边界写进第四层「不能证明什么」。
+
+第三轮，n=6，高保真渐进画布。我们试了 ECONOMIC 域标签和先写一条局限才能提交信任分：健康误读降到 0/6；6 人都会先写局限，但有人只写八个字糊弄。这支持了侧栏 Health/Economic 和来源框里的三条局限；个人线里的 trust 滑条时间上来不及做进团队网页，但机制在第三轮已经验证过。
+
+若只有 30 秒：只讲每轮加粗结论 + 「三轮 → 四层来源框」。
+
+和组长的关系：组长讲的 Week 10 ≈ 你的第一轮；你补第二、三轮说明「我们不止测了一次，而且据此改了交互形态」。
+
+第 3 段 · 设计决策：四层来源框（40 秒）— 指投影或手持 C
+
+口播稿：
+
+我在终版里实现的是四层（对应我们 W11 书面计划）：
+
+1 Citation — 三个数据源、访问日期、可点击官方链接；Live / Fallback 徽章告诉用户当前是实时 API 还是本地样本。
+
+2 Variable dictionary — 解释 pp、GDP shock 对 2019 基准、Economic recovery 对 2020 低谷，并写明不是健康恢复。
+
+3 How data is combined — 按 ISO3 对齐；病例随日时间轴变，GDP 是年数据，避免用户以为图表「卡住」。
+
+4 What this tool cannot prove — 三条边界：共变不等于因果；跨国病例不能直接比；宏观 GDP 掩盖不平等与修订滞后。
+
+侧栏的 Health / Economic 标签与词典一致，减少 Week 10 那种 recovery 误读。
+
+诚实一句（若被问 trust 滑条）：
+
+第三轮我们在个人原型里试过 trust gate（先写局限才能打分，6/6 都会写）。团队终版用来源框里固定的三条边界 + 域标签，没有把滑条做进网页——若老师追问，可说这是 showcase 取舍，机制已在第三轮验证（见打印 A6）。
+
+第 4 段 · 现场演示（90 秒）— 只操作浏览器
+
+按第五节逐步点，不要跳步。
+
+第 5 段 · 与组员功能衔接（15 秒）
+
+口播稿：
+
+来源框给整个原型定「能说什么、不能说什么」的底线。[下一位同事名] 的 AI 解释会引用这些定义；我负责的地区对比则让用户在数字对齐的情况下做跨国比较——两者都建立在来源透明之上。我的部分到这里，谢谢大家。
+
+若本场只轮到你讲来源、对比由你稍后另讲，把最后一句改成：「对比功能我稍后再演示，它依赖同一套指标定义和来源口径。」
+
+---
+
+五、现场演示分步脚本（照着点）
+
+| 步骤 | 操作 | 指着说什么 |
+| --- | --- | --- |
+| 1 | Search → United Kingdom，选中 | 先选一个国家，侧栏出现病例和经济指标。 |
+| 2 | 指侧栏 Health / Cases 与 Economic / GDP Shock / Recovery | 第一轮 3/10 会混健康；第三轮 0/6 误读后，我们用域标签和词典对齐。 |
+| 3 | 指 Live 徽章 | 绿色 Live 表示正在用 disease.sh 和 World Bank；若变 Fallback，列表会变，局限里会提示只有 8 国样本。 |
+| 4 | 指 Retrieved: 日期 | Citation 层：访问日期，方便作业引用。 |
+| 5 | 展开/滚动 1. Citation 三个链接 | 可追溯：地图、病例 API、GDP 指标页。 |
+| 6 | 指 2. Variable dictionary 里 Economic recovery 一条 | 明确 Not COVID infection or health recovery；高 recovery 仍可能低于 2019。 |
+| 7 | 指 3. How data is combined 日频 vs 年频 | 拖动时间轴时病例会变，GDP 柱按年不变——不是 bug，是数据频率不同。 |
+| 8 | 指 4. What this tool cannot prove 第一条 | 病例和 GDP 同屏不等于 COVID 导致 GDP 下降——这是作业里最容易错的因果跳跃。 |
+| 9 | （可选）点开右下角 AI → Explain，问 “Can I say COVID caused GDP to fall?” | AI 应引导回来源框边界，不替用户下因果结论。 |
+
+演示禁忌：
+
+- 不要花时间在旋转地球上找国（用 Search）
+- 不要展开 Compare（本场若只讲来源）
+- 不要说 OWID——团队代码用的是 disease.sh（与 README.md 一致）
+
+---
+
+六、完整口播稿（中文，约 2 分 45 秒，可背诵）
+
+大家好，我是 Shihao。组长刚才讲到 Week 10 的 recovery 和因果问题——那主要来自我们第一轮测试。我负责数据来源和方法论透明，设计依据其实是三轮测试，不只是第一轮。
+
+第一轮 n=10：3 人把 recovery 当成健康恢复，6 人要求公式和链接；有人明确说，只写机构名不够，必须说明数据怎么合并。第二轮 n=8：我们试了独立 Primer 和来源屏，3 人秒关 Primer，2 人给了满分信任却没读来源——所以团队版不再依赖可跳过的说明页，而把定义和边界写进始终可见的来源区。第三轮 n=6：ECONOMIC 标签把健康误读降到 0/6；我们还验证了要先写局限才能打分。团队网页采用了标签和四层来源；trust 滑条留在个人迭代里作为下一步。
+
+文献也支持：信任是多维的，不能只靠机构名好看（Vistrust, 2023）。
+
+（转向屏幕）我现在选英国：大家可以看到 Economic recovery 指的是自 2020 经济低谷的反弹，不是感染人数好转。往下在来源框里，Live 表示实时数据；词典解释 pp 和 shock；合并逻辑说明病例随日期变、GDP 按年变；最后三条边界提醒用户作业里能写什么、不能写什么。
+
+这与组长的叙事一致：用户需要的不仅是图表，而是可溯源、可解释、有边界的证据界面。我的部分就到这里，谢谢。
+
+---
+
+七、可能被问到的问题（简短答法）
+
+| 问题 | 答法 |
+| --- | --- |
+| 为什么测了三轮？ | 每轮答不同问题：1st 要什么内容；2nd Primer/信任分不可靠；3rd 域标签与 trust gate。 |
+| 第二轮、第三轮在哪？ | 个人线 2nd_test / 3rd_test；团队 globe 吸收结论，不是把四屏原样搬进网页。 |
+| 为什么不用 OWID？ | 团队原型用 disease.sh 拉国家级病例；来源框写的是实际 API，概念上都是开放健康数据。 |
+| 信任分数在哪里？ | 2nd：2/8 trust=5 未读来源；3rd：trust gate 6/6 先写局限（个人原型）。团队版：局限三条 + 域标签，无滑条。 |
+| 来源框会有人看吗？ | 2nd 教训：可跳过 Primer 3/8 不看 → 团队版来源框默认展开。 |
+| 和 AI 重复吗？ | AI 解释可见数据；来源框是人工维护的口径，AI 不能替代。 |
+| 你一个人测的，算团队成果吗？ | 三轮验证机制；我负责把 provenance 迁移到团队侧栏四层结构。 |
+
+---
+
+八、与 script_team.md 时间线对照（方便插入故事）
+
+| 组长讲的周次 | 你怎么接一句 |
+| --- | --- |
+| Week 10 recovery 误读 | 来自 1st test；3rd 用标签把误读降到 0/6。 |
+| Week 11 问题空间（可溯源、可解释） | 四层来源 = 可溯源；词典+边界 = 可解释、有限度。 |
+| Week 6–7 太早做 demo | 当时没有方法面板；W7 live/fallback → 现在 Live 徽章 + Merge 说明。 |
+| （可选）组员问「测了几个人」 | 10、8、6；方向性样本，课程 peer。 |
+
+---
+
+九、展示当天分工建议（和组长对齐）
+
+1. 提前和讲 AI 的同事对齐：演示 AI 时提一句「详见 Data Sources」。
+2. 若对比也由你讲：来源框先讲，对比后讲，中间加 10 秒过渡；或拆成两人。
+3. 册子传阅顺序：总览 C2 三轮表 → 追问时 A4（2nd trust）或 A6（3rd H5/H8）。
+4. 总时长控制：组长约 5–6 分钟 + 每人 2–3 分钟 → 你 4–4.5 分钟（含三轮简述 + 演示）。
+
+---
+
+十、相关文件索引
+
+| 用途 | 文件 |
+| --- | --- |
+| 组长开场 | script_team.md |
+| 团队分工 | ../Re/5.8meeting/meeting-summary.md |
+| 文献目录 | ../Re/research/literature/literature_list.md |
+| 文献综合 | ../Re/research/literature/conclusion.md |
+| 1st test | ../Re/1st_test/result_interview.md |
+| 2nd test | ../Re/2nd_test/result.md |
+| 3rd test | ../Re/3rd_test/result.md |
+| 三轮→团队整合 | ../Re/result.md |
+| 原型实现 | ../../index.html、../../src/app.js |
+| 个人 interview | ../interview/README.md |
+
+---
+
+最后一遍排练：对着镜子走一遍「第三节 checklist → 第五节 9 步演示 → 第六节口播」，计时不超过 4 分钟。祝展示顺利。

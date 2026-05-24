@@ -185,8 +185,7 @@ body.dashboard-mode #tooltip {
 .methodology,
 .chip,
 .dock,
-.timeline-panel,
-.compare-panel {
+.timeline-panel {
     border: 1px solid var(--line);
     background: var(--panel);
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
@@ -1734,206 +1733,6 @@ h1 {
     border: 1px solid rgba(104, 228, 255, 0.3);
 }
 
-/* ─── Compare Panel ─────────────────────────────────────────────────── */
-
-.compare-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    padding: 6px 13px;
-    border-radius: 99px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.05);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.68);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-}
-
-.compare-toggle:hover,
-.compare-toggle.active {
-    background: rgba(104, 228, 255, 0.12);
-    color: var(--cyan);
-    border-color: rgba(104, 228, 255, 0.3);
-}
-
-.compare-panel {
-    position: absolute;
-    left: 20px;
-    bottom: 214px;
-    width: min(680px, calc(100vw - 40px));
-    padding: 14px 16px;
-    border-radius: 20px;
-    pointer-events: auto;
-}
-
-.compare-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.compare-k {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.52);
-}
-
-.compare-head-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.compare-clear {
-    padding: 3px 10px;
-    border-radius: 99px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: transparent;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-}
-
-.compare-clear:hover {
-    background: rgba(255, 102, 127, 0.14);
-    color: var(--red);
-    border-color: rgba(255, 102, 127, 0.3);
-}
-
-.compare-close {
-    width: 22px;
-    height: 22px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: transparent;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-}
-
-.compare-close:hover {
-    background: rgba(255, 102, 127, 0.14);
-    color: var(--red);
-    border-color: rgba(255, 102, 127, 0.3);
-}
-
-.compare-slots {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: start;
-    gap: 10px;
-}
-
-.compare-divider {
-    padding-top: 22px;
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.3);
-    text-align: center;
-}
-
-.compare-slot {
-    padding: 10px 12px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    background: rgba(255, 255, 255, 0.03);
-    min-height: 64px;
-}
-
-.compare-slot-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.36);
-}
-
-.compare-slot-name {
-    margin-top: 4px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.compare-slot-name.empty {
-    font-size: 13px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.3);
-}
-
-.compare-metrics {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.68);
-}
-
-.compare-metric-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.compare-metric-val {
-    font-weight: 700;
-    font-size: 12px;
-}
-
-.compare-mini-bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 3px;
-    height: 32px;
-    margin-top: 8px;
-}
-
-.compare-mini-bar {
-    flex: 1;
-    border-radius: 3px 3px 0 0;
-    min-height: 4px;
-    transition: height 0.2s;
-}
-
-.compare-hint {
-    margin-top: 8px;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.3);
-    text-align: center;
-}
-
-@media (max-width: 640px) {
-    .compare-panel {
-        left: 16px;
-        bottom: 186px;
-        width: calc(100vw - 32px);
-    }
-
-    .compare-slots {
-        grid-template-columns: 1fr;
-    }
-
-    .compare-divider {
-        padding-top: 0;
-        text-align: center;
-    }
-}
-
 /* ─── Non-overlapping application layout ─────────────────────────────── */
 
 :root {
@@ -2075,8 +1874,7 @@ body.map-mode .map2d-view {
 
 .side-rail .search-panel,
 .side-rail .focus,
-.side-rail .methodology,
-.side-rail .compare-panel {
+.side-rail .methodology {
     display: block;
     position: static;
     inset: auto;
@@ -2084,10 +1882,6 @@ body.map-mode .map2d-view {
     min-width: 0;
     transform: none;
     pointer-events: auto;
-}
-
-.side-rail .compare-panel[hidden] {
-    display: none;
 }
 
 .side-rail .search-panel {
@@ -2115,19 +1909,6 @@ body.map-mode .map2d-view {
     max-height: 92px;
     overflow-y: auto;
     padding-right: 4px;
-}
-
-.side-rail .compare-panel {
-    padding: 14px 16px;
-    border-radius: 18px;
-}
-
-.side-rail .compare-slots {
-    grid-template-columns: 1fr;
-}
-
-.side-rail .compare-divider {
-    padding: 0;
 }
 
 .chart-head {

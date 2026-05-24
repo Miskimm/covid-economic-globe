@@ -3,7 +3,6 @@ import { formatCompact, formatSigned } from "./format.js";
 import { createGlobe } from "./globe.js?v=soft-case-layer-2";
 import { createMap2d } from "./map2d.js";
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
-import { initResearchTool } from "./research-tool.js";
 import { initAiAssistant } from "./ai-assistant.js";
 
 const config = {
@@ -76,16 +75,7 @@ const dom = {
     sourceStatusBadge: document.getElementById("sourceStatusBadge"),
     sourceAccessDate: document.getElementById("sourceAccessDate"),
     sourceList: document.getElementById("sourceList"),
-    sourceLimitations: document.getElementById("sourceLimitations"),
-    compareToggle: document.getElementById("compareToggle"),
-    comparePanel: document.getElementById("comparePanel"),
-    compareClear: document.getElementById("compareClear"),
-    compareClose: document.getElementById("compareClose"),
-    compareNameA: document.getElementById("compareNameA"),
-    compareNameB: document.getElementById("compareNameB"),
-    compareMetricsA: document.getElementById("compareMetricsA"),
-    compareMetricsB: document.getElementById("compareMetricsB"),
-    compareHint: document.getElementById("compareHint")
+    sourceLimitations: document.getElementById("sourceLimitations")
 };
 
 const state = {
@@ -96,11 +86,7 @@ const state = {
     viewMode: "globe",
     isPlaying: false,
     playTimer: null,
-    sourceSummary: "live data sources",
-    compareMode: false,
-    compareA: null,
-    compareB: null,
-    compareSlotNext: "A"
+    sourceSummary: "live data sources"
 };
 
 const globe = createGlobe({
@@ -253,11 +239,6 @@ function setViewMode(mode) {
     dom.dashboardView.hidden = true;
     dom.modeToggle.textContent = isMap2d ? "Back to 3D Globe" : "Switch to 2D Map";
     dom.modeToggle.setAttribute("aria-pressed", String(isMap2d));
-    if (dom.compareHint) {
-        dom.compareHint.textContent = isMap2d
-            ? "Compare mode active — click countries on the map to fill slots"
-            : "Compare mode active — click countries on the globe to fill slots";
-    }
     hideTooltip();
     syncMapView();
     if (isMap2d) {
@@ -476,64 +457,6 @@ function submitCountrySearch() {
     selectCountryFromSearch(matches[0]);
 }
 
-function renderCompareSlot(country, nameEl, metricsEl) {
-    if (!country) {
-        nameEl.textContent = nameEl.id === "compareNameA" ? "Click a country on the globe" : "Click a second country";
-        nameEl.className = "compare-slot-name empty";
-        metricsEl.innerHTML = "";
-        return;
-    }
-
-    nameEl.textContent = country.name;
-    nameEl.className = "compare-slot-name";
-
-    const point = getTimePoint(country, state.selectedTimeIndex);
-
-    const values = [
-        { year: "2019", v: country.gdp2019, color: "#6ee6ff" },
-        { year: "2020", v: country.gdp2020, color: "#ff6b84" },
-        { year: "2021", v: country.gdp2021, color: "#ffaa70" },
-        { year: "2022", v: country.gdp2022, color: "#8fd4ff" },
-        { year: "2023", v: country.gdp2023, color: "#ffd27f" }
-    ];
-    const scaleMax = Math.max(4, ...values.map((e) => Math.abs(e.v)));
-
-    metricsEl.innerHTML = `
-        <div class="compare-metric-row">
-            <span>GDP Shock</span>
-            <span class="compare-metric-val" style="color:${country.shock <= -4 ? "var(--red)" : "var(--mint)"}">${formatSigned(country.shock)}</span>
-        </div>
-        <div class="compare-metric-row">
-            <span>Recovery</span>
-            <span class="compare-metric-val" style="color:var(--amber)">${formatSigned(country.recovery)}</span>
-        </div>
-        <div class="compare-metric-row">
-            <span>Cases</span>
-            <span class="compare-metric-val" style="color:var(--cyan)">${formatCompact(point.cases)}</span>
-        </div>
-        <div class="compare-mini-bars">
-            ${values.map((e) => {
-                const h = Math.max(4, (Math.abs(e.v) / scaleMax) * 32);
-                return `<div class="compare-mini-bar" style="height:${h}px;background:${e.color}" title="${e.year}: ${formatSigned(e.v)}"></div>`;
-            }).join("")}
-        </div>
-    `;
-}
-
-function renderComparePanel() {
-    renderCompareSlot(state.compareA, dom.compareNameA, dom.compareMetricsA);
-    renderCompareSlot(state.compareB, dom.compareNameB, dom.compareMetricsB);
-
-    const hint = state.compareA && state.compareB
-        ? "Both regions loaded — scroll up to read the comparison"
-        : state.compareA
-            ? "Region A set — click another country to fill Region B"
-            : state.viewMode === "map2d"
-                ? "Compare mode active — click countries on the map to fill slots"
-                : "Compare mode active — click countries on the globe to fill slots";
-    dom.compareHint.textContent = hint;
-}
-
 function updateEconomicPanel(country) {
     if (!country) {
         return;
@@ -661,23 +584,6 @@ function handleCountryHover(country, sx, sy) {
 }
 
 function handleCountryClick(country, sx, sy) {
-    if (state.compareMode) {
-        if (!country) {
-            return;
-        }
-        if (state.compareSlotNext === "A") {
-            state.compareA = country;
-            state.compareSlotNext = "B";
-        } else {
-            state.compareB = country;
-            state.compareSlotNext = "A";
-        }
-        renderComparePanel();
-        selectCountry(country);
-        showTooltip(country, sx, sy);
-        return;
-    }
-
     if (!country) {
         state.lockedCountryIso = null;
         globe.setLockedCountry(null);
@@ -738,9 +644,6 @@ function applyTimeIndex(timeIndex) {
             map2d.setSelected(locked.iso3);
         }
     }
-    if (state.compareMode) {
-        renderComparePanel();
-    }
     setStatus(`Timeline moved to ${getSelectedLabel(state.selectedTimeIndex)}. Inspect pandemic spread and economic conditions day by day.`);
 }
 
@@ -769,31 +672,6 @@ function startPlayback() {
 function bindEvents() {
     dom.modeToggle.addEventListener("click", () => {
         setViewMode(state.viewMode === "map2d" ? "globe" : "map2d");
-    });
-
-    dom.compareToggle.addEventListener("click", () => {
-        state.compareMode = !state.compareMode;
-        dom.comparePanel.hidden = !state.compareMode;
-        dom.compareToggle.classList.toggle("active", state.compareMode);
-        if (state.compareMode) {
-            renderComparePanel();
-        }
-    });
-
-    dom.compareClear.addEventListener("click", () => {
-        state.compareA = null;
-        state.compareB = null;
-        state.compareSlotNext = "A";
-        renderComparePanel();
-    });
-
-    dom.compareClose.addEventListener("click", () => {
-        state.compareMode = false;
-        state.compareA = null;
-        state.compareB = null;
-        state.compareSlotNext = "A";
-        dom.comparePanel.hidden = true;
-        dom.compareToggle.classList.remove("active");
     });
 
     dom.countrySearch.addEventListener("submit", (event) => {
@@ -1048,5 +926,4 @@ init().catch((error) => {
     setLoading(false);
 });
 
-initResearchTool();
 initAiAssistant({ getContext: getAssistantContext });
