@@ -58,6 +58,11 @@ body::before {
     z-index: 0;
     opacity: 0;
     pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 38%, rgba(104, 228, 255, 0.14), transparent 26%),
+        radial-gradient(circle at 18% 22%, rgba(89, 181, 255, 0.1), transparent 24%),
+        radial-gradient(circle at 78% 20%, rgba(255, 102, 127, 0.08), transparent 22%),
+        linear-gradient(180deg, #091221 0%, #050a13 52%, #03060c 100%);
     transition: opacity 220ms ease;
 }
 
@@ -108,6 +113,58 @@ body.map-mode .map2d-view {
     outline: none;
     border-color: rgba(104, 228, 255, 0.58);
     background: rgba(104, 228, 255, 0.16);
+}
+
+.zoom-controls {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    z-index: 61;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    align-items: center;
+    padding: 7px;
+    transform: translateY(-50%);
+    border: 1px solid rgba(104, 228, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(8, 17, 31, 0.82);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(18px);
+}
+
+.zoom-controls button {
+    min-width: 34px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--text);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+}
+
+.zoom-controls button:hover,
+.zoom-controls button:focus-visible {
+    outline: none;
+    border-color: rgba(104, 228, 255, 0.6);
+    background: rgba(104, 228, 255, 0.16);
+}
+
+#zoomReset {
+    width: auto;
+    padding: 0 10px;
+    text-transform: uppercase;
+}
+
+#rotationToggle {
+    width: auto;
+    padding: 0 12px;
+    white-space: nowrap;
+    text-transform: uppercase;
 }
 
 body.dashboard-mode #stage {
@@ -487,6 +544,227 @@ h1 {
     font-size: 21px;
     line-height: 1.1;
     font-weight: 700;
+}
+
+.trend-stack {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.trend-card {
+    padding: 11px 12px 9px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.034);
+}
+
+.trend-card.health {
+    border-color: rgba(104, 228, 255, 0.14);
+}
+
+.trend-card.economic {
+    border-color: rgba(255, 203, 116, 0.14);
+}
+
+.trend-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.trend-note {
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.trend-value {
+    flex: 0 0 auto;
+    font-size: 17px;
+    line-height: 1.15;
+}
+
+.trend-svg {
+    display: block;
+    width: 100%;
+    height: 92px;
+    margin-top: 8px;
+    overflow: visible;
+}
+
+.trend-grid-line {
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 1;
+}
+
+.trend-axis-label {
+    fill: rgba(255, 255, 255, 0.46);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.trend-line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2.8;
+}
+
+.trend-line.health {
+    stroke: var(--cyan);
+}
+
+.trend-line.economic {
+    stroke: var(--amber);
+}
+
+.trend-area {
+    opacity: 0.13;
+}
+
+.trend-current-dot {
+    fill: #06111f;
+    stroke-width: 2.4;
+}
+
+.trend-current-dot.health {
+    stroke: var(--cyan);
+}
+
+.trend-current-dot.economic {
+    stroke: var(--amber);
+}
+
+.trend-current-line {
+    stroke-width: 1.3;
+    stroke-dasharray: 4 3;
+    opacity: 0.78;
+}
+
+.trend-current-line.health {
+    stroke: var(--cyan);
+}
+
+.trend-current-line.economic {
+    stroke: var(--amber);
+}
+
+.trend-event {
+    margin-top: 8px;
+    padding: 10px 11px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.045);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+    line-height: 1.48;
+}
+
+.trend-event-k {
+    margin-bottom: 3px;
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.trend-event strong {
+    display: block;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 12px;
+}
+
+.trend-event p {
+    margin: 4px 0 5px;
+}
+
+.trend-source-card {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.045);
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.trend-source-card:hover {
+    border-color: rgba(143, 238, 255, 0.28);
+    background: rgba(104, 228, 255, 0.07);
+    transform: translateY(-1px);
+}
+
+.trend-card.economic .trend-source-card:hover {
+    border-color: rgba(255, 210, 127, 0.3);
+    background: rgba(255, 203, 116, 0.07);
+}
+
+.trend-source-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(143, 238, 255, 0.12);
+    color: #8feeff;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.trend-card.economic .trend-source-icon {
+    background: rgba(255, 210, 127, 0.12);
+    color: #ffd27f;
+}
+
+.trend-source-content {
+    display: grid;
+    min-width: 0;
+}
+
+.trend-source-name {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.trend-source-url {
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 9px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trend-source-title {
+    margin-top: 5px;
+    color: #9ceeff;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.trend-card.economic .trend-source-title {
+    color: #ffd999;
+}
+
+.trend-source-snippet {
+    display: -webkit-box;
+    overflow: hidden;
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 9px;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .methodology {
@@ -1545,38 +1823,20 @@ h1 {
 /* ─── Source Panel ──────────────────────────────────────────────────── */
 
 .source-panel {
-    margin-top: 14px;
-    border-radius: 12px;
+    display: grid;
+    gap: 10px;
+    margin-top: 0;
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.03);
-    overflow: hidden;
+    background: rgba(255, 255, 255, 0.034);
 }
 
-.source-panel-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 12px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.62);
-    cursor: pointer;
-    user-select: none;
-    list-style: none;
-}
-
-.source-panel-toggle::-webkit-details-marker { display: none; }
-
-.source-panel-toggle::after {
-    content: "▸";
-    margin-left: auto;
-    font-size: 10px;
-    transition: transform 0.18s ease;
-}
-
-.source-panel[open] .source-panel-toggle::after {
-    transform: rotate(90deg);
+.source-panel-title {
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 20px;
+    line-height: 1.05;
+    font-weight: 700;
 }
 
 .source-badge {
@@ -1599,7 +1859,7 @@ h1 {
 }
 
 .source-panel-body {
-    padding: 2px 12px 12px;
+    padding: 0 12px 12px;
 }
 
 .source-section-k {

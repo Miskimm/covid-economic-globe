@@ -1,6 +1,6 @@
 import { fallbackCovid, fallbackGdp, loadCountryHistory, loadCovidRows, loadGdpMap, loadWorldFeatures } from "./data.js";
 import { formatCompact, formatSigned } from "./format.js";
-import { createGlobe } from "./globe.js?v=soft-case-layer-2";
+import { createGlobe } from "./globe.js?v=pause-rotation-1";
 import { createMap2d } from "./map2d.js";
 import { buildCountryTimeline, getInitialTimeIndex, getSelectedDayMeta, getSelectedLabel, getTimePoint, TIMELINE_DAYS, TIMELINE_YEARS } from "./timeline.js";
 import { initAiAssistant } from "./ai-assistant.js";
@@ -14,6 +14,11 @@ const dom = {
     stage: document.getElementById("stage"),
     map2dView: document.getElementById("map2dView"),
     mapCanvas: document.getElementById("mapCanvas"),
+    zoomControls: document.querySelector(".zoom-controls"),
+    zoomIn: document.getElementById("zoomIn"),
+    zoomOut: document.getElementById("zoomOut"),
+    zoomReset: document.getElementById("zoomReset"),
+    rotationToggle: document.getElementById("rotationToggle"),
     modeToggle: document.getElementById("modeToggle"),
     dashboardView: document.getElementById("dashboardView"),
     dashboardSubtitle: document.getElementById("dashboardSubtitle"),
@@ -43,11 +48,12 @@ const dom = {
     focusMarketNote: document.getElementById("focusMarketNote"),
     countryName: document.getElementById("countryName"),
     impactBadge: document.getElementById("impactBadge"),
-    casesValue: document.getElementById("casesValue"),
-    deathsValue: document.getElementById("deathsValue"),
-    shockValue: document.getElementById("shockValue"),
-    recoveryValue: document.getElementById("recoveryValue"),
-    detailNote: document.getElementById("detailNote"),
+    healthTrendValue: document.getElementById("healthTrendValue"),
+    economicTrendValue: document.getElementById("economicTrendValue"),
+    healthTrendSvg: document.getElementById("healthTrendSvg"),
+    economicTrendSvg: document.getElementById("economicTrendSvg"),
+    healthTrendEvent: document.getElementById("healthTrendEvent"),
+    economicTrendEvent: document.getElementById("economicTrendEvent"),
     tickerText: document.getElementById("tickerText"),
     timelineSlider: document.getElementById("timelineSlider"),
     timelineValue: document.getElementById("timelineValue"),
@@ -244,6 +250,17 @@ function setViewMode(mode) {
     if (isMap2d) {
         requestAnimationFrame(() => map2d.resize());
     }
+}
+
+function getActiveMapController() {
+    return state.viewMode === "map2d" ? map2d : globe;
+}
+
+function renderRotationToggle() {
+    const isRotating = globe.isAutoRotating();
+    dom.rotationToggle.textContent = isRotating ? "Pause" : "Resume";
+    dom.rotationToggle.setAttribute("aria-pressed", String(!isRotating));
+    dom.rotationToggle.setAttribute("aria-label", isRotating ? "Pause globe rotation" : "Resume globe rotation");
 }
 
 function renderDashboardBars(country) {
@@ -457,8 +474,375 @@ function submitCountrySearch() {
     selectCountryFromSearch(matches[0]);
 }
 
+function createSvgElement(tagName, attrs = {}) {
+    const element = document.createElementNS("http://www.w3.org/2000/svg", tagName);
+    Object.entries(attrs).forEach(([key, value]) => {
+        element.setAttribute(key, String(value));
+    });
+    return element;
+}
+
+function getTrendSamples(country, valueAccessor, transform = (value) => value) {
+    const step = 30;
+    const selected = state.selectedTimeIndex;
+    const indices = new Set([0, selected, TIMELINE_DAYS.length - 1]);
+    for (let index = 0; index < TIMELINE_DAYS.length; index += step) {
+        indices.add(index);
+    }
+
+    return [...indices]
+        .sort((a, b) => a - b)
+        .map((index) => {
+            const point = getTimePoint(country, index);
+            const raw = valueAccessor(point);
+            return {
+                index,
+                raw,
+                value: transform(raw),
+                point
+            };
+        })
+        .filter((item) => Number.isFinite(item.value));
+}
+
+function makeTrendEvent({ label, title, body, sourceLabel, sourceUrl, sourceTitle, sourceSnippet }) {
+    return {
+        label,
+        title,
+        body,
+        sourceLabel,
+        sourceUrl,
+        sourceTitle: sourceTitle || title,
+        sourceSnippet: sourceSnippet || body
+    };
+}
+
+function getSourceHost(url) {
+    try {
+        return new URL(url).hostname.replace(/^www\./, "");
+    } catch {
+        return url;
+    }
+}
+
+function getTrendContext(country, meta) {
+    if (meta.year < 2020 || (meta.year === 2020 && meta.month === 0 && meta.day < 20)) {
+        return {
+            health: makeTrendEvent({
+                label: "Early outbreak context",
+                title: "Wuhan pneumonia cluster under investigation",
+                body: "At this point, the case line is still close to the baseline because the outbreak was being identified and investigated. News reports described dozens of pneumonia cases in Wuhan and uncertainty about the cause, which helps explain why early data may look small but still matters.",
+                sourceLabel: "BBC News, Jan 2020",
+                sourceUrl: "https://www.bbc.co.uk/news/world-asia-china-50984025",
+                sourceTitle: "China pneumonia outbreak: Mystery virus probed in Wuhan",
+                sourceSnippet: "Chinese authorities investigated a mysterious viral pneumonia in Wuhan, with dozens of confirmed cases reported in early January."
+            }),
+            economic: makeTrendEvent({
+                label: "Pre-shock economy",
+                title: "Economic impact not yet visible in annual GDP",
+                body: "The GDP line has not yet dropped because the economic indicator is annual and slower-moving. This is a reminder that health events can appear in daily case data before their economic impact becomes visible in GDP figures.",
+                sourceLabel: "WHO outbreak news",
+                sourceUrl: "https://www.who.int/emergencies/disease-outbreak-news/item/2020-DON229"
+            })
+        };
+    }
+
+    if (country?.iso3 === "CHN") {
+        if (meta.year === 2020 && meta.month <= 1) {
+            return {
+                health: makeTrendEvent({
+                    label: "Outbreak spread",
+                    title: "Cases spread beyond Wuhan",
+                    body: "Around this period, reports described the number of confirmed infections rising and cases appearing in Beijing, Shanghai and overseas. On the chart, a steeper case line means reported infections were accumulating faster, not simply that one event caused all later cases.",
+                    sourceLabel: "BBC News, Jan 2020",
+                    sourceUrl: "https://www.bbc.com/news/world-asia-china-51171035",
+                    sourceTitle: "New China virus: Cases triple as infection spreads",
+                    sourceSnippet: "Confirmed infections rose sharply, with cases reported beyond Wuhan in Beijing, Shanghai and overseas."
+                }),
+                economic: makeTrendEvent({
+                    label: "Lockdown shock",
+                    title: "Wuhan lockdown disrupted movement and spending",
+                    body: "Wuhan and other Hubei cities restricted trains, flights, public transport and gatherings. This gives context for later GDP decline: mobility, retail, tourism and services were disrupted, but the chart still shows association and timing, not direct single-cause proof.",
+                    sourceLabel: "BBC News, Jan 2020",
+                    sourceUrl: "https://www.bbc.com/news/world-asia-china-51217455",
+                    sourceTitle: "China coronavirus: Lockdown measures rise across Hubei",
+                    sourceSnippet: "Wuhan's trains, planes and public transport were stopped as lockdown measures expanded across Hubei province."
+                })
+            };
+        }
+
+        if (meta.year === 2020 && meta.month <= 5) {
+            return {
+                health: makeTrendEvent({
+                    label: "Containment period",
+                    title: "Transmission control changed the case trajectory",
+                    body: "After the initial outbreak and strict controls, the case trend should be read together with testing, reporting and containment policy. A flatter line may indicate slower reported growth, but it can also reflect changes in reporting scope and data collection.",
+                    sourceLabel: "WHO timeline",
+                    sourceUrl: "https://www.who.int/news/item/27-04-2020-who-timeline---covid-19"
+                }),
+                economic: makeTrendEvent({
+                    label: "GDP contraction",
+                    title: "China's economy contracted in Q1 2020",
+                    body: "Reuters reported that China's GDP fell 6.8% year-on-year in Q1 2020 as lockdowns disrupted production and spending. This helps users connect the low point in the GDP line with real economic activity such as factories, consumption and jobs.",
+                    sourceLabel: "Reuters via The Straits Times",
+                    sourceUrl: "https://www.straitstimes.com/business/economy/coronavirus-chinas-economy-shrank-68-in-q1-first-contraction-in-decades",
+                    sourceTitle: "Coronavirus: China's economy shrank 6.8% in Q1",
+                    sourceSnippet: "Reuters reported China's first quarterly contraction in decades as the outbreak paralysed production and spending."
+                })
+            };
+        }
+
+        if (meta.year === 2021) {
+            return {
+                health: makeTrendEvent({
+                    label: "Renewed outbreak risk",
+                    title: "Local outbreaks and control measures continued",
+                    body: "The case line may look lower or flatter than many countries, but it should be read with China's strict containment approach and reporting context. The important interpretation is not only the number, but how policy shaped what appears in the data.",
+                    sourceLabel: "WHO COVID-19 dashboard",
+                    sourceUrl: "https://data.who.int/dashboards/covid19/cases"
+                }),
+                economic: makeTrendEvent({
+                    label: "Rebound phase",
+                    title: "Recovery reflects reopening and base effects",
+                    body: "A rebound in GDP growth after the 2020 trough can partly reflect resumed production and comparison with a very weak 2020 baseline. It should be read as economic rebound, not as proof that health conditions were fully recovered.",
+                    sourceLabel: "World Bank GDP data",
+                    sourceUrl: "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG"
+                })
+            };
+        }
+
+        if (meta.year === 2022) {
+            return {
+                health: makeTrendEvent({
+                    label: "Zero-COVID pressure",
+                    title: "Large-scale restrictions returned in some cities",
+                    body: "During 2022, outbreaks and strict controls again shaped daily life and reporting. The case line should be interpreted with policy context because restrictions can affect both transmission and how cases are detected.",
+                    sourceLabel: "BBC News, Shanghai lockdown",
+                    sourceUrl: "https://www.bbc.com/news/world-asia-china-60994022"
+                }),
+                economic: makeTrendEvent({
+                    label: "Service disruption",
+                    title: "Restrictions affected consumption and services",
+                    body: "If the GDP line weakens or fails to rebound strongly, one likely context is disruption to mobility, shopping, restaurants, tourism and service work. This event note is a mockup explanation linking data to real-world economic channels.",
+                    sourceLabel: "World Bank GDP data",
+                    sourceUrl: "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG"
+                })
+            };
+        }
+
+        return {
+            health: makeTrendEvent({
+                label: "Post-reopening context",
+                title: "Interpreting cases after policy changes",
+                body: "By this stage, case data should be read carefully because testing behaviour, reporting practice and public policy may have changed. The trend still gives useful context, but it cannot fully represent the lived scale of illness by itself.",
+                sourceLabel: "WHO outbreak news",
+                sourceUrl: "https://www.who.int/emergencies/disease-outbreak-news/item/2020-DON229"
+            }),
+            economic: makeTrendEvent({
+                label: "Recovery context",
+                title: "GDP growth reflects recovery, not health recovery",
+                body: "A stronger GDP value after the trough can show economic reopening and rebound. It does not mean the pandemic had no ongoing effects, so users should still compare policy, consumption, tourism and labour-market context.",
+                sourceLabel: "World Bank GDP data",
+                sourceUrl: "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG"
+            })
+        };
+    }
+
+    if (meta.year === 2020) {
+        return {
+            health: makeTrendEvent({
+            label: "Pandemic phase",
+            title: "COVID became a global pandemic",
+                body: "For this selected time, the case line should be read with the global outbreak context. Rapid growth may reflect real transmission, but also testing capacity, reporting delays and differences between countries.",
+            sourceLabel: "WHO timeline",
+            sourceUrl: "https://www.who.int/news/item/27-04-2020-who-timeline---covid-19"
+            }),
+            economic: makeTrendEvent({
+            label: "Global shock",
+            title: "Global economic shock",
+                body: "GDP movement in 2020 should be interpreted with lockdowns, demand changes, tourism decline, trade disruption and industry structure. The line shows economic movement, not direct causation from cases alone.",
+            sourceLabel: "IMF World Economic Outlook",
+            sourceUrl: "https://www.imf.org/en/Publications/WEO/Issues/2020/04/14/weo-april-2020"
+            })
+        };
+    }
+
+    return {
+        health: makeTrendEvent({
+            label: "Context note",
+            title: "Cases need local context",
+            body: "This mockup note shows how the interface can connect the selected time to relevant public-health context. For a full version, each country would use local outbreak reports, testing policy and public-health announcements.",
+            sourceLabel: "WHO COVID-19 dashboard",
+            sourceUrl: "https://data.who.int/dashboards/covid19/cases"
+        }),
+        economic: makeTrendEvent({
+            label: "Context note",
+            title: "GDP needs policy and industry context",
+            body: "This mockup note shows how the interface can explain the selected GDP point through local restrictions, tourism, trade, labour markets and sector structure. It helps users avoid reading the line as a simple cause-effect claim.",
+            sourceLabel: "World Bank GDP data",
+            sourceUrl: "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG"
+        })
+    };
+}
+
+function renderTrendEvent(target, event) {
+    if (!target || !event) {
+        return;
+    }
+
+    target.innerHTML = `
+        <div class="trend-event-k">${getSelectedLabel(state.selectedTimeIndex)} / ${event.label}</div>
+        <strong>${event.title}</strong>
+        <p>${event.body}</p>
+        <a class="trend-source-card" href="${event.sourceUrl}" target="_blank" rel="noopener noreferrer" aria-label="Open source: ${event.sourceTitle}">
+            <span class="trend-source-icon">${event.sourceLabel.slice(0, 1)}</span>
+            <span class="trend-source-content">
+                <span class="trend-source-name">${event.sourceLabel}</span>
+                <span class="trend-source-url">${getSourceHost(event.sourceUrl)}</span>
+                <span class="trend-source-title">${event.sourceTitle}</span>
+                <span class="trend-source-snippet">${event.sourceSnippet}</span>
+            </span>
+        </a>
+    `;
+}
+
+function renderTrendLine(svg, country, options) {
+    if (!svg || !country) {
+        return;
+    }
+
+    const {
+        className,
+        valueAccessor,
+        transform,
+        currentLabel,
+        areaColor
+    } = options;
+    const width = 260;
+    const height = 92;
+    const pad = { left: 12, right: 12, top: 12, bottom: 18 };
+    const plotW = width - pad.left - pad.right;
+    const plotH = height - pad.top - pad.bottom;
+    const samples = getTrendSamples(country, valueAccessor, transform);
+    svg.innerHTML = "";
+
+    if (samples.length < 2) {
+        svg.append(createSvgElement("text", {
+            x: 12,
+            y: 46,
+            class: "trend-axis-label"
+        }));
+        svg.lastChild.textContent = "Not enough trend data";
+        return;
+    }
+
+    const values = samples.map((item) => item.value);
+    let min = Math.min(...values);
+    let max = Math.max(...values);
+    if (Math.abs(max - min) < 0.001) {
+        min -= 1;
+        max += 1;
+    }
+    const padding = (max - min) * 0.12;
+    min -= padding;
+    max += padding;
+
+    const xScale = (index) => pad.left + (index / Math.max(1, TIMELINE_DAYS.length - 1)) * plotW;
+    const yScale = (value) => pad.top + (1 - ((value - min) / (max - min))) * plotH;
+    const points = samples.map((item) => ({
+        ...item,
+        x: xScale(item.index),
+        y: yScale(item.value)
+    }));
+    const linePath = points.map((item, index) => `${index === 0 ? "M" : "L"} ${item.x.toFixed(2)} ${item.y.toFixed(2)}`).join(" ");
+    const areaPath = `${linePath} L ${points[points.length - 1].x.toFixed(2)} ${height - pad.bottom} L ${points[0].x.toFixed(2)} ${height - pad.bottom} Z`;
+
+    [0.25, 0.5, 0.75].forEach((ratio) => {
+        const y = pad.top + ratio * plotH;
+        svg.append(createSvgElement("line", {
+            x1: pad.left,
+            y1: y,
+            x2: width - pad.right,
+            y2: y,
+            class: "trend-grid-line"
+        }));
+    });
+
+    svg.append(createSvgElement("path", {
+        d: areaPath,
+        fill: areaColor,
+        class: "trend-area"
+    }));
+    svg.append(createSvgElement("path", {
+        d: linePath,
+        class: `trend-line ${className}`
+    }));
+
+    const currentPoint = getTimePoint(country, state.selectedTimeIndex);
+    const currentValue = transform(valueAccessor(currentPoint));
+    if (Number.isFinite(currentValue)) {
+        svg.append(createSvgElement("line", {
+            x1: xScale(state.selectedTimeIndex),
+            y1: pad.top,
+            x2: xScale(state.selectedTimeIndex),
+            y2: height - pad.bottom,
+            class: `trend-current-line ${className}`
+        }));
+        svg.append(createSvgElement("circle", {
+            cx: xScale(state.selectedTimeIndex),
+            cy: yScale(currentValue),
+            r: 4,
+            class: `trend-current-dot ${className}`
+        }));
+    }
+
+    const startLabel = createSvgElement("text", {
+        x: pad.left,
+        y: height - 3,
+        class: "trend-axis-label"
+    });
+    startLabel.textContent = "2019";
+    const endLabel = createSvgElement("text", {
+        x: width - pad.right,
+        y: height - 3,
+        "text-anchor": "end",
+        class: "trend-axis-label"
+    });
+    endLabel.textContent = "2023";
+    const valueLabel = createSvgElement("text", {
+        x: width - pad.right,
+        y: 10,
+        "text-anchor": "end",
+        class: "trend-axis-label"
+    });
+    valueLabel.textContent = currentLabel(currentPoint);
+    svg.append(startLabel, endLabel, valueLabel);
+}
+
+function updateFocusTrends(country, point) {
+    const context = getTrendContext(country, getSelectedDayMeta(state.selectedTimeIndex));
+    dom.healthTrendValue.textContent = formatCompact(point.cases);
+    dom.economicTrendValue.textContent = `${point.gdp.toFixed(1)}%`;
+    renderTrendEvent(dom.healthTrendEvent, context.health);
+    renderTrendEvent(dom.economicTrendEvent, context.economic);
+    renderTrendLine(dom.healthTrendSvg, country, {
+        className: "health",
+        valueAccessor: (entry) => entry.cases,
+        transform: (value) => Math.log10(Math.max(0, value) + 1),
+        currentLabel: (entry) => `${formatCompact(entry.cases)} cases`,
+        areaColor: "#68e4ff"
+    });
+    renderTrendLine(dom.economicTrendSvg, country, {
+        className: "economic",
+        valueAccessor: (entry) => entry.gdp,
+        transform: (value) => value,
+        currentLabel: (entry) => `${entry.gdp.toFixed(1)}% GDP`,
+        areaColor: "#ffcb74"
+    });
+}
+
 function updateEconomicPanel(country) {
-    if (!country) {
+    if (!country || !dom.impactFill || !dom.shockChip || !dom.chartCountry) {
         return;
     }
 
@@ -472,6 +856,9 @@ function updateEconomicPanel(country) {
 
     const scaleMax = Math.max(8, ...values.map((entry) => Math.abs(entry.value)));
     values.forEach((entry) => {
+        if (!dom[entry.key] || !dom[entry.valueKey]) {
+            return;
+        }
         const height = Math.max(8, (Math.abs(entry.value) / scaleMax) * 100);
         dom[entry.key].style.height = `${height}%`;
         dom[entry.key].style.background = entry.color;
@@ -532,14 +919,8 @@ function selectCountry(country) {
     dom.countryName.textContent = country.name;
     dom.impactBadge.textContent = level.text;
     dom.impactBadge.style.color = level.color;
-    dom.casesValue.textContent = formatCompact(point.cases);
-    dom.deathsValue.textContent = formatCompact(point.deaths);
-    dom.shockValue.textContent = formatSigned(country.shock);
-    dom.recoveryValue.textContent = formatSigned(country.recovery);
+    updateFocusTrends(country, point);
     updateEconomicPanel(country);
-    dom.detailNote.textContent =
-        `${getSelectedLabel(state.selectedTimeIndex)} sits in the "${point.phaseLabel}" phase. The market shows about ${formatCompact(point.cases)} cumulative cases, ` +
-        `${point.gdp.toFixed(1)}% GDP growth on the mapped annual path, a 2019 to 2020 shock of ${formatSigned(country.shock)}, and a 2020 to 2023 recovery gap of ${formatSigned(country.recovery)}.`;
     updateDashboard();
 }
 
@@ -553,21 +934,26 @@ function showTooltip(country, sx, sy) {
     }
     const point = getTimePoint(country, state.selectedTimeIndex);
     dom.tooltip.style.display = "block";
-    const tooltipWidth = 230;
+    const tooltipWidth = 260;
     const stageRect = dom.stage.getBoundingClientRect();
     const mapRect = dom.map2dView.getBoundingClientRect();
     const viewRect = state.viewMode === "map2d" && !dom.map2dView.hidden ? mapRect : stageRect;
+    const zoomRect = dom.zoomControls?.getBoundingClientRect();
+    const safeLeft = Math.max(
+        viewRect.left + 18,
+        zoomRect ? zoomRect.right + 14 : viewRect.left + 18
+    );
+    const safeRight = viewRect.right - tooltipWidth - 14;
     const tooltipLeft = state.viewMode === "map2d"
-        ? Math.max(viewRect.left + 14, Math.min(viewRect.right - tooltipWidth - 14, sx + 16))
-        : viewRect.left + 18;
+        ? Math.max(safeLeft, Math.min(safeRight, sx + 16))
+        : Math.min(safeRight, safeLeft);
     dom.tooltip.style.left = `${tooltipLeft}px`;
-    dom.tooltip.style.top = `${Math.max(viewRect.top + 18, Math.min(viewRect.bottom - 178, sy - 72))}px`;
+    dom.tooltip.style.top = `${Math.max(viewRect.top + 18, Math.min(viewRect.bottom - 206, sy - 72))}px`;
     dom.tooltip.innerHTML = `
         <div style="font-weight:700;color:#68e4ff;margin-bottom:6px;">${country.name}</div>
         <div>Time: <span style="color:#ffd27f">${getSelectedLabel(state.selectedTimeIndex)}</span></div>
-        <div>Total cases: <span style="color:#8feeff">${formatCompact(point.cases)}</span></div>
-        <div>GDP shock: <span style="color:#ff8097">${formatSigned(country.shock)}</span></div>
-        <div>Recovery: <span style="color:#ffd27f">${formatSigned(country.recovery)}</span></div>
+        <div style="margin-top:6px;">Health trend: <span style="color:#8feeff">${formatCompact(point.cases)} cases</span></div>
+        <div>Economic trend: <span style="color:#ffd27f">${point.gdp.toFixed(1)}% GDP growth</span></div>
     `;
 }
 
@@ -672,6 +1058,24 @@ function startPlayback() {
 function bindEvents() {
     dom.modeToggle.addEventListener("click", () => {
         setViewMode(state.viewMode === "map2d" ? "globe" : "map2d");
+    });
+
+    dom.zoomIn.addEventListener("click", () => {
+        getActiveMapController().zoomIn();
+    });
+
+    dom.zoomOut.addEventListener("click", () => {
+        getActiveMapController().zoomOut();
+    });
+
+    dom.zoomReset.addEventListener("click", () => {
+        globe.resetZoom();
+        map2d.resetZoom();
+    });
+
+    dom.rotationToggle.addEventListener("click", () => {
+        globe.setAutoRotate(!globe.isAutoRotating());
+        renderRotationToggle();
     });
 
     dom.countrySearch.addEventListener("submit", (event) => {
@@ -873,6 +1277,7 @@ function updateSourcePanelMetadata(isLive) {
 
 async function init() {
     bindEvents();
+    renderRotationToggle();
     updateTimelineUI();
     setLoading(true);
     setStatus("Loading world geometry and economic data...");
@@ -894,8 +1299,10 @@ async function init() {
     }
 
     const isLive = state.sourceSummary !== "local fallback dataset";
-    dom.sourceStatusBadge.textContent = isLive ? "Live" : "Fallback";
-    dom.sourceStatusBadge.className = `source-badge ${isLive ? "live" : "fallback"}`;
+    if (dom.sourceStatusBadge) {
+        dom.sourceStatusBadge.textContent = isLive ? "Live" : "Fallback";
+        dom.sourceStatusBadge.className = `source-badge ${isLive ? "live" : "fallback"}`;
+    }
     updateSourcePanelMetadata(isLive);
 
     if (features) {
@@ -920,8 +1327,10 @@ init().catch((error) => {
     console.error(error);
     stopPlayback();
     setStatus("Initialization failed. Automatic flow stopped.");
-    dom.sourceStatusBadge.textContent = "Fallback";
-    dom.sourceStatusBadge.className = "source-badge fallback";
+    if (dom.sourceStatusBadge) {
+        dom.sourceStatusBadge.textContent = "Fallback";
+        dom.sourceStatusBadge.className = "source-badge fallback";
+    }
     updateSourcePanelMetadata(false);
     setLoading(false);
 });

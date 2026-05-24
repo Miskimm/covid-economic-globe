@@ -10,6 +10,12 @@ import {
 } from "./choropleth.js";
 
 const MAP_ASPECT = 2;
+const MAP2D_NEUTRAL_FILL = "rgba(24, 43, 67, 0.86)";
+const MAP2D_NO_DATA_FILL = "rgba(18, 32, 51, 0.74)";
+const MAP2D_LOW_DATA_FILL = "rgba(74, 144, 196, 0.78)";
+const MAP2D_BORDER = "rgba(148, 191, 221, 0.34)";
+const MAP2D_SELECTED = "#68e4ff";
+const MAP2D_HOVER = "#ffcb74";
 
 function getMapFrame(width, height) {
     const padX = Math.min(32, Math.max(14, width * 0.025));
@@ -179,11 +185,26 @@ function buildRenderEntries(features, countries, timeIndex, width, height) {
             feature,
             country,
             iso: country?.iso3 || null,
+            hasData,
             fillPath: buildFeaturePath2d(feature, width, height),
             strokePath: buildStrokePath2d(feature, width, height),
             fill: choroplethCss(choroplethT(value, extents), hasData)
         };
     });
+}
+
+function getDarkMapFill(entry) {
+    if (!entry.country) {
+        return MAP2D_NO_DATA_FILL;
+    }
+
+    if (entry.hasData && entry.fill === choroplethCss(0, true)) {
+        return MAP2D_LOW_DATA_FILL;
+    }
+
+    return entry.fill === choroplethCss(0, false)
+        ? MAP2D_NEUTRAL_FILL
+        : entry.fill;
 }
 
 export function drawWorldMap2d(ctx, features, width, height) {
@@ -197,11 +218,11 @@ export function drawWorldMap2d(ctx, features, width, height) {
     ctx.lineCap = "round";
 
     for (const entry of entries) {
-        ctx.fillStyle = "#e8edf4";
+        ctx.fillStyle = MAP2D_NO_DATA_FILL;
         ctx.fill(entry.fillPath);
     }
 
-    ctx.strokeStyle = "rgba(71, 85, 105, 0.62)";
+    ctx.strokeStyle = MAP2D_BORDER;
     ctx.lineWidth = 0.75;
     for (const entry of entries) {
         ctx.stroke(entry.strokePath);
@@ -223,11 +244,11 @@ export function drawChoropleth2d(ctx, features, countries, timeIndex, width, hei
     ctx.lineCap = "round";
 
     for (const entry of entries) {
-        ctx.fillStyle = entry.fill;
+        ctx.fillStyle = getDarkMapFill(entry);
         ctx.fill(entry.fillPath);
     }
 
-    ctx.strokeStyle = "rgba(51, 65, 85, 0.5)";
+    ctx.strokeStyle = MAP2D_BORDER;
     ctx.lineWidth = 0.75;
     for (const entry of entries) {
         ctx.stroke(entry.strokePath);
@@ -240,9 +261,12 @@ export function drawChoropleth2d(ctx, features, countries, timeIndex, width, hei
             continue;
         }
 
-        ctx.strokeStyle = isSelected ? "#1d4ed8" : "#0f172a";
+        ctx.shadowColor = isSelected ? "rgba(104, 228, 255, 0.5)" : "rgba(255, 203, 116, 0.4)";
+        ctx.shadowBlur = isSelected ? 12 : 8;
+        ctx.strokeStyle = isSelected ? MAP2D_SELECTED : MAP2D_HOVER;
         ctx.lineWidth = isSelected ? 2.2 : 1.35;
         ctx.stroke(entry.strokePath);
+        ctx.shadowBlur = 0;
     }
 
     ctx.restore();

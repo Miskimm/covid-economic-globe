@@ -10,7 +10,10 @@ const config = {
     landClusterCount: 3200,
     showCaseClusters: false,
     choroplethTextureWidth: 2048,
-    choroplethTextureHeight: 1024
+    choroplethTextureHeight: 1024,
+    cameraDistance: 7.15,
+    minCameraDistance: 3.9,
+    maxCameraDistance: 8.6
 };
 
 function latLngToVector(lat, lng, radius) {
@@ -65,14 +68,16 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         features: [],
         boundaryEntries: [],
         hoveredBoundary: null,
-        lockedIso3: null
+        lockedIso3: null,
+        cameraDistance: config.cameraDistance,
+        autoRotate: true
     };
 
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(0x02050c, 7, 12);
 
     const camera = new THREE.PerspectiveCamera(36, state.width / state.height, 0.1, 100);
-    camera.position.set(0, 0.02, 7.15);
+    camera.position.set(0, 0.02, state.cameraDistance);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
@@ -764,16 +769,29 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
         onCountryHover?.(hovered.country, state.pointerX, state.pointerY);
     }
 
+    function setZoomDistance(distance) {
+        state.cameraDistance = Math.max(config.minCameraDistance, Math.min(config.maxCameraDistance, distance));
+        camera.position.set(0, 0.02, state.cameraDistance);
+        camera.lookAt(0, 0, 0);
+    }
+
+    function zoomBy(factor) {
+        setZoomDistance(state.cameraDistance * factor);
+    }
+
     function animate() {
         requestAnimationFrame(animate);
         state.pulse += 0.016;
 
-        if (!state.isDragging) {
+        if (!state.isDragging && state.autoRotate) {
             globeGroup.rotation.y += state.yawVelocity;
             globeGroup.rotation.x += state.pitchVelocity;
             state.yawVelocity *= 0.985;
             state.pitchVelocity *= 0.92;
             state.yawVelocity += 0.00002;
+        } else if (!state.isDragging) {
+            state.yawVelocity = 0;
+            state.pitchVelocity = 0;
         }
 
         globeGroup.rotation.x = Math.max(-0.8, Math.min(0.8, globeGroup.rotation.x));
@@ -797,6 +815,11 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             onCountryHover?.(null);
         }
     });
+
+    renderer.domElement.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        zoomBy(event.deltaY > 0 ? 1.1 : 0.9);
+    }, { passive: false });
 
     window.addEventListener("pointermove", (event) => {
         state.pointerX = event.clientX;
@@ -873,6 +896,27 @@ export function createGlobe({ stage, initialTimeIndex, onCountryHover, onCountry
             state.lockedIso3 = iso3 || null;
             const lockedEntry = state.lockedIso3 ? state.boundaryEntries.find((entry) => entry.country?.iso3 === state.lockedIso3) || null : null;
             updateBoundaryHighlight(lockedEntry);
+        },
+        zoomIn() {
+            zoomBy(0.86);
+        },
+        zoomOut() {
+            zoomBy(1.16);
+        },
+        resetZoom() {
+            setZoomDistance(config.cameraDistance);
+        },
+        setAutoRotate(value) {
+            state.autoRotate = Boolean(value);
+            if (!state.autoRotate) {
+                state.yawVelocity = 0;
+                state.pitchVelocity = 0;
+            } else if (Math.abs(state.yawVelocity) < 0.0002) {
+                state.yawVelocity = 0.0012;
+            }
+        },
+        isAutoRotating() {
+            return state.autoRotate;
         },
         getCanvas() {
             return renderer.domElement;
