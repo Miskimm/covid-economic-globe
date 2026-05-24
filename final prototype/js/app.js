@@ -430,17 +430,17 @@ function renderSearchResults(matches, query) {
         const label = document.createElement("span");
         const name = document.createElement("strong");
         const meta = document.createElement("small");
-        const shock = document.createElement("em");
+        const economic = document.createElement("em");
 
         option.className = "search-option";
         option.type = "button";
         option.setAttribute("role", "option");
         option.dataset.iso3 = country.iso3;
         name.textContent = country.name;
-        meta.textContent = `${country.iso3} / ${formatCompact(point.cases)} cases / ${formatCompact(point.deaths)} deaths`;
-        shock.textContent = formatSigned(country.shock);
+        meta.textContent = `${country.iso3} / ${formatCompact(point.cases)} cases`;
+        economic.textContent = `GDP ${point.gdp.toFixed(1)}%`;
         label.append(name, meta);
-        option.append(label, shock);
+        option.append(label, economic);
         dom.countrySearchResults.appendChild(option);
     });
 
