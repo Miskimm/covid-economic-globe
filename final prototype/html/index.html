@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A daily 3D globe showing COVID-19 spread and macroeconomic impact across countries and regions.">
+    <title>COVID Economic Globe</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div id="stage" aria-label="3D globe visualization"></div>
+    <div id="map2dView" class="map2d-view" aria-label="2D world map visualization" hidden>
+        <canvas id="mapCanvas" aria-label="2D world map"></canvas>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="loading-panel">
+            <div class="loading-k">Loading System</div>
+            <div class="loading-title">COVID Economic Globe</div>
+            <div class="loading-text" id="loadingText">Initializing map, pandemic signals, and economic data...</div>
+        </div>
+    </div>
+
+    <div class="hud">
+        <header class="hero">
+            <p class="eyebrow">Pandemic Macro Shock Engine</p>
+            <h1>COVID Economic Globe</h1>
+            <p class="desc">
+                A production-style interactive globe tracking COVID spread, GDP shock, and recovery day by day.
+                The map shows geographic diffusion while the panels surface macroeconomic contraction and rebound.
+            </p>
+            <div class="meta-row">
+                <span class="meta-pill">WebGL Rendering</span>
+                <span class="meta-pill">Daily Timeline</span>
+                <span class="meta-pill">Economic Overlay</span>
+            </div>
+            <div class="status" id="status">Booting system...</div>
+        </header>
+
+        <section class="summary">
+            <article class="chip">
+                <div class="chip-k">Average GDP Shock</div>
+                <div class="chip-v value-red" id="avgShock">--</div>
+                <div class="chip-note">Contraction from 2019 to 2020</div>
+            </article>
+            <article class="chip">
+                <div class="chip-k">Average Economic Recovery</div>
+                <div class="chip-v value-amber" id="avgRecovery">--</div>
+                <div class="chip-note">Rebound from 2020 trough to 2023 (not health recovery)</div>
+            </article>
+            <article class="chip">
+                <div class="chip-k">Focus Market</div>
+                <div class="chip-v value-cyan" id="focusMarket">--</div>
+                <div class="chip-note" id="focusMarketNote">Current focus market</div>
+            </article>
+        </section>
+
+        <aside class="side-rail" aria-label="Country dashboard">
+            <section class="search-panel" aria-label="Country search">
+                <form class="country-search" id="countrySearch" role="search" autocomplete="off">
+                    <label class="search-label" for="countrySearchInput">Search country data</label>
+                    <div class="search-row">
+                        <input
+                            id="countrySearchInput"
+                            type="search"
+                            placeholder="Search country or ISO code..."
+                            aria-label="Search country data"
+                            aria-controls="countrySearchResults"
+                            aria-expanded="false"
+                        >
+                        <button type="submit">Search</button>
+                    </div>
+                    <div class="search-results" id="countrySearchResults" role="listbox" hidden></div>
+                </form>
+            </section>
+
+            <aside class="focus">
+                <div class="focus-k">Focused Country</div>
+                <div class="focus-name" id="countryName">Global sample</div>
+                <div class="badge" id="impactBadge">Macro impact tracking</div>
+                <div class="grid">
+                    <div class="metric">
+                        <div class="metric-k-row">
+                            <span class="metric-domain health" title="Public health indicator">Health</span>
+                            <span class="metric-k">Cases</span>
+                        </div>
+                        <div class="metric-v value-cyan" id="casesValue">--</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-k-row">
+                            <span class="metric-domain economic" title="Economic indicator">Economic</span>
+                            <span class="metric-k">GDP Shock (vs 2019)</span>
+                        </div>
+                        <div class="metric-v value-red" id="shockValue">--</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-k">Deaths</div>
+                        <div class="metric-v" id="deathsValue">--</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-k-row">
+                            <span class="metric-domain economic" title="Economic indicator, not public health">Economic</span>
+                            <span class="metric-k">Recovery (from 2020 trough)</span>
+                        </div>
+                        <div class="metric-v value-amber" id="recoveryValue">--</div>
+                    </div>
+                </div>
+                <div class="focus-note" id="detailNote">Loading country context...</div>
+                <button class="compare-toggle" id="compareToggle" type="button">⇄ Compare regions</button>
+            </aside>
+
+            <aside class="compare-panel" id="comparePanel" hidden>
+                <div class="compare-head">
+                    <span class="compare-k">Compare Two Regions</span>
+                    <div class="compare-head-actions">
+                        <button class="compare-clear" id="compareClear" type="button">Clear</button>
+                        <button class="compare-close" id="compareClose" type="button" aria-label="Close compare panel">✕</button>
+                    </div>
+                </div>
+                <div class="compare-slots">
+                    <div class="compare-slot" id="compareSlotA">
+                        <div class="compare-slot-label">Region A</div>
+                        <div class="compare-slot-name empty" id="compareNameA">Click a country on the globe</div>
+                        <div class="compare-metrics" id="compareMetricsA"></div>
+                    </div>
+                    <div class="compare-divider">vs</div>
+                    <div class="compare-slot" id="compareSlotB">
+                        <div class="compare-slot-label">Region B</div>
+                        <div class="compare-slot-name empty" id="compareNameB">Click a second country</div>
+                        <div class="compare-metrics" id="compareMetricsB"></div>
+                    </div>
+                </div>
+                <div class="compare-hint" id="compareHint">Compare mode active — click countries on the globe to fill slots</div>
+            </aside>
+
+            <aside class="methodology">
+                <div class="card-k">Methodology</div>
+                <div class="card-title">Economic Impact Panel</div>
+                <div class="chart-head">
+                    <div>
+                        <div class="chart-label">GDP Growth Path</div>
+                        <div class="chart-note" id="chartCountry">Hover a country to inspect its economic path</div>
+                    </div>
+                    <div class="chart-chip" id="shockChip">Shock --</div>
+                </div>
+                <div class="impact-strip">
+                    <div class="impact-fill" id="impactFill"></div>
+                </div>
+                <div class="impact-scale">
+                    <span>Deep shock</span>
+                    <span>Recovery</span>
+                </div>
+                <div class="bar-chart" id="barChart">
+                    <div class="bar-col">
+                        <div class="bar-track"><div class="bar-fill" id="bar2019"></div></div>
+                        <div class="bar-year">2019</div>
+                        <div class="bar-value" id="bar2019Value">--</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar-track"><div class="bar-fill" id="bar2020"></div></div>
+                        <div class="bar-year">2020</div>
+                        <div class="bar-value" id="bar2020Value">--</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar-track"><div class="bar-fill" id="bar2021"></div></div>
+                        <div class="bar-year">2021</div>
+                        <div class="bar-value" id="bar2021Value">--</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar-track"><div class="bar-fill" id="bar2022"></div></div>
+                        <div class="bar-year">2022</div>
+                        <div class="bar-value" id="bar2022Value">--</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar-track"><div class="bar-fill" id="bar2023"></div></div>
+                        <div class="bar-year">2023</div>
+                        <div class="bar-value" id="bar2023Value">--</div>
+                    </div>
+                </div>
+                <div class="method-item">
+                    <span class="method-dot cyan"></span>
+                    Soft country color changes show case intensity while boundary highlight keeps the selected market clear.
+                </div>
+                <div class="method-item">
+                    <span class="method-dot red"></span>
+                    The right-side chart makes GDP shock and recovery visible instead of hiding them in text only.
+                </div>
+                <details class="source-panel" id="sourcePanel" open>
+                    <summary class="source-panel-toggle">
+                        <span id="sourceStatusBadge" class="source-badge live">Live</span>
+                        Data Sources &amp; Method
+                    </summary>
+                    <div class="source-panel-body">
+                        <p class="source-citation-line">
+                            Retrieved: <span id="sourceAccessDate">—</span>
+                            <span class="source-citation-sep">·</span>
+                            For coursework interpretation only, not medical or policy decisions.
+                        </p>
+
+                        <div class="source-section-k">1. Citation</div>
+                        <ul class="source-list" id="sourceList">
+                            <li><strong>world-atlas v2</strong> — country boundaries (<a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener noreferrer">TopoJSON</a>, CDN)</li>
+                            <li><strong>disease.sh</strong> — COVID-19 cases &amp; deaths by country (<a href="https://disease.sh/docs/" target="_blank" rel="noopener noreferrer">API docs</a>, live when available)</li>
+                            <li><strong>World Bank</strong> <code>NY.GDP.MKTP.KD.ZG</code> — annual GDP growth %, 2019–2023 (<a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG" target="_blank" rel="noopener noreferrer">indicator page</a>)</li>
+                        </ul>
+
+                        <div class="source-section-k">2. Variable dictionary</div>
+                        <dl class="source-dict">
+                            <dt>pp</dt>
+                            <dd>Percentage points — difference between two growth rates, not a percent-of-percent.</dd>
+                            <dt>GDP shock</dt>
+                            <dd>Gap vs the <strong>2019 baseline</strong>: y2020 − y2019 (pp). Measures how deep the 2020 contraction was relative to pre-pandemic growth.</dd>
+                            <dt>Economic recovery</dt>
+                            <dd>Rebound from the <strong>2020 trough</strong>: y2023 − y2020 (pp). <strong>Not</strong> COVID infection or health recovery. High recovery can still leave GDP below 2019.</dd>
+                            <dt>Cases / deaths</dt>
+                            <dd>Country-reported cumulative totals from disease.sh — health domain, not economic output.</dd>
+                        </dl>
+
+                        <div class="source-section-k">3. How data is combined</div>
+                        <ul class="source-list source-merge">
+                            <li>Countries align on <strong>ISO3</strong> codes between the map, disease.sh, and World Bank tables.</li>
+                            <li><strong>Health</strong> series update on the <strong>daily</strong> timeline (cases/deaths can change as you drag dates).</li>
+                            <li><strong>GDP growth</strong> is <strong>annual</strong> — bar chart and shock/recovery use 2019–2023 yearly values; they do not change day-to-day on the slider.</li>
+                            <li>If live APIs fail, a <strong>local fallback</strong> sample (8 countries) is used — see badge above.</li>
+                        </ul>
+
+                        <div class="source-section-k">4. What this tool cannot prove</div>
+                        <ul class="source-list source-boundary-list">
+                            <li>Co-movement of cases and GDP on screen does <strong>not</strong> prove that infections <em>caused</em> economic change — policy, sector mix, and reporting matter.</li>
+                            <li>Cross-country case totals are <strong>not directly comparable</strong> because testing capacity and definitions differ.</li>
+                            <li>National GDP aggregates can <strong>hide inequality</strong> across workers, industries, and regions; figures may be <strong>revised</strong> after publication.</li>
+                        </ul>
+
+                        <div class="source-section-k">Data limitations</div>
+                        <ul class="source-list" id="sourceLimitations">
+                            <li data-fallback-only hidden>Displaying <strong>local fallback</strong> only — live disease.sh and World Bank feeds did not load.</li>
+                            <li>Missing GDP values use local fallback dataset (8 countries).</li>
+                            <li>Case counts reflect country-reported figures; reporting standards vary.</li>
+                        </ul>
+                    </div>
+                </details>
+            </aside>
+        </aside>
+
+        <div class="bottom-rail">
+            <footer class="dock">
+                <div class="dock-top">
+                    <div class="legend">
+                        <div class="legend-item"><span class="dot" style="background: var(--cyan)"></span>Boundary highlight</div>
+                        <div class="legend-item"><span class="dot" style="background: var(--red)"></span>Economic pressure field</div>
+                        <div class="legend-item"><span class="dot" style="background: var(--amber)"></span>Recovery layer</div>
+                    </div>
+                    <div class="ticker"><span id="tickerText">Loading global pandemic and macroeconomic signals...</span></div>
+                </div>
+            </footer>
+
+            <section class="timeline-panel">
+                <div class="timeline-toolbar">
+                    <div class="timeline-actions">
+                        <button class="action-btn" id="playToggle" type="button">Play</button>
+                        <button class="action-btn ghost" id="jumpStart" type="button">Back to start</button>
+                        <button class="action-btn ghost mode-toggle" id="modeToggle" type="button" aria-pressed="false">Switch to 2D Map</button>
+                    </div>
+                    <div class="timeline-head">
+                        <div>
+                            <div class="timeline-title">Daily Timeline</div>
+                            <div class="timeline-origin" id="timelineOrigin">Low-intensity baseline</div>
+                        </div>
+                        <div class="timeline-value" id="timelineValue">2019-12-01</div>
+                    </div>
+                </div>
+
+                <div class="timeline-shell">
+                    <div class="timeline">
+                        <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="1491" step="1" value="0">
+                        <div class="timeline-scale" aria-hidden="true">
+                            <span>2019-12-01</span>
+                            <span>2023-12-31</span>
+                        </div>
+                    </div>
+                    <div class="timeline-points" id="timelinePoints" hidden></div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <main class="dashboard-view" id="dashboardView" aria-label="2D dashboard prototype" hidden>
+        <section class="dashboard-shell">
+            <header class="dashboard-header">
+                <div>
+                    <p class="dashboard-k">Static 2D Prototype</p>
+                    <h2>COVID Economic Dashboard</h2>
+                    <p class="dashboard-subtitle" id="dashboardSubtitle">Country-level pandemic and macroeconomic indicators.</p>
+                </div>
+                <div class="dashboard-date" id="dashboardDate">2019-12-01</div>
+            </header>
+
+            <section class="dashboard-kpis" aria-label="Dashboard summary metrics">
+                <article class="dashboard-card">
+                    <div class="dashboard-card-k">Average GDP Shock</div>
+                    <div class="dashboard-card-v value-red" id="dashboardAvgShock">--</div>
+                    <div class="dashboard-card-note">Across loaded countries</div>
+                </article>
+                <article class="dashboard-card">
+                    <div class="dashboard-card-k">Average Recovery</div>
+                    <div class="dashboard-card-v value-amber" id="dashboardAvgRecovery">--</div>
+                    <div class="dashboard-card-note">2020 to 2023 rebound</div>
+                </article>
+                <article class="dashboard-card">
+                    <div class="dashboard-card-k">Focused Market</div>
+                    <div class="dashboard-card-v value-cyan" id="dashboardFocusMarket">--</div>
+                    <div class="dashboard-card-note" id="dashboardFocusPhase">Current time phase</div>
+                </article>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="dashboard-card dashboard-focus-card">
+                    <div class="dashboard-card-k">Selected Country Detail</div>
+                    <div class="dashboard-focus-head">
+                        <div>
+                            <div class="dashboard-country" id="dashboardCountry">Global sample</div>
+                            <div class="dashboard-pill" id="dashboardImpactPill">Macro impact tracking</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-metrics">
+                        <div>
+                            <span>Cases</span>
+                            <strong class="value-cyan" id="dashboardCases">--</strong>
+                        </div>
+                        <div>
+                            <span>Deaths</span>
+                            <strong id="dashboardDeaths">--</strong>
+                        </div>
+                        <div>
+                            <span>GDP Shock</span>
+                            <strong class="value-red" id="dashboardShock">--</strong>
+                        </div>
+                        <div>
+                            <span>Recovery</span>
+                            <strong class="value-amber" id="dashboardRecovery">--</strong>
+                        </div>
+                    </div>
+                    <p class="dashboard-note" id="dashboardFocusNote">Loading country context...</p>
+                </article>
+
+                <article class="dashboard-card dashboard-chart-card">
+                    <div class="dashboard-card-k">GDP Growth Path</div>
+                    <div class="dashboard-card-title" id="dashboardChartTitle">Annual growth, 2019 to 2023</div>
+                    <div class="dashboard-bars" id="dashboardBars" aria-label="GDP growth bar chart"></div>
+                </article>
+
+                <article class="dashboard-card dashboard-ranking-card">
+                    <div class="dashboard-card-k">Country Pressure Ranking</div>
+                    <div class="dashboard-card-title">Highest visible exposure at selected date</div>
+                    <div class="dashboard-ranking" id="dashboardRanking"></div>
+                </article>
+            </section>
+
+            <footer class="dashboard-footer" id="dashboardSource">Sources loading...</footer>
+        </section>
+    </main>
+
+    <div id="tooltip" role="status" aria-live="polite"></div>
+
+    <section class="ai-guide" id="aiGuide" aria-label="AI explanation tool">
+        <button class="ai-guide-toggle" id="aiGuideToggle" type="button" aria-expanded="false" aria-controls="aiGuidePanel">
+            <span class="ai-guide-toggle-mark">AI</span>
+            <span>Explain</span>
+        </button>
+
+        <div class="ai-guide-panel" id="aiGuidePanel" hidden>
+            <div class="ai-guide-head">
+                <div>
+                    <div class="ai-guide-k">Guided Support</div>
+                    <div class="ai-guide-title">Ask about the selected data</div>
+                </div>
+                <button class="ai-guide-close" id="aiGuideClose" type="button" aria-label="Close AI explanation tool">x</button>
+            </div>
+
+            <div class="ai-guide-note">
+                This assistant explains visible COVID and GDP patterns. It should not be used as proof of direct causation.
+            </div>
+
+            <div class="ai-guide-messages" id="aiGuideMessages" aria-live="polite"></div>
+
+            <div class="ai-guide-prompts" aria-label="Suggested questions">
+                <button type="button" data-ai-prompt="Explain the selected country and time point.">Explain this view</button>
+                <button type="button" data-ai-prompt="What does GDP shock mean here?">GDP shock?</button>
+                <button type="button" data-ai-prompt="Can I say COVID caused this GDP change?">Causation?</button>
+            </div>
+
+            <form class="ai-guide-form" id="aiGuideForm">
+                <input id="aiGuideInput" type="text" autocomplete="off" placeholder="Ask what this change means...">
+                <button type="submit">Ask</button>
+            </form>
+        </div>
+    </section>
+
+    <script type="module" src="../js/app.js?v=soft-case-layer-2"></script>
+</body>
+</html>
