@@ -34,11 +34,11 @@
 
 一点五、三轮测试分别证明了什么（来源框专用）
 
-| 轮次 | 工具 | n | 和「来源框」直接相关的发现 | 终版里落在哪一层 |
-| --- | --- | --- | --- | --- |
-| 1st low-fi | 三张卡片 + 问卷/访谈 | 10 | 6/10 要公式、链接、缺失值；3/10 recovery=健康；S08：只有 source 名字不够、要合并逻辑 | 四层整体；2 Variables；3 Merge |
-| 2nd mid-fi | 四屏流（含独立 Primer + Source 屏） | 8 | 独立 Primer 3/8 秒关仍误读；2/8 trust=5 却没打开公式/来源（S03、S06）；边界选择题对了、开放题又写因果 | 不用可跳过 Primer；边界写进 4 Cannot prove；词典嵌入侧栏 |
-| 3rd hi-fi | 单页渐进 + 域标签 + trust gate | 6 | 0/6 健康误读（ECONOMIC badge）；6/6 先写局限才能打分（机制有效、文字质量参差）；要公式/vintage | Health/Economic 标签 + 来源框 1 Citation 链接与日期；团队版未做滑条 trust gate |
+| 轮次       | 工具                                | n   | 和「来源框」直接相关的发现                                                                            | 终版里落在哪一层                                                               |
+| ---------- | ----------------------------------- | --- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1st low-fi | 三张卡片 + 问卷/访谈                | 10  | 6/10 要公式、链接、缺失值；3/10 recovery=健康；S08：只有 source 名字不够、要合并逻辑                  | 四层整体；2 Variables；3 Merge                                                 |
+| 2nd mid-fi | 四屏流（含独立 Primer + Source 屏） | 8   | 独立 Primer 3/8 秒关仍误读；2/8 trust=5 却没打开公式/来源（S03、S06）；边界选择题对了、开放题又写因果 | 不用可跳过 Primer；边界写进 4 Cannot prove；词典嵌入侧栏                       |
+| 3rd hi-fi  | 单页渐进 + 域标签 + trust gate      | 6   | 0/6 健康误读（ECONOMIC badge）；6/6 先写局限才能打分（机制有效、文字质量参差）；要公式/vintage        | Health/Economic 标签 + 来源框 1 Citation 链接与日期；团队版未做滑条 trust gate |
 
 小组展示时一句话串三轮：
 
@@ -74,15 +74,15 @@ Step 1 · 打印材料（建议装订一个小册子，约 8–12 页）
 
 A. 必带 · 测试证据（三轮各至少一页）— 建议 7 页
 
-| 序号 | 轮次 | 打印什么 | 路径 | 展示时怎么用 |
-| --- | --- | --- | --- | --- |
-| A1 | 1st | Summary 表（7/10、3/10、6/10） | ../Re/1st_test/result_interview.md 末 Pattern counts | 「第一轮 n=10：比较可行，但 recovery 与来源是主风险」 |
-| A2 | 1st | S08（trust=2，合并逻辑） | 同上 S08 段 | 支撑 Layer 3 Merge |
-| A3 | 1st | S10（recovery 健康/经济混淆） | 同上 S10 段 | 与组长 Week 10 呼应 → Layer 2 |
-| A4 | 2nd | Summary 表 H1c/H4/A9 | ../Re/2nd_test/result.md 末 SUMMARY + Key Insights 1、5 | 「第二轮 n=8：3/8 秒关 Primer；2/8 trust=5 没读来源」→ 为何不用独立 Primer 页 |
-| A5 | 2nd | S03 或 S06 段 | 同上 S03 或 S06 | 支撑 Layer 4 + 诚实讲团队版无 trust 滑条 |
-| A6 | 3rd | 假设结果表 H5、H8 + Insight 1、4 | ../Re/3rd_test/result.md 末 SUMMARY | 「第三轮 n=6：0/6 健康误读；trust gate 6/6 先写局限」→ 域标签 + 局限三条 |
-| A7 | 3rd | S03 一句（ECONOMIC badge） | 同上 S03 结论或 1b 引语 | 可选金句：「measuring money stuff, not health」 |
+| 序号 | 轮次 | 打印什么                         | 路径                                                    | 展示时怎么用                                                                  |
+| ---- | ---- | -------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| A1   | 1st  | Summary 表（7/10、3/10、6/10）   | ../Re/1st_test/result_interview.md 末 Pattern counts    | 「第一轮 n=10：比较可行，但 recovery 与来源是主风险」                         |
+| A2   | 1st  | S08（trust=2，合并逻辑）         | 同上 S08 段                                             | 支撑 Layer 3 Merge                                                            |
+| A3   | 1st  | S10（recovery 健康/经济混淆）    | 同上 S10 段                                             | 与组长 Week 10 呼应 → Layer 2                                                 |
+| A4   | 2nd  | Summary 表 H1c/H4/A9             | ../Re/2nd_test/result.md 末 SUMMARY + Key Insights 1、5 | 「第二轮 n=8：3/8 秒关 Primer；2/8 trust=5 没读来源」→ 为何不用独立 Primer 页 |
+| A5   | 2nd  | S03 或 S06 段                    | 同上 S03 或 S06                                         | 支撑 Layer 4 + 诚实讲团队版无 trust 滑条                                      |
+| A6   | 3rd  | 假设结果表 H5、H8 + Insight 1、4 | ../Re/3rd_test/result.md 末 SUMMARY                     | 「第三轮 n=6：0/6 健康误读；trust gate 6/6 先写局限」→ 域标签 + 局限三条      |
+| A7   | 3rd  | S03 一句（ECONOMIC badge）       | 同上 S03 结论或 1b 引语                                 | 可选金句：「measuring money stuff, not health」                               |
 
 册子建议顺序：A1 → A4 → A6（三轮总览）夹中间 A2、A3、A5、A7 作附录。姓名可打码。
 
@@ -90,12 +90,12 @@ B. 必带 · 文献（3–4 页）
 
 不必打印全部 16 篇。来源框只需 4 篇 + 每篇 5 行笔记。
 
-| 序号 | 文献 | 路径 | 展示里对应哪一点 |
-| --- | --- | --- | --- |
-| B1 | Interpreting Time-Series COVID Data… (Scientific Reports, 2021) | ../Re/research/literature/literature_list.md #4 | 受教育者也会误读疫情时序 → 需要清晰指标定义 |
-| B2 | Understanding of Numerical Information during COVID-19 (Europe PMC, 2021) | 同上 #6 | 非专家需要脚手架，不能只堆数字 |
-| B3 | Vistrust: Trust in Data Visualizations (IEEE TVCG, 2023) | 同上 #8 | 信任是多维的，不能只写机构名 |
-| B4 | Framework of Improving Economic Data for General Public (FHP, 2022) | 同上 #12 | Interpretation gap → 工具要帮理解而非只展示 |
+| 序号 | 文献                                                                      | 路径                                            | 展示里对应哪一点                            |
+| ---- | ------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------- |
+| B1   | Interpreting Time-Series COVID Data… (Scientific Reports, 2021)           | ../Re/research/literature/literature_list.md #4 | 受教育者也会误读疫情时序 → 需要清晰指标定义 |
+| B2   | Understanding of Numerical Information during COVID-19 (Europe PMC, 2021) | 同上 #6                                         | 非专家需要脚手架，不能只堆数字              |
+| B3   | Vistrust: Trust in Data Visualizations (IEEE TVCG, 2023)                  | 同上 #8                                         | 信任是多维的，不能只写机构名                |
+| B4   | Framework of Improving Economic Data for General Public (FHP, 2022)       | 同上 #12                                        | Interpretation gap → 工具要帮理解而非只展示 |
 
 每篇打印时页眉手写一行（方便瞄一眼）：
 
@@ -191,17 +191,17 @@ D. 本阶段不必为小组展示打印
 
 五、现场演示分步脚本（照着点）
 
-| 步骤 | 操作 | 指着说什么 |
-| --- | --- | --- |
-| 1 | Search → United Kingdom，选中 | 先选一个国家，侧栏出现病例和经济指标。 |
-| 2 | 指侧栏 Health / Cases 与 Economic / GDP Shock / Recovery | 第一轮 3/10 会混健康；第三轮 0/6 误读后，我们用域标签和词典对齐。 |
-| 3 | 指 Live 徽章 | 绿色 Live 表示正在用 disease.sh 和 World Bank；若变 Fallback，列表会变，局限里会提示只有 8 国样本。 |
-| 4 | 指 Retrieved: 日期 | Citation 层：访问日期，方便作业引用。 |
-| 5 | 展开/滚动 1. Citation 三个链接 | 可追溯：地图、病例 API、GDP 指标页。 |
-| 6 | 指 2. Variable dictionary 里 Economic recovery 一条 | 明确 Not COVID infection or health recovery；高 recovery 仍可能低于 2019。 |
-| 7 | 指 3. How data is combined 日频 vs 年频 | 拖动时间轴时病例会变，GDP 柱按年不变——不是 bug，是数据频率不同。 |
-| 8 | 指 4. What this tool cannot prove 第一条 | 病例和 GDP 同屏不等于 COVID 导致 GDP 下降——这是作业里最容易错的因果跳跃。 |
-| 9 | （可选）点开右下角 AI → Explain，问 “Can I say COVID caused GDP to fall?” | AI 应引导回来源框边界，不替用户下因果结论。 |
+| 步骤 | 操作                                                                      | 指着说什么                                                                                          |
+| ---- | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| 1    | Search → United Kingdom，选中                                             | 先选一个国家，侧栏出现病例和经济指标。                                                              |
+| 2    | 指侧栏 Health / Cases 与 Economic / GDP Shock / Recovery                  | 第一轮 3/10 会混健康；第三轮 0/6 误读后，我们用域标签和词典对齐。                                   |
+| 3    | 指 Live 徽章                                                              | 绿色 Live 表示正在用 disease.sh 和 World Bank；若变 Fallback，列表会变，局限里会提示只有 8 国样本。 |
+| 4    | 指 Retrieved: 日期                                                        | Citation 层：访问日期，方便作业引用。                                                               |
+| 5    | 展开/滚动 1. Citation 三个链接                                            | 可追溯：地图、病例 API、GDP 指标页。                                                                |
+| 6    | 指 2. Variable dictionary 里 Economic recovery 一条                       | 明确 Not COVID infection or health recovery；高 recovery 仍可能低于 2019。                          |
+| 7    | 指 3. How data is combined 日频 vs 年频                                   | 拖动时间轴时病例会变，GDP 柱按年不变——不是 bug，是数据频率不同。                                    |
+| 8    | 指 4. What this tool cannot prove 第一条                                  | 病例和 GDP 同屏不等于 COVID 导致 GDP 下降——这是作业里最容易错的因果跳跃。                           |
+| 9    | （可选）点开右下角 AI → Explain，问 “Can I say COVID caused GDP to fall?” | AI 应引导回来源框边界，不替用户下因果结论。                                                         |
 
 演示禁忌：
 
@@ -227,26 +227,26 @@ D. 本阶段不必为小组展示打印
 
 七、可能被问到的问题（简短答法）
 
-| 问题 | 答法 |
-| --- | --- |
-| 为什么测了三轮？ | 每轮答不同问题：1st 要什么内容；2nd Primer/信任分不可靠；3rd 域标签与 trust gate。 |
-| 第二轮、第三轮在哪？ | 个人线 2nd_test / 3rd_test；团队 globe 吸收结论，不是把四屏原样搬进网页。 |
-| 为什么不用 OWID？ | 团队原型用 disease.sh 拉国家级病例；来源框写的是实际 API，概念上都是开放健康数据。 |
-| 信任分数在哪里？ | 2nd：2/8 trust=5 未读来源；3rd：trust gate 6/6 先写局限（个人原型）。团队版：局限三条 + 域标签，无滑条。 |
-| 来源框会有人看吗？ | 2nd 教训：可跳过 Primer 3/8 不看 → 团队版来源框默认展开。 |
-| 和 AI 重复吗？ | AI 解释可见数据；来源框是人工维护的口径，AI 不能替代。 |
-| 你一个人测的，算团队成果吗？ | 三轮验证机制；我负责把 provenance 迁移到团队侧栏四层结构。 |
+| 问题                         | 答法                                                                                                     |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------- |
+| 为什么测了三轮？             | 每轮答不同问题：1st 要什么内容；2nd Primer/信任分不可靠；3rd 域标签与 trust gate。                       |
+| 第二轮、第三轮在哪？         | 个人线 2nd_test / 3rd_test；团队 globe 吸收结论，不是把四屏原样搬进网页。                                |
+| 为什么不用 OWID？            | 团队原型用 disease.sh 拉国家级病例；来源框写的是实际 API，概念上都是开放健康数据。                       |
+| 信任分数在哪里？             | 2nd：2/8 trust=5 未读来源；3rd：trust gate 6/6 先写局限（个人原型）。团队版：局限三条 + 域标签，无滑条。 |
+| 来源框会有人看吗？           | 2nd 教训：可跳过 Primer 3/8 不看 → 团队版来源框默认展开。                                                |
+| 和 AI 重复吗？               | AI 解释可见数据；来源框是人工维护的口径，AI 不能替代。                                                   |
+| 你一个人测的，算团队成果吗？ | 三轮验证机制；我负责把 provenance 迁移到团队侧栏四层结构。                                               |
 
 ---
 
 八、与 script_team.md 时间线对照（方便插入故事）
 
-| 组长讲的周次 | 你怎么接一句 |
-| --- | --- |
-| Week 10 recovery 误读 | 来自 1st test；3rd 用标签把误读降到 0/6。 |
-| Week 11 问题空间（可溯源、可解释） | 四层来源 = 可溯源；词典+边界 = 可解释、有限度。 |
-| Week 6–7 太早做 demo | 当时没有方法面板；W7 live/fallback → 现在 Live 徽章 + Merge 说明。 |
-| （可选）组员问「测了几个人」 | 10、8、6；方向性样本，课程 peer。 |
+| 组长讲的周次                       | 你怎么接一句                                                       |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| Week 10 recovery 误读              | 来自 1st test；3rd 用标签把误读降到 0/6。                          |
+| Week 11 问题空间（可溯源、可解释） | 四层来源 = 可溯源；词典+边界 = 可解释、有限度。                    |
+| Week 6–7 太早做 demo               | 当时没有方法面板；W7 live/fallback → 现在 Live 徽章 + Merge 说明。 |
+| （可选）组员问「测了几个人」       | 10、8、6；方向性样本，课程 peer。                                  |
 
 ---
 
@@ -261,18 +261,18 @@ D. 本阶段不必为小组展示打印
 
 十、相关文件索引
 
-| 用途 | 文件 |
-| --- | --- |
-| 组长开场 | script_team.md |
-| 团队分工 | ../Re/5.8meeting/meeting-summary.md |
-| 文献目录 | ../Re/research/literature/literature_list.md |
-| 文献综合 | ../Re/research/literature/conclusion.md |
-| 1st test | ../Re/1st_test/result_interview.md |
-| 2nd test | ../Re/2nd_test/result.md |
-| 3rd test | ../Re/3rd_test/result.md |
-| 三轮→团队整合 | ../Re/result.md |
-| 原型实现 | ../../index.html、../../src/app.js |
-| 个人 interview | ../interview/README.md |
+| 用途           | 文件                                         |
+| -------------- | -------------------------------------------- |
+| 组长开场       | script_team.md                               |
+| 团队分工       | ../Re/5.8meeting/meeting-summary.md          |
+| 文献目录       | ../Re/research/literature/literature_list.md |
+| 文献综合       | ../Re/research/literature/conclusion.md      |
+| 1st test       | ../Re/1st_test/result_interview.md           |
+| 2nd test       | ../Re/2nd_test/result.md                     |
+| 3rd test       | ../Re/3rd_test/result.md                     |
+| 三轮→团队整合  | ../Re/result.md                              |
+| 原型实现       | ../../index.html、../../src/app.js           |
+| 个人 interview | ../interview/README.md                       |
 
 ---
 
